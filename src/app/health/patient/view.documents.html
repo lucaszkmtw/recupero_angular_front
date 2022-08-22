@@ -1,0 +1,12 @@
+﻿<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content np">
+            <div class="project-list">
+                <ul class="folder-list" style="padding: 0">
+                    <li data-ng-repeat="folder in documents.children"><a href=""><i class="fa fa-folder"></i> {{folder.name}}</a></li>
+                    <li data-ng-repeat="file in documents.files"><a href="" data-ng-click="openFile(file)"><i class="fa fa-file"></i> {{file.name}}</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+﻿<h3 class="page-title">
+    {{ 'hr.employee' | translate }} <small>{{employee.firstName}} {{employee.lastName}}</small>
+</h3>
+<div class="page-bar">
+    <div ncy-breadcrumb class="page-breadcrumb"></div>
+    <div class="page-toolbar">
+        <div class="btn-group pull-right">
+            <button type="button" class="btn btn-primary" data-ng-click="save()">Guardar</button>
+        </div>
+    </div>
+</div>
+<form role="form" name="resourceForm">
+    <div class="row margin-bottom-20">
+        <div class="col-md-4">
+            <div class="form-group form-md-line-input">
+                <input type="text" class="form-control" id="lastName" data-ng-model="employee.lastName">
+                <label for="lastName">Apellido</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group form-md-line-input">
+                <input type="text" class="form-control" id="firstName" data-ng-model="employee.firstName">
+                <label for="firstName">Nombre</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group form-md-line-input">
+                <input type="text" class="form-control" id="vatNumber" data-ng-model="employee.vatNumber">
+                <label for="vatNumber">CUIT</label>
+            </div>
+        </div>
+    </div>
+</form>

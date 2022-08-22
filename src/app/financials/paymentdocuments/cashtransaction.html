@@ -1,0 +1,35 @@
+﻿
+<ng-form role="form" name="newCheckForm">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="checkNumber">Total a pagar</label>
+                <span class="h4 font-bold m-t block">{{ _.sumBy(data.document.items, 'amountToPay') | currency }}</span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="checkNumber">Saldo a pagar</label>
+                <span class="h4 font-bold m-t block">{{ (_.sumBy(data.document.items, 'amountToPay') - _.sumBy(data.document.methods, 'amount')) | currency }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="checkNumber">Monto</label>
+                <input type="text" class="form-control" id="amount" money data-ng-model="item.amount">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="checkNumber">Comentario</label>
+                <textarea class="form-control" id="comments" data-ng-model="item.comments"></textarea>
+            </div>
+        </div>
+    </div>
+</ng-form>

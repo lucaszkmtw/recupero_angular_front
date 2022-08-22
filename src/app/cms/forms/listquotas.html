@@ -1,0 +1,23 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <table style="width: 100%; margin-bottom: 5px;">
+            <tr>
+                <td style="width: 100px;">
+                    <button type="button" data-ng-click="addFormRole()" data-ng-disabled="!params.roleId"
+                            class="btn btn-default pull-left" style="margin-right: 5px;">
+                        <span class="glyphicon glyphicon-plus"></span> Agregar
+                    </button>
+                </td>
+                <td><input type="hidden" data-rolelookup="" data-ng-model="params.contentId" data-section-id="{{params.sectionId}}" class="pull-left;" style="width: 100%; margin-right: 5px;" /></td>
+                <td style="width: 150px;">
+                    <select data-ng-model="params.sectionContentsView" class="pull-left form-control">
+                        <option value="0">Todos</option>
+                        <option value="1">Sólo publicados</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div data-formrolesgrid="" data-form="item" data-ng-if="params.loadRoles"></div>

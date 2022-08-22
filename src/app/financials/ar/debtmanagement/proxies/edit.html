@@ -1,0 +1,51 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'findm.proxie' | translate }} <small data-ng-show="organism.id">{{organism.code}} {{organism.typeid}} {{organism.personName}} </small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action"> 
+            <button type="button" class="btn btn-danger" data-ng-click="delete()" data-ng-show="proxie.id"><i class="fa fa-trash"></i> {{ 'command.delete' | translate }}</button>       
+            <button type="button" data-ng-click="save()" class="btn btn-primary" data-ng-disabled="proxieForm.$invalid || !proxieForm.$dirty"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</button>           
+            <!--a href="" target="_blank" class="btn btn-primary" data-ng-click="save()" data-ng-disabled="organismForm.$invalid || !organismForm.$dirty"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</a-->
+        </div>
+    </div>
+ </div> 
+ <div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+            <form role="form" name="proxieForm">
+                  <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="pesonid">Persona/Apoderado</label>
+                                <div id="pesonid" data-lookup="systemPersonLookup" name="pesonid" data-ng-model="proxie.personId" data-ng-disabled="proxie.id!=null" required></div>
+                                <span  style="color:red" data-ng-show="proxieForm.pesonid.$touched && proxieForm.pesonid.$invalid">La Normativa es requerida.</span>                              
+                            </div>
+                       </div>
+                    </div>        
+                 <!--div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="code">Código</label>
+                            <input type="text" class="form-control" id="code" name="code" data-ng-model="organism.code" required>
+                            <span  style="color:red" data-ng-show="organismForm.code.$touched && organismForm.code.$invalid">El Código es requerido.</span>                              
+                        </div>
+                    </div>
+                </div>              
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="typeid">Tipo Organismo</label>
+                            <div id="typeid" data-lookup="organismTypeLookup" name="typeid" data-ng-model="organism.typeId" required></div>
+                            <span  style="color:red" data-ng-show="organismForm.typeid.$touched && organismForm.typeid.$invalid">La Ley es requerida.</span>                              
+                        </div>
+                    </div>
+                </div-->                
+            </form>
+        </div>
+    </div>
+ </div>
+ 

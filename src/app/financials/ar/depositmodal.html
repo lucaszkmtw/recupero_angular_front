@@ -1,0 +1,31 @@
+﻿<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+            <form name="depositForm">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="">Boleta de depósito</label>
+                            <input type="text" class="form-control" id="depositNumber" data-ng-model="deposit.depositNumber" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="">Cuenta de depósito</label>
+                            <div id="financialsBankAccountLookup" data-lookup="financialsBankAccountLookup" data-ng-model="deposit.bankAccountId" data-person-id="{{session.tenant.personId}}" data-show-add-new="false"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="title-action" style="text-align: left;">
+                                <button type="button" class="btn btn-primary" data-ng-click="save()" data-ng-disabled="depositForm.$invalid || ! depositForm.$dirty"><i class="fa fa-file-o"></i> Confirmar Depósito</button>
+                                <button type="button" class="btn btn-danger" data-ng-click="remove()" data-ng-show="canRemove()"><i class="fa fa-trash"></i>&nbsp;Eliminar</button>
+                            </div>
+                        </div>
+                    </div>
+            </form>
+        </div>
+    </div>
+</div>

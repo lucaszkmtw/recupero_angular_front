@@ -1,0 +1,19 @@
+﻿<button type="button" class="btn btn-danger" data-ng-click="terminate()" data-ng-show="hasPermission && !workflowInstance.isTerminated && !workflowInstance.currentWorkflowActivity.isFinal"><i class="fa fa-cancel"></i> {{ 'command.terminate' | translate }}</button>
+<div class="btn-group" data-ng-show="hasPermission && workflowInstance.canAssignToRoles.length > 0 && !workflowInstance.currentWorkflowActivity.isFinal">
+    <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        {{ 'command.assign' | translate }} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+        <li data-ng-repeat="role in workflowInstance.canAssignToRoles"><a href="#" data-ng-click="assign(role.id)">{{role.name}}</a></li>
+    </ul>
+</div>
+<div class="btn-group" data-ng-show="hasPermission && workflowInstance.canSetActivities.length > 0">
+        <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           Actividades <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li data-ng-repeat="activity in workflowInstance.canSetActivities"><a href="#" data-ng-click="assignActivity(activity.id)">{{activity.name}}</a></li>
+        </ul>
+    </div>
+<button type="button" class="btn btn-default" data-ng-click="setPreviousState()" data-ng-show="hasPermission && canGoBack"><i class="fa fa-undo"></i> {{ 'command.prevstate' | translate }}</button>
+<button type="button" class="btn btn-info" data-ng-click="approve()" data-ng-show="hasPermission && canApprove"><i class="fa fa-check-square-o"></i> {{ 'command.approve' | translate }}</button>

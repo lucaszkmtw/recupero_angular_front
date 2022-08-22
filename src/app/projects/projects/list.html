@@ -1,0 +1,51 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'projects' | translate }}
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary" id="newProject" data-ng-click="new()">
+                    {{ 'command.new' | translate }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content np">
+            <div class="row">
+                <div class="col-lg-12">
+                    <uib-tabset>
+                        <uib-tab heading="Listado" select="params.showGrid=true">
+                            <div class="row" data-ng-if="params.showGrid">
+                                <div class="col-md-12">
+                                    <div data-projects-grid="" data-view="params.view" data-selected-items="params.selectedItems"></div>
+                                </div>
+                            </div>
+                        </uib-tab>
+                        <uib-tab heading="Mapa" select="params.showMap=true">
+                            <div class="row" data-ng-if="params.showMap">
+                                <div class="col-md-12">
+                                    <div map-lazy-load="{{googleMapsUrl}}">
+                                        <ng-map   id="placesMap"center="{{map.center}}" zoom="{{map.zoom}}" style="height: 545px; width: 100%;">
+                                         <div data-ng-repeat="project in projects">
+                                            <marker data-ng-repeat="place in project.places" position="{{place.geo.lat}},{{place.geo.lng}}" >  </marker>
+                                        </div>
+                                        </ng-map>
+                                   
+                                    </div>
+                                </div>
+                            </div>
+                        </uib-tab>
+                    </uib-tabset>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

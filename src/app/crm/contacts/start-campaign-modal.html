@@ -1,0 +1,24 @@
+﻿<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+            <form name="startCampaignForm">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="crmCampaignLookup">Campaña</label>
+                            <div data-lookup="crmCampaignLookup" data-ng-model="campaign.id"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="title-action" style="text-align: left;">
+                            <button type="button" class="btn btn-primary" data-ng-click="save()" data-ng-disabled="startCampaignForm.$invalid || ! startCampaignForm.$dirty"><i class="fa fa-file-o"></i> Iniciar</button>
+                            <button type="button" class="btn btn-danger" data-ng-click="remove()" data-ng-show="canRemove()"><i class="fa fa-trash"></i>&nbsp;Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

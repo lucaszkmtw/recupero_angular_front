@@ -1,0 +1,38 @@
+ <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-6">
+        <h2>
+         {{ 'factoring.inquiries.portfolio' | translate }} 
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+</div>
+    <div class="row">
+    <div class="col-lg-12">
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <div class="row m-t-sm">
+                        <div class="col-lg-12">
+                              
+                            <div class="panel blank-panel ui-tab">
+                                <uib-tabset>
+                                    <uib-tab heading="Caida de cartera" active="tab.active" class="">
+                                          <div data-porfolios-decline="" data-ng-model="porfolio.portfoliosdecline" ></div>
+                                    </uib-tab>
+                                    <uib-tab heading="Cartera por Cliente">
+                                          <div data-porfolios-byclient="" data-ng-model="porfolio.portfoliosbyclient" ></div>
+                                    </uib-tab>
+
+                                    <uib-tab heading="Cartera por obligado al pago">
+                                      <div data-porfolios-obtopay="" data-ng-model="porfolio.portfoliosobtopay" ></div>
+                                      
+                                    </uib-tab>
+                               </uib-tabset>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

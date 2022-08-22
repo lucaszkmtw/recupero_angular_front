@@ -1,0 +1,42 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'findm.debtortype' | translate }} <small data-ng-show="debtor-type.id">{{debtorType.code}} {{debtorType.name}}</small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">                
+                <button type="button" class="btn btn-danger" data-ng-click="delete()" data-ng-show="debtorType.id"><i class="fa fa-trash"></i> {{ 'command.delete' | translate }}</button>                          
+                <button type="button" class="btn btn-primary" data-ng-click="save()"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</button>              
+        </div>
+    </div>
+ </div>
+
+ <div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+            <form role="form" name="debtorForm"  autocomple="off" >
+                <div class="row margin-bottom-20">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="code">Código</label>
+                            <div id="businesspartnertypeid"  data-lookup="businessPartnerTypeLookup" data-ng-model="debtorType.businessPartnerTypeId" data-ng-disabled="debtorType.id != null"></div>                             
+                            
+                            <!-- <input type="text" class="form-control" id="name" data-ng-model="debtorType.code">-->
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-bottom-20">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="name">Nombre</label>
+                            <input type="text" class="form-control" id="name" data-ng-model="debtorType.name">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+ </div>
+ 

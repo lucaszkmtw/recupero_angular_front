@@ -1,0 +1,563 @@
+[{
+  "items": [{
+      "items": [{
+          "items": [],
+          "id": 91,
+          "parentId": 20,
+          "name": "Falta Prestacion"
+      }, {
+          "items": [],
+          "id": 92,
+          "parentId": 20,
+          "name": "Cobro Copagos"
+      }, {
+          "items": [],
+          "id": 93,
+          "parentId": 20,
+          "name": "Demora"
+      }, {
+          "items": [],
+          "id": 94,
+          "parentId": 20,
+          "name": "Otros"
+      }, {
+          "items": [],
+          "id": 173,
+          "parentId": 20,
+          "name": "Reintegros"
+      }],
+      "id": 20,
+      "parentId": 17,
+      "name": "Autorizaciones"
+  }, {
+      "items": [{
+          "items": [],
+          "id": 95,
+          "parentId": 50,
+          "name": "Otros"
+      }, {
+          "items": [],
+          "id": 96,
+          "parentId": 50,
+          "name": "Falta de Prestacion"
+      }, {
+          "items": [],
+          "id": 97,
+          "parentId": 50,
+          "name": "Cobro Copagos"
+      }, {
+          "items": [],
+          "id": 98,
+          "parentId": 50,
+          "name": "Demora"
+      }, {
+          "items": [],
+          "id": 169,
+          "parentId": 50,
+          "name": "Medicamentos"
+      }, {
+          "items": [],
+          "id": 171,
+          "parentId": 50,
+          "name": "Solicitud Prestacion"
+      }],
+      "id": 50,
+      "parentId": 17,
+      "name": "Internacion Domiciliaria"
+  }, {
+      "items": [{
+          "items": [],
+          "id": 100,
+          "parentId": 52,
+          "name": "Otros"
+      }, {
+          "items": [],
+          "id": 101,
+          "parentId": 52,
+          "name": "Falta Prestacion"
+      }, {
+          "items": [],
+          "id": 102,
+          "parentId": 52,
+          "name": "Cobro Copagos"
+      }, {
+          "items": [],
+          "id": 103,
+          "parentId": 52,
+          "name": "Demora"
+      }],
+      "id": 52,
+      "parentId": 17,
+      "name": "Centros de Diagnostico"
+  }, {
+      "items": [{
+          "items": [],
+          "id": 104,
+          "parentId": 53,
+          "name": "Falta Prestacion"
+      }, {
+          "items": [],
+          "id": 105,
+          "parentId": 53,
+          "name": "Cobro Copagos"
+      }, {
+          "items": [],
+          "id": 106,
+          "parentId": 53,
+          "name": "Demora"
+      }, {
+          "items": [],
+          "id": 110,
+          "parentId": 53,
+          "name": "Otros"
+      }],
+      "id": 53,
+      "parentId": 17,
+      "name": "Internacion Sanatorial"
+  }, {
+      "items": [{
+          "items": [],
+          "id": 107,
+          "parentId": 65,
+          "name": "Falta Prestacion"
+      }, {
+          "items": [],
+          "id": 108,
+          "parentId": 65,
+          "name": "Cobro Copagos"
+      }, {
+          "items": [],
+          "id": 109,
+          "parentId": 65,
+          "name": "Demora"
+      }, {
+          "items": [],
+          "id": 111,
+          "parentId": 65,
+          "name": "Otros"
+      }],
+      "id": 65,
+      "parentId": 17,
+      "name": "Medicos y Profesionales"
+  }, {
+      "items": [],
+      "id": 66,
+      "parentId": 17,
+      "name": "Emergencias / Ambulancias"
+  }, {
+      "items": [],
+      "id": 67,
+      "parentId": 17,
+      "name": "Farmacias / Medicamentos"
+  }, {
+      "items": [],
+      "id": 68,
+      "parentId": 17,
+      "name": "Geriatricos"
+  }, {
+      "items": [],
+      "id": 69,
+      "parentId": 17,
+      "name": "Salud Mental"
+  }, {
+      "items": [],
+      "id": 70,
+      "workflowId": 1,
+      "parentId": 17,
+      "name": "Odontologia"
+  }, {
+      "items": [],
+      "id": 71,
+      "parentId": 17,
+      "name": "Delegaciones"
+  }, {
+      "items": [],
+      "id": 72,
+      "parentId": 17,
+      "name": "Otros"
+  }, {
+      "items": [],
+      "id": 86,
+      "parentId": 17,
+      "name": "Vacunacion"
+  }, {
+      "items": [],
+      "id": 210,
+      "parentId": 17,
+      "name": "Credenciales"
+  }, {
+      "items": [],
+      "id": 212,
+      "parentId": 17,
+      "name": "Asistente Social"
+  }],
+  "id": 17,
+  "parentId": null,
+  "name": "Consulta"
+}, {
+  "items": [{
+      "items": [{
+          "items": [],
+          "id": 112,
+          "parentId": 73,
+          "name": "Otros"
+      }, {
+          "items": [],
+          "id": 113,
+          "parentId": 73,
+          "name": "Falta Prestacion"
+      }, {
+          "items": [],
+          "id": 117,
+          "parentId": 73,
+          "name": "Cobro Copagos"
+      }, {
+          "items": [],
+          "id": 118,
+          "parentId": 73,
+          "name": "Demora"
+      }],
+      "id": 73,
+      "parentId": 19,
+      "name": "Autorizaciones"
+  }, {
+      "items": [{
+          "items": [],
+          "id": 116,
+          "parentId": 74,
+          "name": "Falta Prestacion"
+      }, {
+          "items": [],
+          "id": 120,
+          "parentId": 74,
+          "name": "Cobro Copagos"
+      }, {
+          "items": [],
+          "id": 121,
+          "parentId": 74,
+          "name": "Demora"
+      }, {
+          "items": [],
+          "id": 122,
+          "parentId": 74,
+          "name": "Otros"
+      }],
+      "id": 74,
+      "parentId": 19,
+      "name": "Emergencias / Ambulancias"
+  }, {
+      "items": [{
+          "items": [],
+          "id": 114,
+          "parentId": 75,
+          "name": "Cobro Copagos"
+      }, {
+          "items": [],
+          "id": 115,
+          "parentId": 75,
+          "name": "Demora"
+      }, {
+          "items": [],
+          "id": 119,
+          "parentId": 75,
+          "name": "Falta Prestacion"
+      }, {
+          "items": [],
+          "id": 123,
+          "parentId": 75,
+          "name": "Otros"
+      }],
+      "id": 75,
+      "parentId": 19,
+      "name": "Medicos y Profesionales"
+  }, {
+      "items": [{
+          "items": [],
+          "id": 124,
+          "parentId": 76,
+          "name": "Otros"
+      }, {
+          "items": [],
+          "id": 125,
+          "parentId": 76,
+          "name": "Falta Prestacion"
+      }, {
+          "items": [],
+          "id": 126,
+          "parentId": 76,
+          "name": "Cobro Copagos"
+      }, {
+          "items": [],
+          "id": 127,
+          "parentId": 76,
+          "name": "Demoras"
+      }],
+      "id": 76,
+      "parentId": 19,
+      "name": "Farrmacias / Medicamentos"
+  }, {
+      "items": [{
+          "items": [],
+          "id": 128,
+          "parentId": 77,
+          "name": "Otros"
+      }, {
+          "items": [],
+          "id": 129,
+          "parentId": 77,
+          "name": "Falta Prestacion"
+      }, {
+          "items": [],
+          "id": 130,
+          "parentId": 77,
+          "name": "Cobro Copagos"
+      }, {
+          "items": [],
+          "id": 131,
+          "parentId": 77,
+          "name": "Demoras"
+      }],
+      "id": 77,
+      "parentId": 19,
+      "name": "Centros de Diagnostico"
+  }, {
+      "items": [{
+          "items": [],
+          "id": 132,
+          "parentId": 78,
+          "name": "Otros"
+      }, {
+          "items": [],
+          "id": 133,
+          "parentId": 78,
+          "name": "Falta Prestacion"
+      }, {
+          "items": [],
+          "id": 134,
+          "parentId": 78,
+          "name": "Cobro Copagos"
+      }, {
+          "items": [],
+          "id": 135,
+          "parentId": 78,
+          "name": "Demoras"
+      }],
+      "id": 78,
+      "parentId": 19,
+      "name": "Internacion Sanatorial"
+  }, {
+      "items": [{
+          "items": [],
+          "id": 136,
+          "parentId": 79,
+          "name": "Otros"
+      }, {
+          "items": [],
+          "id": 137,
+          "parentId": 79,
+          "name": "Falta Prestacion"
+      }, {
+          "items": [],
+          "id": 138,
+          "parentId": 79,
+          "name": "Cobro Copagos"
+      }, {
+          "items": [],
+          "id": 139,
+          "parentId": 79,
+          "name": "Demoras"
+      }, {
+          "items": [],
+          "id": 170,
+          "parentId": 79,
+          "name": "Medicamentos"
+      }],
+      "id": 79,
+      "parentId": 19,
+      "name": "Internacion Domiciliaria"
+  }, {
+      "items": [{
+          "items": [],
+          "id": 140,
+          "parentId": 80,
+          "name": "Otros"
+      }, {
+          "items": [],
+          "id": 141,
+          "parentId": 80,
+          "name": "Falta Prestacion"
+      }, {
+          "items": [],
+          "id": 142,
+          "parentId": 80,
+          "name": "Cobro Copagos"
+      }, {
+          "items": [],
+          "id": 143,
+          "workflowId": 1,
+          "parentId": 80,
+          "name": "Demoras"
+      }],
+      "id": 80,
+      "parentId": 19,
+      "name": "Geriatricos"
+  }, {
+      "items": [{
+          "items": [],
+          "id": 144,
+          "parentId": 81,
+          "name": "Otros"
+      }, {
+          "items": [],
+          "id": 145,
+          "parentId": 81,
+          "name": "Falta Prestacion"
+      }, {
+          "items": [],
+          "id": 146,
+          "parentId": 81,
+          "name": "Cobro Copagos"
+      }, {
+          "items": [],
+          "id": 147,
+          "parentId": 81,
+          "name": "Demoras"
+      }, {
+          "items": [],
+          "id": 168,
+          "parentId": 81,
+          "name": "Reintegro"
+      }],
+      "id": 81,
+      "parentId": 19,
+      "name": "Salud Mental"
+  }, {
+      "items": [{
+          "items": [],
+          "id": 148,
+          "parentId": 82,
+          "name": "Otros"
+      }, {
+          "items": [],
+          "id": 149,
+          "parentId": 82,
+          "name": "Falta Prestacion"
+      }, {
+          "items": [],
+          "id": 150,
+          "parentId": 82,
+          "name": "Cobro Copagos"
+      }, {
+          "items": [],
+          "id": 151,
+          "parentId": 82,
+          "name": "Demoras"
+      }],
+      "id": 82,
+      "parentId": 19,
+      "name": "Odontologia"
+  }, {
+      "items": [{
+          "items": [],
+          "id": 84,
+          "parentId": 83,
+          "name": "Otros"
+      }, {
+          "items": [],
+          "id": 152,
+          "parentId": 83,
+          "name": "Falta Prestacion"
+      }, {
+          "items": [],
+          "id": 153,
+          "parentId": 83,
+          "name": "Cobro Copagos"
+      }, {
+          "items": [],
+          "id": 154,
+          "parentId": 83,
+          "name": "Demoras"
+      }],
+      "id": 83,
+      "parentId": 19,
+      "name": "Delegaciones"
+  }, {
+      "items": [{
+          "items": [],
+          "id": 155,
+          "parentId": 85,
+          "name": "Otros"
+      }, {
+          "items": [],
+          "id": 156,
+          "parentId": 85,
+          "name": "Falta Prestacion"
+      }, {
+          "items": [],
+          "id": 157,
+          "parentId": 85,
+          "name": "Cobro Copagos"
+      }, {
+          "items": [],
+          "id": 158,
+          "parentId": 85,
+          "name": "Demoras"
+      }, {
+          "items": [],
+          "id": 172,
+          "parentId": 85,
+          "name": "Solicitud Prestacion"
+      }],
+      "id": 85,
+      "parentId": 19,
+      "name": "Vacunacion"
+  }, {
+      "items": [],
+      "id": 209,
+      "parentId": 19,
+      "name": "Descuento Compulsivo 7%"
+  }, {
+      "items": [],
+      "id": 211,
+      "parentId": 19,
+      "name": "Credenciales"
+  }, {
+      "items": [],
+      "id": 213,
+      "parentId": 19,
+      "name": "Cartilla"
+  }],
+  "id": 19,
+  "parentId": null,
+  "name": "Reclamos"
+}, {
+  "items": [],
+  "id": 87,
+  "parentId": null,
+  "name": "Sugerencias"
+}, {
+  "items": [],
+  "id": 88,
+  "parentId": null,
+  "name": "Felicitaciones"
+}, {
+  "items": [{
+      "items": [],
+      "id": 232,
+      "parentId": 231,
+      "name": "Cuidados Domiciliarios"
+  }, {
+      "items": [],
+      "id": 233,
+      "parentId": 231,
+      "name": "Judicializado"
+  }, {
+      "items": [],
+      "id": 234,
+      "parentId": 231,
+      "name": "Discapacidad"
+  }],
+  "id": 231,
+  "parentId": null,
+  "name": "Tipo Paciente"
+}]

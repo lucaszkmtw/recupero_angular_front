@@ -1,0 +1,154 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'cms.content' | translate }} <small>{{item.title}}</small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+            <button type="button" class="btn btn-success navbar-btn" data-ng-click="save()" data-ng-disabled="contentForm.$invalid || !contentForm.$dirty" title="{{ 'command.save' | translate }}">
+                <i class="fa fa-floppy-o"></i>&nbsp;{{ 'command.save' | translate }}
+            </button>
+            <button type="button" class="btn btn-success navbar-btn" data-ng-click="saveAndContinue()"
+                    data-ng-disabled="contentForm.$invalid || !contentForm.$dirty" title="{{ 'command.saveandcontinue' | translate }}">
+                <i class="fa fa-floppy-o"></i>&nbsp;{{ 'command.saveandcontinue' | translate }}
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+            <form name="contentForm" role="form">
+                <uib-tabset>
+                    <uib-tab heading="Info">
+                        <div class="row m-t-sm">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="title">Título</label>
+                                    <input required data-ng-model="item.title" id="title" name="title" type="text" style="width: 600px;" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="col-md-6 m-t-lg">
+                                <div class="form-group">
+                                    <input type="checkbox" icheck data-ng-model="item.showTitle" id="showTitle"
+                                           name="showTitle"/>
+                                    <label class="m-l-sm" for="showTitle">Mostrar Título</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="subTitle">Subtítulo</label>
+                                    <input data-ng-model="item.subTitle" id="subTitle" name="subTitle" type="text" style="width: 600px;" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="publishDate">Fecha de publicación</label>
+                                    <div data-date-picker="" data-ng-model="item.publishDate" id="publishDate" style="width: 220px;"/>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="expirationDate">Fecha de expiración</label>
+                                    <div data-date-picker="" data-ng-model="item.expirationDate" id="expirationDate" style="width: 220px;"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="link">Link</label>
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <input data-ng-model="item.link" id="link" name="link" type="text" class="form-control"/>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="input-group">
+                                                <select data-ng-model="item.linkTarget" data-ng-options="linkTarget.id as linkTarget.text for linkTarget in linkTargets" class="form-control"></select>
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" data-ng-click="browseLink()">Examinar</button>
+                                                </span>
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" data-ng-click="previewLink()">Previsualizar</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input type="checkbox" icheck data-ng-model="item.allowAnonymous" id="allowAnonymous"
+                                           name="allowAnonymous" />
+                                    <label class="m-l-sm" for="allowAnonymous">Acceso público</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Auditoría</label>
+                            <div>Creado el: {{item.createDate | amDateFormat: 'L'}}</div>
+                            <div>Última actualización: {{item.lastEditDate | amDateFormat: 'L'}}</div>
+                        </div>
+                    </uib-tab>
+                    <uib-tab heading="Agenda" data-ng-show="false">
+                        <div class="row m-t-sm">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="eventCategoryId">Categoría</label>
+                                    <select data-ng-model="item.eventCategoryId" data-ng-options="eventCategory.id as eventCategory.name for eventCategory in eventCategories" id="eventCategoryId" name="eventCategoryId"
+                                            style="width: 300px;" class="form-control" data-placeholder="Seleccione un tipo de evento"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="eventStartDate">Fecha inicio</label>
+                                    <div data-date-picker="" data-ng-model="item.eventStartDate" id="eventStartDate"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="eventEndDate">Fecha finalización</label>
+                                    <div data-date-picker="" data-ng-model="item.eventEndDate" id="eventEndDate"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="eventPlace">Lugar</label>
+                                    <input data-ng-model="item.eventPlace" id="eventPlace" name="eventPlace" type="text"
+                                           class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </uib-tab>
+                    <uib-tab heading="Resúmen">
+                        <div class="row m-t-sm">
+                            <div class="col-md-12">
+                                <textarea data-ckeditor="" data-ng-model="item.summary" id="summary" name="summary"></textarea>
+                            </div>
+                        </div>
+                    </uib-tab>
+                    <uib-tab heading="Texto">
+                        <div class="row m-t-sm">
+                            <div class="col-md-12">
+                                <textarea data-ckeditor="editorOptions" data-ng-model="item.text" id="text" name="text"></textarea>
+                            </div>
+                        </div>
+                    </uib-tab>
+                </uib-tabset>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'health.commercialdrug' | translate }} <small>{{commercialDrug.name}}</small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+            <a href="" target="_blank" class="btn btn-primary" data-ng-click="edit()"><i class="fa fa-pencil-square-o"></i> {{ 'command.edit' | translate }}</a>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content-np">
+            <div class="row">
+                <div class="col-md-12">
+                    Nombre: {{ commercialDrug.name }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    Principio activo: <a data-ui-sref="app.health.drug({drugId:commercialDrug.drugId})">{{ commercialDrug.drugName }}</a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    Laboratorio: <a data-ng-show="commercialDrug.manufacturerId" data-ui-sref="app.system.person({personId:commercialDrug.manufacturerId})">{{ commercialDrug.manufacturerName }}</a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    Presentación: <a data-ui-sref="app.health.drugpresentation({drugPresentationId:commercialDrug.drugPresentationId})">{{ commercialDrug.drugPresentationName }}</a>
+</div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    Precio: {{ commercialDrug.price | currency }} - ({{ commercialDrug.priceValidity | amDateFormat: 'L' }})
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

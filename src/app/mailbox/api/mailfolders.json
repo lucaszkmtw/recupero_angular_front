@@ -1,0 +1,36 @@
+[{
+        "folderid": "1",
+        "foldername": "Recibidos",
+        "iconfolder": "fa fa-inbox",
+        "emailsnumber": "10",
+        "default": "true"
+    },
+    {
+        "folderid": "2",
+        "foldername": "Enviados",
+        "iconfolder": "fa fa-envelope-o",
+        "emailsnumber": "0",
+        "default": "false"
+    },
+    {
+        "folderid": "3",
+        "foldername": "Importantes",
+        "iconfolder": "fa fa-certificate",
+        "emailsnumber": "0",
+        "default": "false"
+    },
+    {
+        "folderid": "4",
+        "foldername": "Borradores",
+        "iconfolder": "fa fa-file-text-o",
+        "emailsnumber": "0",
+        "default": "false"
+    },
+    {
+        "folderid": "5",
+        "foldername": "Papelera",
+        "iconfolder": "fa fa-trash-o",
+        "emailsnumber": "0",
+        "default": "false"
+    }
+]

@@ -1,0 +1,81 @@
+﻿<style>
+    body {
+        background-color: {{ vm.configuration.bgColor }};
+    }
+
+    body.md-skin {
+        background-color: {{ vm.configuration.bgColor }};
+    }
+
+
+    .grid-stack .grid-stack-item {
+        padding: 5px;
+    }
+
+    .dynamic-form .field label {
+        color: {{ vm.configuration.labelColor }};
+    }
+
+    .dynamic-form .field .btn-default, .dynamic-form .field .btn-primary {
+        background-color: {{ vm.configuration.buttonBgColor }};
+        color: {{ vm.configuration.buttonColor }};
+    }
+</style>
+
+<div class="sectionimageheader">
+    <img data-ng-src="{{vm.item.headerImage}}" alt="" />
+</div>
+
+<div data-ng-if="!vm.item.submitted" ng-cloak="">
+    <div class="alert alert-danger" data-ng-if="!vm.isOpen()" style="margin: 10px; padding: 10px;">
+        <p>Este formulario no se encuentra activo.</p>
+    </div>
+
+    <div class="alert alert-danger" data-ng-if="vm.isOpen() && !vm.hasQuota()&&!vm.waitingList" style="margin: 10px; padding: 10px;">
+        <p>El cupo para esta inscripción ya se encuentra cubierto.</p>
+        <div data-ng-show="vm.item.allowQueue">
+            <p>Lo invitamos a que complete el siguiente formulario para formar parte de la lista de espera.</p>
+            <p>Muchas gracias</p>
+
+            <p style="text-align: center;">
+                <button type="button" data-ng-click="vm.waitingList = true" class="btn btn-primary">Ir al formulario para lista de espera</button>
+            </p>
+        </div>
+    </div>
+
+    <div class="inscripcion" data-ng-if="vm.isOpen() && vm.hasQuota() || vm.waitingList">
+        <div>
+            <h2 data-ng-show="vm.item.showTitle">{{item.name}}</h2>
+            <h3 data-ng-bind-html="vm.item.description"></h3>
+
+            <div class="inscripcionaclaraciones" data-ng-if="!vm.item.isPublished">
+                <p>Este formulario no se encuentra habilitado.</p>
+            </div>
+
+            <div class="inscripcionaclaraciones" data-ng-show="vm.item.remarks && vm.item.isPublished">
+                {{item.remarks}}
+            </div>
+
+            <div data-ng-show="vm.hasQuota() && vm.item.isPublished">
+                <form class="dynamic-form" name="vm.form" accesible-form="" novalidate>
+                    <div gridstack class="grid-stack grid1" options="vm.previewOptions">
+                        <div gridstack-item ng-repeat="field in vm.item.fields" ng-if="vm.isFieldVisible(field)" class="grid-stack-item" data-gs-item-x="field.x" data-gs-item-y="field.y"
+                             data-gs-item-width="field.width" data-gs-item-height="field.height" data-gs-item-autopos="0">
+                            <div data-form-field="" data-field="field" style=""></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!--
+            <div data-ng-if="!vm.hasQuota() && vm.item.isPublished">
+                El cupo para esta inscripci&oacute;n se ha completado.<br />
+            </div>
+            -->
+        </div>
+    </div>
+</div>
+
+<div data-ng-if="vm.item.submitted" style="padding: 15px;">
+    <div ng-bind-html="vm.item.finalMessage | html"></div>
+</div>

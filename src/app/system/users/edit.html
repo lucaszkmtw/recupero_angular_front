@@ -1,0 +1,97 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'system.user' | translate }} <small>{{user.firstName}} {{user.lastName}}</small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">       
+        <div class="title-action">
+            <a href="" target="_blank" class="btn btn-primary" data-ng-click="openChangePass(user)"><i class="fa fa-floppy-o"></i> Cambiar Contraseña</a>
+            <a href="" target="_blank" class="btn btn-primary" data-ng-click="save()"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</a>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+            <form role="form" name="userForm" autocomplete="off">
+                <input type="password" style="display:none;width:0;height:0">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="systemPersonLookup">Persona</label>
+                            <div id="systemPersonLookup" data-lookup="systemPersonLookup" data-ng-model="user.personId" data-filter="with_no_linked_user" required></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="name">Nombre de usuario</label>
+                            <input type="text" autocomplete="off" name="name" class="form-control" id="name" data-ng-model="user.name">
+                        </div>
+                    </div>
+                </div>
+                <!--
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="password">Contraseña</label>
+                            <input type="password" autocomplete="off" name="password" class="form-control" id="password" data-ng-model="user.password">
+                        </div>
+                    </div>
+                </div>
+                    -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        {{user.roles | json }}
+                    </div>
+                </div>
+
+                <div data-ng-if="user.id">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <uib-tabset class="tabbable">
+                                <uib-tab>
+                                    <uib-tab-heading data-translate="system.permissions">Permissions</uib-tab-heading>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div data-system-user-permissions-grid="" data-user-id="params.userId"></div>
+                                        </div>
+                                    </div>
+                                </uib-tab>
+                                <uib-tab data-select="params.showRoles = true">
+                                    <uib-tab-heading data-translate="system.roles">Roles</uib-tab-heading>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <table style="width: 100%;">
+                                                <tr>
+                                                    <td style="width: 50%; padding-top: 10px;">
+                                                        <h4>Disponibles <small>({{params.unassignedSelection.length}} items seleccionados)</small></h4>
+                                                        <div data-id="unAssignedRolesGrid" data-system-user-roles-grid="" data-view="2" data-user-id="user.id" data-selected-items="params.unassignedSelection"></div>
+                                                    </td>
+                                                    <td style="width: 80px;">
+                                                        <button type="button" class="btn btn-default" title="Asignar" data-ng-click="addRoles()" data-ng-disabled="params.unassignedSelection.length==0"><i class="fa fa-chevron-right"></i></button>
+                                                        <br />
+                                                        <button type="button" class="btn btn-default" title="Quitar" data-ng-click="removeRoles()" data-ng-disabled="params.assignedSelection.length==0"><i class="fa fa-chevron-left"></i></button>
+                                                    </td>
+                                                    <td style="width: 50%; padding-top: 10px;">
+                                                        <h4>Asignados <small>({{params.assignedSelection.length}} items seleccionados)</small></h4>
+                                                        <div data-id="assignedRolesGrid" data-system-user-roles-grid="" data-view="1" data-user-id="user.id" data-selected-items="params.assignedSelection"></div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </uib-tab>
+                            </uib-tabset>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,78 @@
+﻿<div class="ibox">
+	<div class="ibox-content">
+		<div class="row">
+			<div class="col-md-12">
+				Empleador: {{contact.employer.name}}
+			</div>
+		</div>
+        <div class="row">
+            <div class="col-md-12">
+                Teléfonos Empleador: 
+                <div data-ng-repeat="phone in contact.employer.phones">
+                    <span>{{phone.number}}</span>
+                    <span>({{personService.getPhoneTypeName(phone.typeId) | translate }})</span> 
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+				Sueldo: {{contact.employee.salary}}
+            </div>
+        </div>
+        
+        <div class="row">
+            <hr />
+        </div>
+        <!--<div class="row">
+            <div class="col-md-12">
+				CBU: {{contact.bankAccount.number}}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+				Banco con el que opera: {{contact.bank.name}}
+            </div>
+        </div>-->
+
+        <div class="row" >
+
+            <fieldset>
+                <legend style="margin-bottom: 0;">
+                    Cuentas Bancarias
+                </legend>
+
+                <div class="row">
+                    <div class="col-md-10">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th style="width: 100px;">Banco</th>
+                                    <th style="width: 100px;">Sucursal</th>
+                                    <th style="width: 100px;">CBU</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-ng-repeat="bankAccount in contact.bankAccounts">
+                                    <td>
+                                        {{bankAccount.bankName}}
+                                    </td>
+                                    <td>
+                                        {{bankAccount.bankBranchName}}
+                                    </td>
+                                    <td>
+                                        {{bankAccount.bankAccountNumber}}
+                                    </td>
+                                </tr>
+                                <!--<tr data-ng-show="contact.bankAccounts.length==0">
+                                    <td colspan="5">No existen cuentas bancarias asignadas a este contacto.</td>
+                                </tr>-->                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+	</div>
+</div>

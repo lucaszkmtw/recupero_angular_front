@@ -1,0 +1,42 @@
+<!-- UI para tranferir fondos -->
+<div class="ibox float-e-margins">
+    <div class="col-lg-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">Retiro de Dinero
+                <!--{{'wallet.balance.transferfunds | translate'}}-->
+            </div>
+        </div>
+        <div class="panel-body">
+            <form name="transferfunds" class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-lg-4"><label class="control-label">Cuenta Wallet <!--{{'wallet.balance.walletaccount | translate'}}--></label></div>
+                    <div class="col-lg-8">
+                        <select class="form-control" ng-options="walletaccount.accountDescription for walletaccount in walletAccount track by walletaccount.accountId" ng-model="vm.walletAccount">
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4"><label class="control-label">Cuenta Bancaria <!--{{'wallet.balance.bankaccount | translate'}}--></label></div>
+                    <div class="col-lg-8">
+                        <select class="form-control" ng-options="bankaccount.accountDescription for bankaccount in bankAccountUsers track by bankaccount.accountId" ng-model="vm.bankAccount"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4"><label class="control-label">Importe <!--{{'wallet.balance.amount | translate'}}--></label></div>
+                    <div class="col-lg-8">
+                        <input class="form-control" ng-model="amount" ng-required="true" />
+                    </div>
+                    <div role="alert">
+                        <span class="error" ng-show="transferfunds.amount.$error.required">(Importe) es requerido <!--{{'wallet.balance.amountrequired | translate'}}--></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-3">
+                        <button class="btn btn-success" ng-disabled="transferfunds.$invalid" ng-click="transferFunds()"><i class="fa fa-cog"></i> Retirar <!--{{'wallet.balance.transfer | translate'}}--></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

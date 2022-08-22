@@ -1,0 +1,19 @@
+﻿<ui-select ng-model="model.$selected"
+           workflow-id="workflowId"
+           ui-select-focuser
+           theme="selectize">
+    <ui-select-match placeholder="Seleccione una categoría">
+        {{ getPath($select.selected) }}
+    </ui-select-match>
+    <ui-select-choices repeat="item in data | filter: $select.search">
+        <div>
+            <span ng-bind-html="item.text[item.text.length-1].Name | highlight: $select.search"></span>
+            <a href=""
+               ng-show="item.hasChildren"
+               class="goto-child-group"
+               ng-click="navigate(item, $select)">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        </div>
+    </ui-select-choices>
+</ui-select>

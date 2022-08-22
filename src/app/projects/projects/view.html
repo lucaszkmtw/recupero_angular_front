@@ -1,0 +1,320 @@
+﻿
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'project' | translate }} <small>{{project.name}} </small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+                <!-- <a href="" target="_blank" class="btn btn-primary" data-ng-click="edit()"><i class="fa fa-pencil-square-o"></i> {{ 'command.edit' | translate }} </a> -->
+                <a ng-if="!isEnableEditTemplate" href="" target="_blank" class="btn btn-info" data-ng-click="editLayout()"><i class="fa fa fa-address-card-o"></i> Editar Diseño </a> 
+                <a ng-if="isEnableEditTemplate" href="" target="_blank" class="btn btn-primary" data-ng-click="editLayout()"><i class="fa fa fa-address-card-o"></i> Guardar Diseño </a> 
+                <a href="" target="_blank" class="btn btn-primary" data-ng-click="edit()"><i class="fa fa-pencil-square-o"></i> Editar datos </a> 
+        </div>
+    </div>
+</div>
+<div ng-if="project">
+
+        <system-layouts-builder-view   data-enable-edit="isEnableEditTemplate" twoway data-ng-model="project"></system-layouts-builder-view>
+
+</div>
+<!-- <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-6">
+        <h2 data-ng-show="project.id">
+            {{ 'project' | translate }} <small>{{project.number}} - {{project.name }}</small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-6">
+        <div class="title-action">
+            <button type="button" class="btn btn-white" data-ui-sref="app.projects.project({ projectId: project.id })"><i class="fa fa-pencil-square-o"></i> {{ 'command.edit' | translate }}</button>
+
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="row">
+            <div class="col-md-12 bg-white">
+
+                    <div class="row">
+                        <div class="col-sm-8">
+                        
+                                <div class="row ">
+                                    <div class="col-sm-2">
+                                        <div class="user-pic">
+                                            <div class="ratio-round">
+                                                <img data-ng-if="projectSponsor.person.profilePictureUrl" data-ng-src="{{projectSponsor.person.profilePictureUrl}}" alt="{{projectSponsor.personName}}" title="{{projectSponsor.personName}}"
+                                                />
+                                                <img data-ng-if="!projectSponsor.person.profilePictureUrl"  src="Content/img/someone.jpg" alt="{{projectSponsor.personName}}" title="{{projectSponsor.personName}}"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-10" >
+                                        <div class="investor-name">
+                                            <h3> <span class="navy">{{projectSponsor.person.name}}</span></h3>
+                                            <span class="syndicating">
+                         {{projectSponsor.role.name}}
+                    </span>
+                                            <p align="justify" ng-bind-html="projectSponsor.description">
+                                                <br>
+                                            </p>
+
+                                        </div>
+                                        <div class="spacer-20px"></div>
+                                    </div>
+                                </div>
+                     
+                        </div>
+                        <div class="col-sm-4" >
+
+                            <div class="grey-box oportunity-file">
+                                <div class="white-box">
+                                    <header>
+
+                                        <div class="logo-company-big">
+                                            <div class="ratio-16x9">
+                                               <img  ng-if="fieldByName('projectGoalsImage')" src="{{fieldByName('projectGoalsImage').value}}" title="" alt="" />
+                                                <img ng-if="!fieldByName('projectGoalsImage')" src="Content/img/imgS.jpg" title="" alt="" />
+                                            </div>
+                                        </div>
+
+                                        <h3>
+                                            {{project.name}}
+
+                                        </h3>
+
+                                        <p class="company-description"  ng-bind-html="project.review">
+                                            
+                                        </p>
+                                    </header>
+
+                                    <div id="opportunity-investment-card-progress-header">
+                                        <div class="row">
+                                            <div class="col-xs-6 invested">
+                                                {{project.total | currency:'USD':true:'1.2-2'}}
+
+                                            </div>
+
+                                            <div class="col-xs-6 target">
+                                                {{project.contractAmount | currency:'USD':true:'1.2-2'}}
+
+                                            </div>
+                                        </div>
+                                        <div class="progress progress-mini">
+                                            <div ng-style="{ 'width' : (project.total/project.contractAmount)*100}" class="progress-bar"></div>
+
+                                        </div>
+                                       
+
+                                        <div class="invested-pie">
+                                            Comprometidos
+                                            <span>Objetivo</span>
+                                        </div>
+
+                                        <div class="row oportunity-details">
+                                            <div class="col-xs-4" ng-if="project.investorsCount > 0">
+                                                <span> {{project.investorsCount}}</span> <br/>Inversores
+                                            </div>
+
+                                            <div class="col-xs-4" ng-if="project.collaboratorsCount > 0">
+                                                <span>{{project.collaboratorsCount}}</span> <br/>Interesados
+                                            </div>
+
+                                            <div class="col-xs-4 oportunity-day" ng-if="project.followersCount > 0">
+                                                <span>{{project.followersCount}}</span>
+                                                <div class="days-left warning">Seguidores</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                <uib-tabset class="tabs">
+
+                    <uib-tab heading="Proyecto">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                    
+                                    <div id="aboutStartup" class="">
+                                        <h5 class="area-title">
+                                            <i class="fa fa-2x fa-paper-plane"></i> Sobre el Proyecto
+                                        </h5>
+
+
+                                        <div class="row m-t-sm">
+                                            <div class="col-md-12">
+                                                <div class="file-column">
+                                                    <div align="justify" ng-bind-html="project.description">
+                                                        <br>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                         
+                                </div>
+                            </div>
+                        </div>
+                    </uib-tab>
+
+                    <uib-tab heading="Equipo">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                   
+                                    <div id="aboutStartup" class="container clearfix" style="width: unset!important;">
+                                        <h5 class="area-title">
+                                            <i class="fa fa-2x fa-paper-plane"></i> Equipo
+                                        </h5>
+                                        <div class="row">
+                                            <div data-ng-repeat="personTeam in project.members |  filter:isTeamFilter ">
+                                                <article class="col-xs-12 col-md-4">
+                                                    <div class="article-details">
+                                                        <a href="/app/system/persons/{{personTeam.person.id}}" title="{{personTeam.person.name}}" class="profilelink" data-type="user">
+                                                            <div class="user-pic">
+                                                                <div class="ratio-round">
+                                                                    <img  style="width: unset;" data-ng-if="personTeam.person.profilePictureUrl" src="{{personTeam.person.profilePictureUrl}}" class="img-circle ng-scope" alt="{{personTeam.person.name}}" title="{{personTeam.person.name}}">
+                                                                    <img  style="width: unset;"  data-ng-if="!personTeam.person.profilePictureUrl" src="Content/img/someone.jpg" class="img-circle ng-scope" alt="{{personTeam.person.name}}" title="{{personTeam.person.name}}">
+                                                                </div>
+                                                            </div>
+                                                            <h4 style="min-height: 50px;">
+                                                                {{personTeam.person.name}}
+                                                            </h4>
+                                                            <span ng-repeat="tag in personTeam.tags track  by $index" class="badge badge">{{tag}}</span>
+                                                           
+                                                        </a>
+
+                                                    </div>
+                                                </article>
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </uib-tab>
+
+
+
+            <uib-tab heading="Documentos" data-ng-show="project.id > 0">
+                    <div data-ng-show="!project.id" class="m-t-sm alert alert-info ng-scope">Debe guardar el proyecto primero para poder asociar archivos.</div>
+                    <div class="file-manager" ng-if="project.id">
+                                                <system-document-management-file-manager   data-folderguid="{{project.folderGuid}}" data-readonly="True"></system-document-management-file-manager>
+                                      
+                            </div>
+                    </uib-tab>
+
+                    <uib-tab heading="Preguntas y Respuestas">
+                            <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                                <div data-message-thread 
+                                                data-message-thread-id="project.messageThreadId"
+                                                  ></div>
+                    </div>
+                </div>
+        </div>
+                    </uib-tab>
+
+                    <uib-tab heading="Mapa" select="reRednerMap()">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+
+                                    <br>
+                                    <div map-lazy-load="https://maps.google.com/maps/api/js" map-lazy-load-params="{{googleMapsUrl}}" style="display: block; height: 800px;">
+
+                                        <ng-map ng-if="showMap" id="placesMap" map-type-id="ROADMAP" center="-34.61512,-58.414" pan-control="false" street-view-control="true"
+                                            street-view-control-options="{position: 'RIGHT_BOTTOM'}" map-type-control="false"
+                                            zoom-control="true" default-style="false" zoom-to-include-markers="true" style="display: block; height: 600px;">
+                                            <marker data-ng-repeat="place in project.places" position="{{place.geo.lat}},{{place.geo.lng}}"> </marker>
+
+                                        </ng-map>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </uib-tab>
+                    <uib-tab heading="Centros de Costo">
+                         
+                            <div data-project-rel-cc-grid="" style="width: 100%"  data-ng-model="project" items:"project.costCenters" data-project-id="projectId" data-selected-items="params.selectedItems"></div> 
+                        
+                       
+                                     
+                    </uib-tab>
+                    <uib-tab heading="Historial" data-ng-show="project.id > 0">
+                        <system-workflow-instance-history data-ng-model="project.workflowInstance"></system-workflow-instance-history>
+                    </uib-tab>
+
+                    <uib-tab heading="Autorizaciones" data-ng-show="project.status>0">
+                        <div class="col-lg-12">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Usuario / Rol</th>
+                                        <th>Fecha asignación</th>
+                                        <th>Estado</th>
+                                        <th>Fecha autorización</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-ng-repeat-start="approval in project.workflowInstance.approvals">
+                                        <td>
+                                            {{approval.userName}}{{approval.roleName}}
+                                        </td>
+                                        <td>
+                                            {{approval.createDate | amDateFormat: 'L LT' }}
+                                        </td>
+                                        <td>{{ ::(('status.' + approval.status) | lowercase) | translate}}</td>
+                                        <td>
+                                            <span data-ng-show="approval.date">{{approval.date | amDateFormat: 'L LT' }}</span>
+                                        </td>
+                                    </tr>
+                                    <tr data-ng-show="showingDetails" data-ng-repeat-end="">
+                                        <td colspan="4">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    Proveedor: <span data-ng-show="practice.vendorId"><a data-ui-sref="app.procurement.vendoredit({ vendorId: practice.vendor.id })">{{practice.vendor.person.name}}</a></span>
+                                                    <span data-ng-show="!practice.vendorId">No posee proveedor asignado</span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    Fecha inicio:
+                                                    <span data-ng-show="practice.fromDate">{{practice.fromDate | amDateFormat: 'L' }}</span>
+                                                    <span data-ng-show="!practice.fromDate">Sin asignar</span>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    Fecha fin:
+                                                    <span data-ng-show="practice.toDate">{{practice.toDate | amDateFormat: 'L' }}</span>
+                                                    <span data-ng-show="!practice.toDate">Sin asignar</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </uib-tab>
+
+                </uib-tabset>
+            </div>
+        </div>
+    </div>
+</div> -->

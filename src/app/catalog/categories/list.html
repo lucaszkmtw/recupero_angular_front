@@ -1,0 +1,73 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'catalog.categories' | translate }} <small>Listado de Categorias</small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+            <a href="" target="_blank" class="btn btn-primary" data-ng-click="new()"><i class="fa fa-file-o"></i> {{ 'command.new.f' | translate }}</a>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content np">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="ibox">
+                        <div class="ibox-content">
+                            <div data-ui-tree="treeOptions">
+                                <ol data-ui-tree-nodes="" ng-model="items">
+                                    <li data-ng-repeat="item in items" data-ui-tree-node="" ng-init="editMode = false;prevValue = item.name;" ng-include="'items_renderer.html'"></li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="items_renderer.html">
+    <div ui-tree-handle class="tree-node tree-node-content m-t-xs">
+        <span style="min-width: 25px; display: inline-block;">
+            <button type="button" class="btn btn-default btn-xs" style="width: 25px;" ng-if="item.items && item.items.length > 0" data-nodrag ng-click="toggle(this)">
+                <i class="glyphicon" ng-class="{'fa fa-chevron-right': collapsed,'fa fa-chevron-down': !collapsed}"></i>
+            </button>&nbsp;
+        </span>
+        <span ng-hide="editMode">{{item.name}}</span>
+        <span ng-show="editMode">
+          <input data-nodrag type="text" ng-model="item.name">
+          <button data-nodrag class="btn btn-primary" ng-click="editMode = false; editNode(this);"><i class="txt-color-white fa fa-save"></i> Guardar</button>
+          <!-- <button data-nodrag class="btn btn-primary" ng-click=" editMode = false;">Cancelar</button> -->
+        </span>
+        <!-- <a href="#" editable-text="item.name" onaftersave="updateItem()">
+            {{ item.name || 'empty' }}
+          </a> -->
+        <!-- <span ng-if="!editMode">{{item.name}}</span>
+        <input ng-if="editMode" type="text" class="form-control" id="name" data-ng-model="item.name" data-ng-required="true"> -->
+        <span class="pull-right">
+               
+                <a data-nodrag ng-click="newNode(this);"><span class="glyphicon glyphicon-new-window"></span></a>
+                <a data-nodrag ng-click="editMode = true; prevValue = title;"><span class="glyphicon glyphicon-edit"></span></a>
+                <a data-nodrag ng-click="remove(this)"><span class="glyphicon glyphicon-remove"></span></a>
+           
+        </span>
+    </div>
+    <ol ui-tree-nodes="options" ng-model="item.items" ng-class="{hidden: collapsed}">
+        <li ng-repeat="item in item.items" ui-tree-node ng-include="'items_renderer.html'">
+        </li>
+    </ol>
+</script>
+<script type="text/ng-template" id="drop-modal.html">
+    <div class="modal-body">
+        <p>Desea eliminar el Nodo seleccionado ?</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="$close(true)">Aceptar</button>
+        <button class="btn btn-warning" type="button" ng-click="$dismiss()">Cancelar</button>
+    </div>
+</script>

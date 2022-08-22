@@ -1,0 +1,37 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            Nads <small>Listado de Nads</small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+            <a ng-if="params.view === 0" href="" target="_blank" class="btn btn-primary" data-ng-click="new()"><i class="fa fa-file-o"></i> {{ 'command.new' | translate }}</a>
+            <a ng-if="params.view === 1" href="" target="_blank" class="btn btn-primary" data-ng-click="newNad()"><i class="fa fa-file-o"></i> Nad</a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="row m-b-sm m-t-sm">
+            <div class="col-md-1">
+                <button type="button" id="loading-example-btn" class="btn btn-white btn-sm" data-ng-click="refresh()"><i class="fa fa-refresh"></i> Actualizar</button>
+            </div>
+            <div class="col-md-11">
+                <form name="searchTreatmentRequestsForm" ng-submit="refresh()">
+                    <div class="input-group">
+                        <input type="text" placeholder="Buscar" class="input-sm form-control" data-ng-model="params.filter"> <span class="input-group-btn">
+                            <button type="submit" class="btn btn-sm btn-primary"> Buscar</button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="project-list table-nobordered">
+            <div data-nads-grid="" data-view="params.view" data-filter="params.filter"></div>
+        </div>
+    </div>
+</div>

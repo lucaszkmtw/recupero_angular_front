@@ -1,0 +1,90 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'financials.checkbook' | translate }} <small data-ng-show="bank.id">{{checkbook.code}} {{checkbook.name}}</small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+            <a href="" target="_blank" class="btn btn-primary" data-ng-click="save()"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</a>
+        </div>
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+            <form role="form" name="checkBookForm">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="bankAccountId">Cuenta Bancaria</label>
+                            <div id="bankAccountId" data-lookup="financialsBankAccountLookup" data-ng-model="checkbook.bankAccountId"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-bottom-20">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="name">Nombre</label>
+                            <input type="text" class="form-control" id="name" data-ng-model="checkbook.name" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-bottom-20">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="fromNumber">Número desde</label>
+                            <input type="text" class="form-control" id="fromNumber" data-ng-model="checkbook.fromNumber">
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-bottom-20">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="name">Número hasta</label>
+                            <input type="text" class="form-control" id="name" data-ng-model="checkbook.toNumber">
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-bottom-20">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="name">Número próximo</label>
+                            <input type="text" class="form-control" id="name" data-ng-model="checkbook.nextNumber">
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-bottom-20">
+                    <div class="col-md-4">
+                        <div class="md-checkbox">
+                            <input type="checkbox" id="Autoincrement" data-ng-model="checkbook.autoincrement">
+                            <label for="Autoincrement">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span>
+                                Autoincremental
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-bottom-20">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="type">Tipo</label>
+                            <input type="text" class="form-control" id="type" data-ng-model="checkbook.type">
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-bottom-20">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="status">Estado</label>
+                            <input type="text" class="form-control" id="status" data-ng-model="checkbook.status">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

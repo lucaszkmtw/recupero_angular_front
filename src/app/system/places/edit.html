@@ -1,0 +1,64 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'system.tenant' | translate }} <small>{{tenant.name}}</small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+            <button type="button" class="btn btn-danger" data-ng-show="tenant.id" data-ng-click="delete()"><i class="fa fa-trash-o"></i>&nbsp;{{ 'command.delete' | translate }}</button>
+            <a href="" target="_blank" class="btn btn-primary" data-ng-click="save()"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</a>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label for="name">Nombre</label>
+                        <input type="text" id="name" data-ng-model="tenant.name" class="form-control" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label for="systemPersonLookup">Persona</label>
+                        <div id="systemPersonLookup" data-lookup="systemPersonLookup" data-ng-model="tenant.personId"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" data-ng-if="!tenant.id">
+                <div class="col-md-12">
+                    <div class="alert alert-info">Debe guardar el propietario para poder asignarle usuarios.</div>
+                </div>
+            </div>
+            <fieldset data-ng-if="tenant.id">
+                <legend style="margin-bottom: 0;">Usuarios</legend>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="input-group panel-compact m-b-xs">
+                            <div id="userId" data-lookup="systemUserLookup" data-ng-model="params.userId"></div>
+                            <span class="input-group-btn" style="padding-right: 5px;">
+                                <button type="button" data-ng-disabled="!params.userId" data-ng-click="addTenantUser()" class="btn btn-sm btn-default">
+                                    <i class="fa fa-plus"></i>&nbsp;Agregar Usuario
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div data-system-tenant-users-grid="" data-tenant-id="tenant.id"></div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+﻿<div class="modal-header dialog-header-confirm">
+    <h4 class="modal-title"><span class="fa fa-tasks">&nbsp;</span>Nuevo Paciente</h4>
+</div>
+<div class="modal-body" style="height: 450px;">
+    <ng-form role="form" name="searchPersonForm" data-ng-if="params.step==1">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="systemPersonLookup">Persona</label>
+                    <div id="systemPersonLookup" data-lookup="systemPersonLookup" data-ng-model="patient.personId"></div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" data-ng-click="cancel()">Cancelar</button>
+            <button type="button" class="btn btn-success" data-ng-disabled="!patient.personId" data-ng-click="params.step=2">Siguiente</button>
+        </div>
+    </ng-form>
+
+    <ng-form role="form" name="newPatientForm" data-ng-if="params.step==2">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label for="healthServiceLookup">Prestador</label>
+                    <div id="healthServiceLookup" data-lookup="healthServiceLookup" data-ng-model="patient.healthServiceId"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="cardNumber">Carnet</label>
+                    <input type="text" class="form-control" id="cardNumber" name="cardNumber" data-ng-model="patient.cardNumber">
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="servicePlan">Plan</label>
+                    <input type="text" class="form-control" id="servicePlan" name="servicePlan" data-ng-model="patient.servicePlan">
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" data-ng-click="cancel()">Cancelar</button>
+            <button type="button" class="btn btn-default" data-ng-click="params.step=1">Anterior</button>
+            <button type="button" class="btn btn-success" data-ng-click="save()">Guardar</button>
+        </div>
+    </ng-form>
+</div>

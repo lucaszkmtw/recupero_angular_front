@@ -1,0 +1,29 @@
+
+<div class=" wrapper-content fadeInRight">
+      
+<div  >
+    <div class="row" >
+        <div class="col-lg-10" style="float:left">
+                <h2>Seleccione el tipo</h2>
+                 <select data-ng-model="imageType" class="form-control"  data-ng-options="type as type.name for type in imagesTypes" ></select>
+        <hr>
+        </div>
+
+    </div> 
+    </div class="row">
+        <div class="col-lg-12" style="float:left">
+         
+                <images-file-upload  data-ng-model="project"   folder-guid="{{project.folderGuid}}" ></images-file-upload >
+                    <img ng-src="{{imageUrl}" />
+        </div>
+    </div>
+</div>
+</div>
+ <br>
+ <br>
+    <div class="contact-box-footer" style="text-align: center">
+        <div class="m-t-xs btn-group">
+            <button type="button"
+                    class="btn btn-lg btn-primary" data-ng-click="save(typeId)">Guardar</button>
+        </div>
+ </div>

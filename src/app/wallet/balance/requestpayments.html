@@ -1,0 +1,41 @@
+<!-- UI para registrar Envío de Pagos -->
+<div class="ibox float-e-margins">
+    <div class="col-lg-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">Solicitud de Pagos
+                <!--{{'wallet.balance.requestpayment | translate'}}-->
+            </div>
+        </div>
+        <div class="panel-body">
+            <form name="requestpayment" class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-lg-4"><label class="control-label">Correo<!--{{'wallet.balance.emailaccount | translate'}}--></label></div>
+                    <div class="col-lg-8">
+                        <input class="form-control" ng-model="email" type="email" ng-required="true" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4"><label class="control-label">Importe<!--{{'wallet.balance.amount | translate'}}--> </label></div>
+                    <div class="col-lg-8">
+                        <input class="form-control" ng-model="amount" ng-required="true" />
+                    </div>
+                    <div role="alert">
+                        <span class="error" ng-show="requestpayment.amount.$error.required">(Importe) es requerido<!--{{'wallet.balance.amountrequired | translate'}}--></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4"><label class="control-label">Nota (opcional) <!--{{'wallet.balance.note | translate'}}--></label></div>
+                    <div class="col-lg-8">
+                        <input class="form-control" ng-model="nota" type="text" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-3">
+                        <button class="btn btn-success" ng-disabled="requestpayment.$invalid" ng-click="requestPayment()"><i class="fa fa-cog"></i> Solicitar<!--{{'wallet.requestpayment | translate'}}--></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

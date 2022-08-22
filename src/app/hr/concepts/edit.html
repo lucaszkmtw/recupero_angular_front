@@ -1,0 +1,177 @@
+﻿<h3 class="page-title">
+    {{ 'hr.concept' | translate }} <small>{{concept.description}} ({{concept.number}})</small>
+</h3>
+<div class="page-bar">
+    <div ncy-breadcrumb class="page-breadcrumb"></div>
+    <div class="page-toolbar">
+        <div class="btn-group pull-right">
+            <button type="button" class="btn btn-primary" data-ng-click="save()">Guardar</button>
+        </div>
+    </div>
+</div>
+<form role="form" name="conceptForm">
+    <div class="row margin-bottom-20">
+        <div class="col-md-4">
+            <div class="form-group form-md-line-input">
+                <input type="number" class="form-control" id="number" data-ng-model="concept.number">
+                <label for="number">Número</label>
+            </div>
+        </div>
+    </div>
+    <div class="row margin-bottom-20">
+        <div class="col-md-4">
+            <div class="form-group form-md-line-input">
+                <input type="text" class="form-control" id="description" data-ng-model="concept.description">
+                <label for="description">Descripción</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="tipoConcepto">Tipo Concepto</label>
+        <input type="text" class="form-control" id="tipoConcepto" data-ng-model="concept.tipoConcepto">
+    </div>
+    <div class="row margin-bottom-20">
+        <div class="col-md-4">
+            <div class="md-checkbox">
+                <input type="checkbox" id="calculaImporte" data-ng-model="concept.calculaImporte">
+                <label for="calculaImporte">
+                    <span></span>
+                    <span class="check"></span>
+                    <span class="box"></span>
+                    Calcula Importe
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row margin-bottom-20">
+        <div class="col-md-4">
+            <div class="md-checkbox">
+                <input type="checkbox" id="calculaArt" data-ng-model="concept.calculaArt">
+                <label for="calculaArt">
+                    <span></span>
+                    <span class="check"></span>
+                    <span class="box"></span>
+                    Calcula Art
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row margin-bottom-20">
+        <div class="col-md-4">
+            <div class="md-checkbox">
+                <input type="checkbox" id="calculaCargaSindical" data-ng-model="concept.calculaCargaSindical">
+                <label for="calculaCargaSindical">
+                    <span></span>
+                    <span class="check"></span>
+                    <span class="box"></span>
+                    Calcula Carga Sindical
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row margin-bottom-20">
+        <div class="col-md-4">
+            <div class="md-checkbox">
+                <input type="checkbox" id="calculaContribucionSeguridadSocial" data-ng-model="concept.calculaContribucionSeguridadSocial">
+                <label for="calculaContribucionSeguridadSocial">
+                    <span></span>
+                    <span class="check"></span>
+                    <span class="box"></span>
+                    Calcula Contribución Seguridad Social
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row margin-bottom-20">
+        <div class="col-md-4">
+            <div class="md-checkbox">
+                <input type="checkbox" id="calculaPlusVacacional" data-ng-model="concept.calculaPlusVacacional">
+                <label for="calculaPlusVacacional">
+                    <span></span>
+                    <span class="check"></span>
+                    <span class="box"></span>
+                    Calcula Plus Vacacional
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row margin-bottom-20">
+        <div class="col-md-4">
+            <div class="md-checkbox">
+                <input type="checkbox" id="calculaSacProporcional" data-ng-model="concept.calculaSacProporcional">
+                <label for="calculaSacProporcional">
+                    <span></span>
+                    <span class="check"></span>
+                    <span class="box"></span>
+                    Calcula Sac Proporcional
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row margin-bottom-20">
+        <div class="col-md-4">
+            <div class="md-checkbox">
+                <input type="checkbox" id="calculaDesayuno" data-ng-model="concept.calculaDesayuno">
+                <label for="calculaDesayuno">
+                    <span></span>
+                    <span class="check"></span>
+                    <span class="box"></span>
+                    Calcula Desayuno
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row margin-bottom-20">
+        <div class="col-md-4">
+            <div class="md-checkbox">
+                <input type="checkbox" id="calculaAlmuerzo" data-ng-model="concept.calculaAlmuerzo">
+                <label for="calculaAlmuerzo">
+                    <span></span>
+                    <span class="check"></span>
+                    <span class="box"></span>
+                    Calcula Almuerzo
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row margin-bottom-20">
+        <div class="col-md-4">
+            <div class="md-checkbox">
+                <input type="checkbox" id="calculaRefrigerio" data-ng-model="concept.calculaRefrigerio">
+                <label for="calculaRefrigerio">
+                    <span></span>
+                    <span class="check"></span>
+                    <span class="box"></span>
+                    Calcula Refrigerio
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row margin-bottom-20">
+        <div class="col-md-4">
+            <div class="md-checkbox">
+                <input type="checkbox" id="calculaAdicional" data-ng-model="concept.calculaAdicional">
+                <label for="calculaAdicional">
+                    <span></span>
+                    <span class="check"></span>
+                    <span class="box"></span>
+                    Calcula Adicional
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row margin-bottom-20">
+        <div class="col-md-4">
+            <div class="md-checkbox">
+                <input type="checkbox" id="isActive" data-ng-model="concept.isActive">
+                <label for="isActive">
+                    <span></span>
+                    <span class="check"></span>
+                    <span class="box"></span>
+                    Activo
+                </label>
+            </div>
+        </div>
+    </div>
+</form>

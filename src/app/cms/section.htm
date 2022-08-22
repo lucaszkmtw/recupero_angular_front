@@ -1,0 +1,19 @@
+﻿<div style="padding: 15px;">
+
+    <div data-uib-accordion="" close-others="false">
+        <div data-uib-accordion-group="" is-open="subSection.isOpen" data-ng-repeat="subSection in section.sections">
+            <uib-accordion-heading><i class="fa" ng-class="{'fa-chevron-down': status.open, 'fa-chevron-right': !status.open}"></i>&nbsp;{{subSection.name}}</uib-accordion-heading>
+            <div data-ng-repeat="page in subSection.contents">
+                <a data-ui-sref="content({contentId: page.content.id })"><h5>{{page.content.title}}</h5></a>
+                <p data-ng-if="page.content.summary" ng-bind-html="page.content.summary"></p>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div data-ng-repeat="page in section.contents">
+        <a data-ui-sref="content({contentId: page.content.id })">
+            <h5>{{page.content.title}}</h5>
+        </a>
+        <p data-ng-if="page.content.summary" ng-bind-html="page.content.summary"></p>
+    </div>
+</div>

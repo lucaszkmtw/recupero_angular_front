@@ -1,0 +1,59 @@
+﻿<div class="ibox">
+    <div class="ibox-content">
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="profile-image">
+                    <img src="Content/img/someone.jpg" class="img-circle circle-border m-b-md" alt="profile">
+                </div>
+                <div class="profile-info">
+                    <div class="" style="width:500px;">
+                        <div class="" style="width:400px;">
+                            <h2 class="no-margins">
+                                {{person.name}} <small data-ng-show="person.email">({{ person.email }})</small>
+                            </h2>
+                            <h4>CUIT: <span data-ng-show="person.code">{{person.code | cuit}}</span></h4>
+                            <h4>Correos electrónicos: </h4>
+                            <ul style="list-style-type: none">
+                                <li ng-repeat="email in person.emails">
+                                    <span class="glyphicon glyphicon-envelope"></span>
+                                    {{email.address}}
+                                    <span class="pull-right"> {{personService.getEmailTypeName(email.typeId) | translate }}</span>
+                                </li>
+                            </ul>
+                            <h4>Teléfonos: </h4>
+                            <ul style="list-style-type: none">
+                                <li ng-repeat="phone in person.phones">
+                                    <span class="glyphicon glyphicon-phone"></span>
+                                    {{phone.number}}
+                                    <span class="pull-right"> {{personService.getPhoneTypeName(phone.typeId) | translate }}</span>
+                                </li>
+                            </ul>
+                            <h4>Direcciones: </h4>
+                            <ul style="list-style-type: none">
+                                <li ng-repeat="address in person.addresses">
+                                    <span>
+                                        {{address.address.name}},
+                                        <span ng-repeat="path in address.address.place.path track by $index">
+                                            {{path.name}}
+                                        </span>
+                                    </span>
+                                    <span class="pull-right">{{personService.getAddressTypeName(address.typeId) | translate}}</span>
+                                </li>
+                            </ul>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row"> Solapas: 
+            <div class="col-md-12">
+                <tabs data="tabData" template-url="ui-router-tabs-custom-ui-view-template.html"></tabs>
+            </div>
+        </div>
+
+        
+    </div>
+</div>

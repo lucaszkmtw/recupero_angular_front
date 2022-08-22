@@ -1,0 +1,6 @@
+<div class="field row">
+    <div class="col-md-12">
+        <label ng-class="{'error': showError(field)}"><span ng-bind-html="field.name | html"></span><span class="required-error" data-ng-show="field.required && !field.value">&nbsp;*</span></label>
+        <input type="email" name="{{field.id}}" data-ng-model="field.value" value="{{field.value}}" data-ng-required="{{ field.required=='true' && isVisible() }}" class="form-control">
+    </div>
+</div>

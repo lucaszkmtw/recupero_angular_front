@@ -1,0 +1,87 @@
+﻿<form name="sectionInfoForm" class="form-horizontal" data-ng-show="sectionId" role="form">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="col-md-2 control-label" for="name">Nombre</label>
+                <div class="col-md-10">
+                    <input id="name" name="name" type="text" data-ng-model="section.name" required style="width: 80%;" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label" for="seName">Ruta</label>
+                <div class="col-md-10">
+                    <input id="seName" name="seName" type="text" data-ng-model="section.seName"
+                           style="width: 80%;" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label" for="url">Url</label>
+                <div class="col-md-10">
+                    <div class="input-group">
+                        <input type="text" data-ng-model="section.link" id="url" class="form-control" />
+                        <span class="input-group-btn" style="padding-left: 5px;">
+                            <select id="linkTarget" data-ng-model="section.linkTarget" style="width: 100px;" class="form-control">
+                                <option value="0">_self</option>
+                                <option value="1">_blank</option>
+                                <option value="2">_parent</option>
+                                <option value="3">_top</option>
+                                <option value="4">_search</option>
+                            </select>
+                        </span>
+                        <span class="input-group-btn" style="padding-left: 5px;">
+                            <button class="btn btn-default" data-ng-click="previewLink()" data-ng-disabled="!section.link">Previsualizar</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label" for="imageId">Imágen</label>
+                <div class="col-md-10">
+                    <input data-imagelookup="" id="imageId" name="imageId" type="hidden" data-ng-model="section.imageId"
+                           style="width: 300px;" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label" for="published">Publicada</label>
+                <div class="col-md-10">
+                    <input id="published" name="published" type="checkbox" data-ng-model="section.published" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label" for="allowanonymous">Pública</label>
+                <div class="col-md-10">
+                    <input id="allowanonymous" name="allowanonymous" type="checkbox" data-ng-model="section.allowAnonymous" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label" for="templateId">Template</label>
+                <div class="col-md-3">
+                    <select id="templateId" data-ng-model="section.templateId" class="form-control">
+                        <option value="1">Artículo destacado</option>
+                        <option value="2">Lista de artículos</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label" for="orderItemsBy">Ordenar items por</label>
+                <div class="col-md-3">
+                    <select id="orderItemsBy" data-ng-model="section.orderItemsBy" class="form-control">
+                        <option value="0">Manual</option>
+                        <option value="1">Fecha publicación (Nuevo->Viejo)</option>
+                        <option value="2">Fecha publicación (Viejo->Nuevo)</option>
+                        <option value="3">Título (A->Z)</option>
+                        <option value="4">Título (Z->A)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-success" data-ng-click="save()"
+                    data-ng-disabled="sectionInfoForm.$invalid || !sectionInfoForm.$dirty" title="Guardar">
+                <i class="fa fa-floppy-o"></i>&nbsp;Guardar
+            </button>
+        </div>
+    </div>
+</form>

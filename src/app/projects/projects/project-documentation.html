@@ -1,0 +1,26 @@
+<h1>documentatio</h1>
+
+<div data-ng-show="!project.id" class="m-t-sm alert alert-info">Debe guardar el proyecto primero para poder asociar archivos.</div>
+<div class="row m-t-sm" data-ng-show="project.id">
+    <div class="col-md-12">
+        <div class="file-manager">
+            <div class="text-center">
+                <span class="btn btn-primary btn-file btn-block" data-ng-class="{disabled: uploader.isUploading}">
+                    <span data-ng-switch="uploader.isUploading">
+                        <i data-ng-switch-when="false" class="fa fa-upload"></i>
+                        <i data-ng-switch-when="true" class="fa fa-spinner fa-pulse"></i>
+                    </span>
+                    <span style="margin-left: 3px;">Asociar archivos</span>
+                    <input type="file" multiple nv-file-select="" uploader="uploader" data-ng-disabled="uploader.isUploading" data-file-input="" />
+                </span>
+                <span class="fileupload-process"></span>
+            </div>
+            <div class="hr-line-dashed"></div>
+            <ul class="folder-list" style="padding: 0">
+                <li data-ng-repeat="folder in project.folders"><a href=""><i class="fa fa-folder"></i> {{folder.name}}</a></li>
+                <li data-ng-repeat="file in project.files"><a href="" data-ng-click="openFile(file)"><i class="fa fa-file"></i> {{file.name}}</a></li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>

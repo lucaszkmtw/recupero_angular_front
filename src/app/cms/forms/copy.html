@@ -1,0 +1,26 @@
+﻿<div class="page-header">
+    <div class="title">
+        <img src="/media/images/ico-content.png" alt=""/><span>Copiar formulario:</span>
+    </div>
+</div>
+
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <button type="button" class="btn btn-primary navbar-btn" title="Crear copia" data-ng-click="save()" data-ng-disabled="copyForm.$invalid || !copyForm.$dirty"><span class="glyphicon glyphicon-transfer"></span>&nbsp;Crear copia</button>
+    </div>
+</nav>
+
+<div class="row">
+    <div class="col-md-12">
+        <form name="copyForm">
+            <div class="form-group">
+                <label class="headersmalltext" for="formId">Formulario</label>
+                <input type="hidden" data-formlookup="" data-ng-model="copyform.id" id="formId" name="formId" style="width: 650px;" />
+            </div>
+            <div class="form-group">
+                <label class="headersmalltext" for="name">Nombre</label>
+                <input type="text" data-ng-model="copyform.name" id="name" name="name" style="width: 650px;" class="form-control" required />
+            </div>
+        </form>
+    </div>
+</div>

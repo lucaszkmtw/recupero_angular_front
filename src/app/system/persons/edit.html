@@ -1,0 +1,33 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'person' | translate }} <small>{{person.firstName}} {{person.lastName}}</small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+                <a href="" target="_blank" class="btn btn-info" data-ng-click="view()"><i class="fa fa fa-eye"></i> {{ 'command.view' | translate }}</a>
+            <a href="" target="_blank" class="btn btn-primary" data-ng-click="save()"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</a>
+           
+
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+            <form role="form" name="personForm">
+                <ng-include src="'/app/system/persons/personaldataedit.html'"></ng-include>
+                <ng-include src="'/app/system/persons/personaldataedit1.html'"></ng-include>
+            </form>
+            <uib-tabset class="tabs">
+                    
+                <uib-tab heading="Layout Builder" ng-if="person">
+                     <system-layouts-builder  twoway data-ng-model="person"></system-layouts-builder>
+                 </uib-tab>
+            </uib-tabset>    
+        </div>
+    </div>
+</div>

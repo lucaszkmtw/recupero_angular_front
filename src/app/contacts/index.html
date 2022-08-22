@@ -1,0 +1,90 @@
+﻿
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'contacts' | translate }} <small>Listado de {{ 'contacts' | translate }}</small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+            <a href="" target="_blank" class="btn btn-primary" data-ng-click="new()"><i class="fa fa-file-o"></i> {{ 'command.new' | translate }}</a>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="pull-left" style="width: 300px; margin-left: 20px;">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <div class="k-treeview">
+                        <div class="list-group">
+                            <a href="#" data-ng-click="showContacts()" class="list-group-item">
+                                {{defaultGroupName}}
+                            </a>
+                            <a href="#" data-ng-repeat="group in groups" class="list-group-item" data-ng-click="showContacts(group)">
+                                {{group.name}}
+                            </a>
+                        </div>
+                        <div>
+                            <a href="" target="_blank" class="btn btn-primary" data-ng-click="showNewGroupDialog()"><i class="fa fa-file-o"></i> Nuevo Grupo</a>
+                            <a href="" target="_blank" class="btn btn-primary" data-ng-click="showImportDialog()"><i class="fa fa-file-text-o"></i> Importar</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div style="margin-left: 340px;">
+            <div class="row" style="margin: 0;">
+                <h3>
+                    {{selectedGroup.name}}
+                    <span data-ng-click="editGroup()" data-ng-class="{'glyphicon glyphicon-pencil': selectedGroup.id!=null}"></span>
+                    <span data-ng-click="deleteGroup()" data-ng-class="{'glyphicon glyphicon-trash': selectedGroup.id!=null}"></span>
+                </h3>
+               
+                <div class="row input-group" style="width: 100%;">
+                    <div class="col-md-1" data-ng-show="checkedItems.length>0"> 
+                        <div class="btn-group pull-left" uib-dropdown style="position: absolute; left: 30px; top: 15px;">
+                            <a href="" uib-dropdown-toggle id="menu_general"><i class="fa fa-ellipsis-v"></i></a>
+                            <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="menu_general" >
+                                <li role="menuitem">
+                                    <a href="" data-ng-click="$event.preventDefault(); runAction(1)">Iniciar Campaña</a>
+                                </li>
+                                <li role="menuitem">
+                                    <a href="" data-ng-click="$event.preventDefault(); runAction(2)">Etiquetar</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <form class="navbar-form navbar-left">
+                            <span class="input-group-btn">
+                                <input type="text" data-ng-model="params.filter" placeholder="Nombre de contacto a buscar" class="form-control" style="width: 250px;">
+                                <button data-ng-click="search()" class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>                                
+                            </span>
+                        </form>
+                    </div>
+                    <div class="col-md-3 pull-right">
+                        <div style="position: absolute; left: 30px; top: 15px;">{{checkedItems.length}} Seleccionados</div>
+
+                        <div class="btn-group pull-left" uib-dropdown style="position: absolute; top: 15px;">
+                            <a href="" uib-dropdown-toggle id="menu_seleccion"><i class="fa fa-square-o"></i></a>
+                            <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="menu_seleccion">
+                                <li role="menuitem">
+                                    <a href="" data-ng-click="$event.preventDefault(); selectAll();">Seleccionar Todo</a>
+                                    <a href="" data-ng-click="$event.preventDefault(); unSelectAll();">Limpiar Selección</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+                <div data-contacts-grid="" data-group-id="groupId" style="background-color: white;" data-filter="params.filter"></div>
+                <!-- <ui-view /> -->
+            </div>
+        </div>
+    </div>
+</div>
+

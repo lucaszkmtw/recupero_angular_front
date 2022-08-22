@@ -1,0 +1,169 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'crm.qualifications' | translate }}
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+            <button type="button" class="btn btn-info" data-ng-show="lead.id" data-ng-click="view()"><i class="fa fa-eye"></i> {{ 'command.view' | translate }}</button>
+            <button type="button" class="btn btn-primary" data-ng-disabled="leadForm.$invalid || !leadForm.$dirty" data-ng-click="save()"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</button>
+        </div>
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+            <div class="row">
+                <div class="col-md-9 col-xs-12">
+                    <form role="form" name="leadForm">
+
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="m-b-md">
+                                    <h2>{{lead.workflowInstance.workflow.code}}-{{lead.id}}: {{lead.person.name}}</h2>
+                                </div>
+                                <fieldset>
+                                    <legend style="margin-bottom: 0;">Productos</legend>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="catalogProductLookup"></label>
+                                            <div id="catalogProductLookup" data-lookup="catalogProductLookup" data-ng-model="params.productId">
+                                                <span class="input-group-btn">
+                                                    <button type="button" data-ng-click="addLeadProduct()" class="btn btn-default" style="margin-left: 5px;"><i class="fa fa-plus"></i>&nbsp;Agregar</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width: 300px;">Nombre</th>
+                                                        
+                                                        <th style="width: 30px;"></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr data-ng-repeat="product in lead.products">
+                                                        <td>
+                                                            {{product.productName}}
+                                                        </td>
+                                                        
+                                                        <td>
+                                                            <button data-ng-click="removeLeadProduct(product)" type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr data-ng-show="lead.products.length==0">
+                                                        <td colspan="5">No existen productos asignados a este lead.</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-9">
+                                <fieldset>
+                                    <legend style="margin-bottom: 0;">Formularios</legend>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="crmFormLookup"></label>
+                                            <div id="crmFormLookup" data-lookup="crmFormLookup" data-ng-model="params.formId" filter="only_forms">
+                                                <span class="input-group-btn">
+                                                    <button type="button" data-ng-click="addLeadForm()" class="btn btn-default" style="margin-left: 5px;"><i class="fa fa-plus"></i>&nbsp;Agregar</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width: 300px;">Nombre</th>
+
+                                                        <th style="width: 30px;"></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr data-ng-repeat="form in lead.forms">
+                                                        <td>
+                                                            {{form.formName}}
+                                                        </td>
+
+                                                        <td>
+                                                            <button data-ng-click="removeLeadForm(form)" type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr data-ng-show="lead.forms.length==0">
+                                                        <td colspan="5">No existen formularios asignados a este lead.</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                        
+                           
+                        <div class="row">
+                            <div class="col-md-9">
+                                <system-workflows-tags-lookup data-items="lead.workflowInstance.tags" data-workflow-id="lead.workflowInstance.workflowId" />
+                            </div>
+                        </div>
+                        <!--
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <label for="text">Motivo</label>
+                                        <textarea data-ng-model="lead.text" ckeditor="" class="form-control" id="text" data-ng-ckeditor=""></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                        -->
+                    </form>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <div class="wrapper wrapper-content project-manager">
+                        <h5>Archivos asociados</h5>
+                        <div class="alert alert-info" data-ng-show="!lead.id">Debe guardar el prospecto para poder asociar archivos.</div>
+                        <div class="ibox float-e-margins" data-ng-show="lead.id">
+                            <div class="ibox-content">
+                                <div class="file-manager">
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="text-center">
+                                        <span class="btn btn-primary btn-file btn-block" data-ng-class="{disabled: uploader.isUploading}">
+                                            <span data-ng-switch="uploader.isUploading">
+                                                <i data-ng-switch-when="false" class="fa fa-upload"></i>
+                                                <i data-ng-switch-when="true" class="fa fa-spinner fa-pulse"></i>
+                                            </span>
+                                            <span style="margin-left: 3px;">Asociar archivos</span>
+                                            <input type="file" multiple nv-file-select="" uploader="uploader" data-ng-disabled="uploader.isUploading" data-file-input="" accept="application/pdf" />
+                                        </span>
+                                        <span class="fileupload-process"></span>
+                                    </div>
+                                    <div class="hr-line-dashed"></div>
+                                    <ul class="folder-list" style="padding: 0">
+                                        <li data-ng-repeat="file in lead.folders"><a href=""><i class="fa fa-folder"></i> {{folder.name}}</a></li>
+                                        <li data-ng-repeat="file in lead.files"><a href="" data-ng-click="openFile(file)"><i class="fa fa-file"></i> {{file.name}}</a></li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

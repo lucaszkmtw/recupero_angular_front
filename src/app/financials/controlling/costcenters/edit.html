@@ -1,0 +1,40 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'financials.costcenter' | translate }} <small data-ng-show="costcenter.id">{{costcenter.name}} </small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+                <button type="button" class="btn btn-danger" data-ng-click="delete()" data-ng-show="costcenter.id"><i class="fa fa-trash"></i> {{ 'command.delete' | translate }}</button>
+            <a href="" target="_blank" class="btn btn-primary" data-ng-click="save()"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</a>
+        </div>
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+            <form role="form" >
+          
+                <div class="row margin-bottom-20">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="name">Nombre *</label>
+                            <input type="text" class="form-control" id="name" data-ng-model="costcenter.name" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="currencyId">Moneda *</label>
+                            <div id="currencyId" data-lookup="financialCurrenciesLookup" data-ng-model="costcenter.currencyId" required></div>
+                        </div>
+                    </div>
+                </div>
+          
+            </form>
+        </div>
+    </div>
+</div>

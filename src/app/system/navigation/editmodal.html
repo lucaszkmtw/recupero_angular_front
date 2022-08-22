@@ -1,0 +1,36 @@
+﻿<div class="modal-header dialog-header-confirm">
+    <h4 class="modal-title"><span class="fa fa-tasks">&nbsp;</span>Nuevo</h4>
+</div>
+<div class="modal-body" style="height: 300px;">
+    <form name="newBatchForm">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group form-md-line-input">
+                    <input type="text" class="form-control" id="name" data-ng-model="navigation.name">
+                    <label for="name">Nombre</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group form-md-line-input">
+                    <input type="text" class="form-control" id="state" data-ng-model="navigation.state">
+                    <label for="state">State</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group form-md-lookup">
+                    <label for="systemPermissionLookUp">Permiso</label>
+                    <div id="systemPermissionLookUp" data-system-permission-lookup="" data-ng-model="navigation.permissionId"></div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-success" data-ng-click="saveNavigation()">Guardar</button>
+    <button class="btn btn-primary" data-ng-click="cancelPatient()">Cancelar</button>
+</div>

@@ -1,0 +1,8 @@
+<div data-ng-form="" data-item="item"></div>
+<hr>
+<a data-ng-show="!showJson" data-ng-click="showJson = true">Mostrar el objeto json del formulario</a>
+<a data-ng-show="showJson" data-ng-click="showJson = false">Ocultar el objeto json del formulario</a><br><br>
+<div data-ng-show="showJson">
+    <h4>Contenido del formulario:</h4>
+    <pre>{{ form | json }}</pre>
+</div>

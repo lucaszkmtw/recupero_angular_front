@@ -1,0 +1,46 @@
+[{
+        "campaignId": "1",
+        "sentId": "1",
+        "sentDescription": "Descripción de Envio - 1 ",
+        "mailListName": "Destinatarios Correo 1",
+        "mailTemplateName": "Recepción de formulario: Convocatoria a ideas proyecto sobre energias sustentables de la región sudoeste",
+        "sentDate": "01/07/2017 10:35 AM",
+        "sentStatus": "Enviado"
+    },
+    {
+        "campaignId": "1",
+        "sentId": "2",
+        "sentDescription": "Descripción de Envio - 2 ",
+        "mailListName": "Destinatarios Correo 3",
+        "mailTemplateName": "Recepción de formulario: Convocatoria a PROYECTOS INNOVADORES APLICADOS A NEGOCIOS REGION CENTRO",
+        "sentDate": "05/07/2017 06:48 AM",
+        "sentStatus": "Enviado"
+    },
+    {
+        "campaignId": "1",
+        "sentId": "3",
+        "sentDescription": "Descripción de Envio - 3 ",
+        "mailListName": "Destinatarios Correo 4",
+        "mailTemplateName": "Recepción de formulario: Convocatoria a ideas proyecto sobre energias sustentables de la región sudoeste",
+        "sentDate": "",
+        "sentStatus": "No enviado"
+    },
+    {
+        "campaignId": "1",
+        "sentId": "4",
+        "sentDescription": "Descripción de Envio - 4 ",
+        "mailListName": "Destinatarios Correo 1",
+        "mailTemplateName": "Recepción de formulario: Convocatoria a PROYECTOS INNOVADORES APLICADOS A NEGOCIOS REGION CENTRO",
+        "sentDate": "",
+        "sentStatus": "En proceso"
+    },
+    {
+        "campaignId": "1",
+        "sentId": "5",
+        "sentDescription": "Descripción de Envio - 5 ",
+        "mailListName": "Destinatarios Correo 2",
+        "mailTemplateName": "Pre-Solicitud Widex",
+        "sentDate": "",
+        "sentStatus": "En proceso"
+    }
+]

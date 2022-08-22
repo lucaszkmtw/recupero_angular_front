@@ -1,0 +1,54 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'findm.organismtype' | translate }} <small data-ng-show="organism-type.id">{{organismType.code}} {{organismType.name}}</small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">  
+                    
+            <!--button type="button" class="btn btn-danger" data-ng-click="delete()" data-ng-show="organismType.id"><i class="fa fa-trash"></i> {{ 'command.delete' | translate }}</button--> 
+            <button type="button" class="btn btn-danger" data-ng-click="delete()" data-ng-show="organismType.id"><i class="fa fa-trash"></i> {{ 'command.delete' | translate }}</button>                          
+            <button type="button" data-ng-click="save()" class="btn btn-primary" data-ng-disabled="organismTypeForm.$invalid || !organismTypeForm.$dirty"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</button>
+            <!--a href="" target="_blank" class="btn btn-primary" data-ng-click="save()"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</a-->
+            
+        </div>
+    </div>
+ </div>
+ <div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+            <form role="form" name="organismTypeForm"> 
+                <div class="row margin-bottom-20">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="businessPartnerTypeId">Tipo Código</label>
+                                    <div id="businessPartnerTypeId" data-lookup="businessPartnerTypeLookup" name="businessPartnerTypeId" data-ng-model="organismType.businessPartnerTypeId"  data-ng-disabled="organismType.id != null" required></div>                                    
+                                <span  style="color:red" data-ng-show="organismTypeForm.businessPartnerTypeId.$touched && organismTypeForm.businessPartnerTypeId.$invalid">La Tipo de Código es requerido.</span>                              
+                            </div>
+                        </div>
+                </div>     
+                <div class="row margin-bottom-20">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="code">Código</label>
+                            <input type="text" class="form-control" id="code" name="code" data-ng-model="organismType.code" required>
+                            <span  style="color:red" data-ng-show="organismTypeForm.code.$touched && organismTypeForm.code.$invalid">El Código es requerido.</span>                              
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-bottom-20">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="name">Nombre</label>
+                            <input type="text" class="form-control" id="name" name="name" data-ng-model="organismType.name" required>
+                            <span  style="color:red" data-ng-show="organismTypeForm.name.$touched && organismTypeForm.name.$invalid">El Nombre es requerido.</span>                              
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+ </div>
+ 

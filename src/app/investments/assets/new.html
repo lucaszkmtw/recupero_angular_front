@@ -1,0 +1,166 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'investmentaccounts.new.asset' | translate }} <small>{{account.personName}} </small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+            <button type="button" class="btn btn-primary" data-ng-click="save()"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</button>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="accountBalance">Saldo</label>
+                        <input type="number" min="0.00" step="0.01" class="form-control" data-ng-model="account.balance" data-ng-disabled="true"> 
+                    </div>
+                </div>  
+            </div>
+            <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="assetAmount">Monto de Inversión</label>
+                            <input type="number" step="0.01" class="form-control" data-ng-model="account.assetAmount" data-ng-change="calculateAssetExpiration()"> 
+                        </div>
+                    </div>      
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="assetTerm">Plazo de Inversión</label>
+                            <select name="OS" class="form-control"  data-ng-model="account.assetTerm"  data-ng-change="calculateAssetExpiration()">
+                                <option value="30">30</option> 
+                                <option value="60">60</option> 
+                                <option value="90">90</option>
+                                <option value="180">180</option> 
+                                <option value="360">360</option> 
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="assetExpiration">Fecha vencimiento</label>
+                            <input type="text" class="form-control" data-ng-model="account.assetExpiration" data-ng-disabled="true"> 
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="assetAmount">Saldo al vencimiento</label>
+                            <input type="number" min="0.00" step="0.01" class="form-control" data-ng-model="account.assetExpirationAmount" data-ng-disabled="true"> 
+                        </div>
+                    </div>          
+            </div>
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="currencyId">Moneda</label>
+                        <div id="currencyId" data-lookup="financialCurrenciesLookup" data-ng-model="account.currency.id" data-ng-disabled="true"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="investmentInvestorLookup" text-align="center">Inversor</label>
+                            <div id="investorId" data-lookup="investmentInvestorLookup" data-ng-model="account.investorId"  data-ng-disabled="true" data-ng-change="loadInvestorCommission()" data-ng-readonly=""></div>  
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group" data-ng-init="investorCommission=0.00">
+                            <label for="investmentInvestorCommission">% Interes</label>
+                            <input type="number" min="0.00" class="form-control" data-ng-model="account.investorAssignment" data-ng-change="calculateAssetExpiration()"> 
+                        </div>
+                    </div>        
+                    <div class="col-md-2">
+                        <div class="form-group" data-ng-init="investorCommission=0.00">
+                            <label for="investmentInvestorCommission">Interes</label>
+                            <input type="number" min="0.00" step="0.01" class="form-control" data-ng-model="account.investorAssignmentValue"  data-ng-disabled="true"> 
+                        </div>
+                    </div>              
+            </div>
+
+            <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="investmentManagerLookup">Gestor</label>
+                            <div id="managerId" data-lookup="investmentManagerLookup" data-ng-model="account.managerId"  data-ng-disabled="true" data-ng-change="loadManagerCommission()"></div>  
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group" data-ng-init="managerCommission=0.00">
+                            <label for="investmentManagerCommission">% Comisión</label>
+                            <input type="number" min="0.00" class="form-control" data-ng-model="account.managerAssignment" data-ng-change="calculateAssetExpiration()">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group" data-ng-init="managerCommission=0.00">
+                            <label for="investmentManagerCommission">Comisión</label>
+                            <input type="number" min="0.00" step="0.01" class="form-control" data-ng-model="account.managerAssignmentValue" data-ng-disabled="true">
+                        </div>
+                    </div>
+            </div>
+
+
+            <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="investmentTraderLookup">Trader</label>
+                            <div id="traderId" data-lookup="investmentTraderLookup" data-ng-model="account.traderId"  data-ng-disabled="true" data-ng-change="loadTraderCommission()"></div>  
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group" data-ng-init="traderCommission=0.00">
+                            <label for="investmentTraderCommission">% Comisión</label>
+                            <input type="number" min="0.00" step="0.01" class="form-control" data-ng-model="account.traderAssignment" data-ng-change="calculateAssetExpiration()">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group" data-ng-init="traderCommission=0.00">
+                            <label for="investmentTraderCommission">Comisión</label>
+                            <input type="number" min="0.00" step="0.01" class="form-control" data-ng-model="account.traderAssignmentValue" data-ng-disabled="true">
+                        </div>
+                    </div>
+
+            </div>
+
+            <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="investmentCustodianLookup">Custodio</label>
+                            <div id="custodianId" data-lookup="investmentCustodianLookup" data-ng-model="account.custodianId"  data-ng-disabled="true" data-ng-change="loadCustodianCommission()"></div>  
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group" data-ng-init="custodianCommission=0.00">
+                            <label for="investmentCustodianCommission">% Comisión</label>
+                            <input type="number" min="0.00" step="0.01" class="form-control" data-ng-model="account.custodianAssignment" data-ng-change="calculateAssetExpiration()" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group" data-ng-init="custodianCommission=0.00">
+                            <label for="investmentCustodianCommission">Comisión</label>
+                            <input type="number" min="0.00" step="0.01" class="form-control" data-ng-model="account.custodianAssignmentValue" data-ng-disabled="true">
+                        </div>
+                    </div>
+            </div>
+
+    </div>
+</div>
+
+<style>
+.person-name {
+    display: inline-block;
+    padding: 7px;
+    margin: 0 10px 0 0 !important;
+}
+    .person-name button {
+        margin-left: 10px;
+    }
+</style>

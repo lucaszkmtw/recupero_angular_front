@@ -1,0 +1,52 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2 data-ng-show="category.id">
+            {{ 'catalog.category' | translate }} <small data-ng-show="category.id">{{category.name}})</small>
+        </h2>
+        <h2 data-ng-show="!category.id">
+            {{ 'catalog.category.new' | translate }}
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+            <a href="" target="_blank" class="btn btn-primary" data-ng-click="save()" ><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+            <form role="form" name="companyForm">
+                <div class="row margin-bottom-20">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="name">{{ 'label.name' | translate }}</label>
+                            <input type="text" class="form-control" id="name" data-ng-model="category.name" data-ng-required="true">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row margin-bottom-20">
+                    <div class="col-md-9">
+                        <fieldset>
+                            <legend style="margin-bottom: 0;">Padre</legend>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <!-- <label for="crmFormLookup"></label> -->
+                                    <h2>Seleccione una categoria</h2>
+                                    <div id="catalogCategoriesLookup"  data-on-select="onSelectPlace(value,text)" data-catalog-product-lookup="catalogCategoriesLookup"  data-ng-model="category.parentId"></div>
+                                </div>
+                            </div>
+     
+                        </fieldset>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

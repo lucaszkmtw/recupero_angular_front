@@ -1,0 +1,21 @@
+{
+    "data": [
+      {
+        "id": 1,
+        "name": "Promotor"
+      },
+       {
+        "id": 2,
+        "name": "Inversor"
+      },
+      {
+        "id": 3,
+        "name": "CEO"
+      },
+      {
+        "id": 4,
+        "name": "CTO"
+      }
+    ],
+    "total": 3
+  }

@@ -1,0 +1,84 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'investments.trader' | translate }} <small>{{trader.personName}} </small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+            <button type="button" class="btn btn-danger" data-ng-click="delete()" data-ng-show="trader.id"><i class="fa fa-trash"></i> {{ 'command.delete' | translate }}</button>
+            <button type="button" class="btn btn-primary" data-ng-click="save()"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</button>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+                <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="systemPersonLookup">Persona</label>
+                                <div id="systemPersonLookup" data-lookup="systemPersonLookup" data-ng-model="trader.personId"></div>
+                            </div>
+                        </div>
+                    </div>
+            <div class="row margin-bottom-20">
+                <div class="col-md-3">
+                    <div class="form-group" ng-init="trader.commission='0'">
+                        <label for="commission">{{ 'Porcentaje de comisión' | translate }}</label>
+                        <input type="number" min="0" max="100" step="0.01" value="0" class="form-control" id="commission" data-ng-model="trader.commission">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label >Tags</label>
+                       <input type="text" class="form-control" placeholder="tags" />
+                    </div>
+                </div>
+            </div>
+            <div class="row m-t-sm">
+                <div class="col-lg-12">
+                    <div class="panel blank-panel ui-tab">
+                        <uib-tabset>
+                            <uib-tab heading="Cuentas" active="tab.active" class="">
+                                <table class="table table-stripped">
+                                    <thead>
+                                        <tr>
+                                            <th>Tipo</th>
+                                            <th>Nombre</th>
+                                            <th>Titular</th>
+                                            <th>Gestor</th>
+                                            <th>Custodio</th>
+                                            <th>Número</th>
+                                            <th>Moneda</th>
+                                            <th>Saldo</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr data-ng-repeat="account in manager.businessPartner.accounts.items">
+                                            <td></td>
+                                            <td>{{account.name}}</td>
+                                            <td>Nombre Titular</td>
+                                            <td>Nombre Gestor</td>
+                                            <td>Nombre Custodio</td>
+                                            <td>{{ trader.businessPartner.code}}-{{account.code}}</td>
+                                            <td>{{ _.find(trader.accounts.currencies, { id: account.currencyId}).symbol }} - {{ _.find( trader.businessPartner.accounts.currencies, { id: account.currencyId}).name }}</td>
+                                            <td>{{account.balance | currency }}</td>
+                                            <td><a href="" ng-click="viewCheckingAccount(account.id)"><i class="fa fa-eye"></i></a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </uib-tab>
+                        </uib-tabset>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+﻿<div class="ibox">
+    <div class="ibox-content">
+        <form role="form" name="courseForm">
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <label for="name">{{ 'label.name' | translate }}</label>
+                        <input type="text" class="form-control" id="name" data-ng-model="course.name" required data-ng-maxlength="200">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <label for="code">Código</label>
+                        <input type="text" class="form-control" id="code" data-ng-model="course.code" required data-ng-maxlength="50">
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-bottom-20">
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <label for="description">Descripción</label>
+                        <textarea id="description" data-ng-model="course.description" class="form-control" style="height: 80px; width: 100%;" ckeditor="editorOptions"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-primary" data-ng-click="save()" data-ng-disabled="courseForm.$invalid || !courseForm.$dirty"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

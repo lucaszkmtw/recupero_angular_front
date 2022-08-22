@@ -1,0 +1,84 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'findm.prescription' | translate }} <small data-ng-show="organism.id">{{prescription.normativeId}} {{prescription.numberOfDays}}  </small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action"> 
+            <button type="button" class="btn btn-danger" data-ng-click="delete()" data-ng-show="prescription.id"><i class="fa fa-trash"></i> {{ 'command.delete' | translate }}</button>
+            <button type="button" data-ng-click="save()" class="btn btn-primary" ><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</button>           
+            <!--a href="" target="_blank" class="btn btn-primary" data-ng-click="save()"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</a-->
+        </div>
+    </div>
+ </div>
+
+ <div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+            <form role="form" name="prescriptionForm">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="normativeId">Normativa</label>
+                                <div id="normativeId" data-lookup="normativeLookup" name="normativeId" data-ng-model="prescription.normativeId" required></div>
+                            <span  style="color:red" data-ng-show="prescriptionForm.normativeId.$touched && prescriptionForm.normativeId.$invalid">La normativa es requerida.</span>                              
+                        </div>
+                    </div>
+                </div>              
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="numberOfDays">Prescripción</label>
+                            <input type="text" class="form-control" id="numberOfDays" name="numberOfDays" data-ng-model="prescription.numberOfDays" data-ui-mask="999"required>
+                            <span style="color:red" data-ng-show="prescriptionForm.numberOfDays.$touched && prescriptionForm.numberOfDays.$invalid ">La Prescripción es requerida.</span>                       
+                        </div>
+                    </div>
+                </div>
+                <div class="row">                    
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="startDate">Desde</label>
+                        <div id="startDate" data-date-picker="" data-ng-model="prescription.startDate" required></div>
+                        </div> 
+                    </div> 
+                    <div class="col-md-3">
+                        <div class="form-group">
+                        <label for="endDate">Hasta</label>
+                        <div id="endDate" data-date-picker="" data-ng-model="prescription.endDate" required></div>
+                        </div> 
+                    </div> 
+                </div>                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="suspends">Suspende</label>
+                            <input id="suspends" name="suspends" data-ng-model="prescription.suspends" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="interrupt">Interrumpe</label>
+                            <input id="interrupt" name="interrupt" data-ng-model="prescription.interrupt" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="observations">Observaciones</label>
+                            <textarea id="observations" data-ng-model="prescription.observations" class="form-control" style="height: 120px; width: 100%;"></textarea>
+                        </div>
+                    </div>
+                </div>
+                
+            
+            </form>
+        </div>
+    </div>
+ </div>
+
+ 

@@ -1,0 +1,47 @@
+
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+
+            {{ 'findm.creditor' | translate }} <small data-ng-show="creditor.id"> {{creditor.typeid}} {{creditor.personName}} </small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="title-action">     
+                <button type="button" class="btn btn-danger" data-ng-click="delete()" data-ng-show="creditor.id"><i class="fa fa-trash"></i> {{ 'command.delete' | translate }}</button>       
+                <a href="" target="_blank" class="btn btn-primary" data-ng-click="save()"data-ng-disabled="creditorForm.$invalid || !creditorForm.$dirty"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</a>
+        </div>
+    </div>
+ </div>
+ 
+  <div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+            <form role="form" name="creditorForm">
+                  <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="systemPersonId">Acreedor</label>
+                                <div id="systemPersonId" data-lookup="systemPersonLookup" data-ng-model="creditor.personId" data-ng-disabled="creditor.id != null"></div>
+                            </div>
+                       </div>
+                   </div>
+                 
+            </form>
+            <div class="row">
+                <div class="col-md-12">
+                        <div class="form-group" ng-show="creditor.id>0">
+                            <label><b>Movimientos en cuenta</b></label>
+                            <business-partners-account-entries-grid data-account-id="accountId" ></business-partners-account-entries-grid>            
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+ </div>
+ 

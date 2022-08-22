@@ -1,0 +1,19 @@
+﻿<div class="modal-header dialog-header-confirm">
+    <h4 class="modal-title"><span class="fa fa-tasks">&nbsp;</span>Nuevo Prestador Médico</h4>
+</div>
+<div class="modal-body" style="height: 300px;">
+    <ng-form role="form" name="searchPersonForm" data-ng-show="params.step==1">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="systemPersonLookup">Persona</label>
+                    <div id="systemPersonLookup" data-lookup="systemPersonLookup" data-ng-model="healthcareprovider.personId"></div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" data-ng-click="cancel()">Cancelar</button>
+            <button type="button" class="btn btn-success" data-ng-click="save()">Guardar</button>
+        </div>
+    </ng-form>
+</div>

@@ -1,0 +1,103 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'system.role' | translate }} <small>{{role.name}}</small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+            <a href="" target="_blank" class="btn btn-primary" data-ng-click="save()"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</a>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+            <form role="form" name="roleForm">
+                <div class="row margin-bottom-20">
+                    <div class="col-md-4">
+                        <div class="form-group form-md-line-input">
+                            <label for="name">Nombre</label>
+                            <input type="text" class="form-control" id="name" data-ng-model="role.name">
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-bottom-20">
+                    <div class="col-md-4">
+                        <div class="form-group form-md-line-input">
+                            <label for="code">Descripción</label>
+                            <input type="text" class="form-control" id="code" data-ng-model="role.description">
+                        </div>
+                    </div>
+                </div>
+
+                <div data-ng-if="!role.id">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="alert alert-info">Para poder asignar usuarios y permisos el rol debe previamente ser guardado.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div data-ng-if="role.id">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <uib-tabset class="tabbable">
+                                <uib-tab>
+                                    <uib-tab-heading data-translate="system.users">Users</uib-tab-heading>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <table style="width: 100%;">
+                                                <tr>
+                                                    <td style="width: 50%; padding-top: 10px;">
+                                                        <h4>Disponibles <small>({{params.unassignedSelection.length}} items seleccionados)</small></h4>
+                                                        <div data-id="unAssignedUsersGrid" data-system-role-users-grid="" data-view="2" data-role-id="role.id" data-selected-items="params.unassignedSelection"></div>
+                                                    </td>
+                                                    <td style="width: 80px;">
+                                                        <button type="button" class="btn btn-default" title="Asignar" data-ng-click="addUsers()" data-ng-disabled="params.unassignedSelection.length==0"><i class="fa fa-chevron-right"></i></button>
+                                                        <br />
+                                                        <button type="button" class="btn btn-default" title="Quitar" data-ng-click="removeUsers()" data-ng-disabled="params.assignedSelection.length==0"><i class="fa fa-chevron-left"></i></button>
+                                                    </td>
+                                                    <td style="width: 50%; padding-top: 10px;">
+                                                        <h4>Asignados <small>({{params.assignedSelection.length}} items seleccionados)</small></h4>
+                                                        <div data-id="assignedUsersGrid" data-system-role-users-grid="" data-view="1" data-role-id="role.id" data-selected-items="params.assignedSelection"></div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </uib-tab>
+                                <uib-tab data-select="params.showPermissions = true">
+                                    <uib-tab-heading data-translate="system.permissions">Permissions</uib-tab-heading>
+                                    <div class="row" data-ng-if="params.showPermissions">
+                                        <div class="col-md-12">
+                                            <table style="width: 100%;">
+                                                <tr>
+                                                    <td style="width: 50%; padding-top: 10px;">
+                                                        <h4>Disponibles <small>({{params.unassignedPermissions.length}} items seleccionados)</small></h4>
+                                                        <div data-id="unAssignedPermissionsGrid" data-system-role-permissions-grid="" data-view="2" data-role-id="role.id" data-selected-items="params.unassignedPermissions"></div>
+                                                    </td>
+                                                    <td style="width: 80px;">
+                                                        <button type="button" class="btn btn-default" title="Asignar" data-ng-click="addPermissions()" data-ng-disabled="params.unassignedPermissions.length==0"><i class="fa fa-chevron-right"></i></button>
+                                                        <br />
+                                                        <button type="button" class="btn btn-default" title="Quitar" data-ng-click="removePermissions()" data-ng-disabled="params.assignedPermissions.length==0"><i class="fa fa-chevron-left"></i></button>
+                                                    </td>
+                                                    <td style="width: 50%; padding-top: 10px;">
+                                                        <h4>Asignados <small>({{params.assignedPermissions.length}} items seleccionados)</small></h4>
+                                                        <div data-id="assignedPermissionsGrid" data-system-role-permissions-grid="" data-view="1" data-role-id="role.id" data-selected-items="params.assignedPermissions"></div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </uib-tab>
+                            </uib-tabset>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,64 @@
+﻿<table class="table-striped">
+    <tr>
+        <th>Id</th>
+        <th>Nombre</th>
+    </tr>
+    <tr data-ng-repeat="activity in workflow.activities">
+        <td><a href="#" data-ng-click="manageActivity(activity.id)">Administrar</a> - {{activity.id}}</td>
+        <td>{{activity.name}}</td>
+    </tr>
+</table>
+
+<div class="row m-t-sm" data-ng-if="selectedActivity">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12">Roles asignables en la actividad: {{selectedActivity.name}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="input-group panel-compact">
+                            <div id="roleId" data-lookup="systemRoleLookup" data-ng-model="params.roleId"></div>
+                            <span class="input-group-btn" style="padding-right: 5px;">
+                                <button type="button" data-ng-disabled="!params.roleId" data-ng-click="addWorkflowActivityRole()" class="btn btn-sm btn-default">
+                                    <i class="fa fa-plus"></i>&nbsp;Agregar Rol
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div data-system-workflows-workflow-activity-roles-grid="" data-activity="selectedActivity" data-on-selected="manageActivityRole(activityRoleId)"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6" data-ng-if="!selectedActivityRole">
+                <div class="alert alert-info">Debe seleccionar un rol asignable para ver los permisos.</div>
+            </div>
+            <div class="col-md-6" data-ng-if="selectedActivityRole">
+                <div class="row">
+                    <div class="col-md-12">Permisos asignados al rol {{selectedActivityRole.roleName}} en la actividad: {{selectedActivity.name}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="input-group panel-compact">
+                            <div id="permissionRoleId" data-lookup="systemRoleLookup" data-ng-model="params.permissionRoleId"></div>
+                            <span class="input-group-btn" style="padding-right: 5px;">
+                                <button type="button" data-ng-disabled="!params.permissionRoleId" data-ng-click="addWorkflowActivityRole()" class="btn btn-sm btn-default">
+                                    <i class="fa fa-plus"></i>&nbsp;Agregar Permiso
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div data-system-workflows-workflow-activity-role-permissions-grid="" data-data="selectedActivityRole.permissions"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

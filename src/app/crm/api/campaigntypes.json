@@ -1,0 +1,17 @@
+[{
+        "campaignTypeId": "0",
+        "campaignTypeName": "Todas"
+    },
+    {
+        "campaignTypeId": "1",
+        "campaignTypeName": "Landing"
+    },
+    {
+        "campaignTypeId": "2",
+        "campaignTypeName": "Emailing"
+    },
+    {
+        "campaignTypeId": "3",
+        "campaignTypeName": "Social"
+    }
+]

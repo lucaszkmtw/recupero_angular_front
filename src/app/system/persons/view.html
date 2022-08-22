@@ -1,0 +1,21 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'person' | translate }} <small>{{person.personInfo.firstName}} {{person.personInfo.lastName}}</small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+                <!-- <a href="" target="_blank" class="btn btn-primary" data-ng-click="edit()"><i class="fa fa-pencil-square-o"></i> {{ 'command.edit' | translate }} </a> -->
+                <a ng-if="!isEnableEditTemplate" href="" target="_blank" class="btn btn-info" data-ng-click="editProfile()"><i class="fa fa fa-address-card-o"></i> Editar Perfil </a> 
+                <a ng-if="isEnableEditTemplate" href="" target="_blank" class="btn btn-primary" data-ng-click="saveProfile()"><i class="fa fa fa-address-card-o"></i> Guardar Perfil </a> 
+                <a href="" target="_blank" class="btn btn-primary" data-ng-click="edit()"><i class="fa fa-pencil-square-o"></i> Editar datos </a> 
+        </div>
+    </div>
+</div>
+<div ng-if="person">
+
+        <system-layouts-builder-view   data-enable-edit="isEnableEditTemplate" twoway data-ng-model="person" data-template-html="app/system/persons/templates/personprofile.template.html"></system-layouts-builder-view>
+
+</div>

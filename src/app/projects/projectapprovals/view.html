@@ -1,0 +1,206 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-6">
+        <h2 data-ng-show="document.id">
+            {{ document.documentType.name }} <small data-ng-show="document.id">{{document.number | documentNumber}}</small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-6">
+        <div class="title-action">
+            <a href="" target="_blank" class="btn btn-white" data-ng-show="!documentOptions.edit && documentOptions.canEdit()" data-ng-click="edit()"><i class="fa fa-pencil"></i> {{ 'command.edit' | translate }}</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="row">
+            <div class="col-md-12 bg-white">
+                <div class="animated fadeInRight" data-ng-if="options.edit===false">
+                    <div class="row">
+                        <div class="col-sm-6"></div>
+                        <div class="col-sm-6 text-right">
+                            <h4>No. <span class="text-navy">{{ document.documentType.shortName }} {{document.number | documentNumber}}</span></h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <span>De:</span>
+                            <address>
+                                <strong>{{document.issuer.name}}</strong><br>
+                                {{document.issuer.addresses[0].address.name}}<br>
+                                <abbr title="Teléfono" data-ng-show="document.issuer.phones.length>0">T:</abbr> {{document.issuer.phones[0].number}}
+                            </address>
+                        </div>
+
+                        <div class="col-sm-6 text-right">
+                            <span>A:</span>
+                            <address>
+                                <strong>{{document.receiver.name}}</strong><br>
+                                {{document.receiver.addresses[0].address.name}}<br>
+                                <abbr title="Teléfono" data-ng-show="document.receiver.phones.length>0">T:</abbr> {{document.receiver.phones[0].number}}
+                            </address>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <strong>Estado:</strong><span class="label label-primary" style="font-size: 12px; margin-left: 5px;">{{documentStatus.name}}</span>
+                            <span class="m-l-sm" data-ng-show="document.approvalWorkflowInstance && !document.approvalWorkflowInstance.isTerminated && !document.approvalWorkflowInstance.currentWorkflowActivity.isFinal">
+                                <strong>Asignado a:</strong>
+                                <span style="font-size: 12px; margin-left: 5px;">
+                                    <span data-ng-repeat="assignedRole in document.approvalWorkflowInstance.assignedRoles" data-ng-show="!claim.workflowInstance.isTerminated"><span class="label label-default" style="font-size: 12px;">{{assignedRole.roleName}}</span></span>
+                                </span>
+                            </span>
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            <span><strong>Fecha:</strong> {{document.documentDate | amDateFormat: 'L'}}</span><br>
+                            <span data-ng-show="document.voidDate"><strong>Fecha Vencimiento:</strong> {{document.voidDate | amDateFormat: 'L' }}</span>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive m-t">
+                        <table class="table invoice-table">
+                            <thead>
+                                <tr>
+                                    <th>Concepto</th>
+                                    <th>Cantidad</th>
+                                    <th>Importe Unitario</th>
+                                    <th>Subtotal</th>
+                                    <th>Iva</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-ng-repeat="item in document.items">
+                                    <td>
+                                        <div><strong>{{item.product.name}}</strong></div>
+                                        <!--<small>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</small>-->
+                                    </td>
+                                    <td>{{item.quantity}}</td>
+                                    <td>{{item.unitPrice | currency}}</td>
+                                    <td>{{item.subTotal}}</td>
+                                    <td>{{item.vat | currency}}</td>
+                                    <td>{{item.total | currency}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /table-responsive -->
+
+                    <table class="table invoice-total">
+                        <tbody>
+                            <tr>
+                                <td><strong>Sub Total :</strong></td>
+                                <td>{{ document.netAmount | currency }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>IVA :</strong></td>
+                                <td>{{ document.vatAmount | currency }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>TOTAL :</strong></td>
+                                <td>{{ document.totalAmount | currency }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="well m-t">
+                        <strong>Observaciones</strong>
+                        {{document.comments}}
+                    </div>
+
+                    <uib-tabset style="margin-top: 10px;">
+                        <uib-tab heading="Mensajes" active="tab.active" class="dsads">
+                            <div data-message-thread="" data-messages="document.messages" data-service-url="messageServiceUrl"></div>
+                        </uib-tab>
+
+                        <uib-tab heading="Historial">
+                            <system-workflow-instance-history data-ng-model="document.approvalWorkflowInstance"></system-workflow-instance-history>
+                        </uib-tab>
+                        <uib-tab heading="Archivos relacionados" select="selectLinkedFiles()">
+                            <div data-ng-show="!document.id" class="m-t-sm alert alert-info">Debe guardar el documento primero para poder asociar archivos.</div>
+                            <div class="row m-t-sm" data-ng-show="document.id">
+                                <div class="col-md-12">
+                                    <div class="file-manager">
+                                        <div class="text-center">
+                                            <div data-ng-show="uploader.isUploading">
+                                                <div class="row" data-ng-repeat="item in uploader.queue">
+                                                    <div class="col-sm-12">
+                                                        <uib-progressbar class="progress-striped" value="item.progress" type="">{{item.progress}}%</uib-progressbar>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="btn btn-primary btn-file btn-block" data-ng-show="!uploader.isUploading">
+                                                <i class="fa fa-upload"></i>
+                                                <span style="margin-left: 3px;">Asociar archivos</span>
+                                                <input type="file" multiple nv-file-select="" uploader="uploader" data-ng-disabled="uploader.isUploading" data-file-input="" />
+                                            </div>
+                                        </div>
+                                        <div class="hr-line-dashed"></div>
+                                        <ul class="folder-list" style="padding: 0">
+                                            <li data-ng-repeat="folder in document.folders"><a href=""><i class="fa fa-folder"></i> {{folder.name}}</a></li>
+                                            <li data-ng-repeat="file in document.files"><a href="" data-ng-click="openFile(file)"><i class="fa fa-file"></i> {{file.name}}</a></li>
+                                        </ul>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </uib-tab>
+                        <uib-tab heading="Autorizaciones" data-ng-show="document.status>0">
+                            <div class="col-lg-12">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Usuario / Rol</th>
+                                            <th>Fecha asignación</th>
+                                            <th>Estado</th>
+                                            <th>Fecha autorización</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr data-ng-repeat-start="approval in document.approvalWorkflowInstance.approvals">
+                                            <td>
+                                                {{approval.userName}}{{approval.roleName}}
+                                            </td>
+                                            <td>
+                                                {{approval.createDate | amDateFormat: 'L LT' }}
+                                            </td>
+                                            <td>{{ ::(('status.' + approval.status) | lowercase) | translate}}</td>
+                                            <td>
+                                                <span data-ng-show="approval.date">{{approval.date | amDateFormat: 'L LT' }}</span>
+                                            </td>
+                                        </tr>
+                                        <tr data-ng-show="showingDetails" data-ng-repeat-end="">
+                                            <td colspan="4">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        Proveedor: <span data-ng-show="practice.vendorId"><a data-ui-sref="app.procurement.vendoredit({ vendorId: practice.vendor.id })">{{practice.vendor.person.name}}</a></span>
+                                                        <span data-ng-show="!practice.vendorId">No posee proveedor asignado</span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        Fecha inicio:
+                                                        <span data-ng-show="practice.fromDate">{{practice.fromDate | amDateFormat: 'L' }}</span>
+                                                        <span data-ng-show="!practice.fromDate">Sin asignar</span>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        Fecha fin:
+                                                        <span data-ng-show="practice.toDate">{{practice.toDate | amDateFormat: 'L' }}</span>
+                                                        <span data-ng-show="!practice.toDate">Sin asignar</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </uib-tab>
+                    </uib-tabset>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

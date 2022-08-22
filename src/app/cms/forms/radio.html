@@ -1,0 +1,18 @@
+<div class="row">
+    <div class="col-md-12">
+        <label class="headersmalltext" ng-bind-html="field.name | html"></label><span data-ng-show="field.required=='true' && !field.value">&nbsp;*</span>
+        <div style="margin-top: 5px;">
+            <div data-ng-repeat="option in field.options" class="row">
+                <div class="col-md-12">
+                    <label for="{{field.id}}-{{option.value}}">
+                        <input type="radio" id="{{field.id}}-{{option.value}}" name="{{field.id}}" data-ng-value="option.value" data-ng-model="field.value" data-ng-required="{{field.required=='true'}}"/>
+                        &nbsp;{{option.text}}
+                    </label>
+                    <div data-ng-if="option.allowComments=='true'">
+                        <textarea class="form-control" name="{{field.id}}-comments" data-ng-model="option.comments" data-ng-required="field.value==option.value" style="margin-top: 5px; margin-bottom: 5px;"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

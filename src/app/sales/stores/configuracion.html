@@ -1,0 +1,872 @@
+  
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="col-lg-8">
+		<h2>
+			Configuracion de la tienda<small></small>
+		</h2>
+		<div ncy-breadcrumb class="page-breadcrumb"></div>
+	</div>
+<!-- 	<div class="col-lg-4">
+		<div class="title-action">
+			<button type="button" class="btn btn-primary" data-ng-click="save()"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</button>
+		</div>
+	</div> -->
+</div>
+
+<div class="wrapper wrapper-content ng-scope">
+	<div class="ibox">
+		<div class="ibox-content">  
+		<uib-tabset active="activeForm1"> 
+
+			<uib-tab index="00" heading="General">
+						    
+				<uib-tabset active="activeForm">
+					<uib-tab index="0" heading="Informacion General">
+						<div class="form-group form-md-lookup">
+							<label>Nombre de la tienda</label>
+							<input type="text" class="form-control" required ng-model="model.name"/>
+						</div>
+						<div class="form-group form-md-lookup">
+							<label>Fundación</label>
+							<input type="text" class="form-control" required ng-model="model.name"/>
+						</div>
+						<div class="form-group form-md-lookup">
+							<label>Ubicación</label>
+							<input type="text" class="form-control" required ng-model="model.name"/>
+						</div>
+						<div class="form-group form-md-lookup">  
+							<label>Descripción</label>
+							<input type="text" class="form-control" required ng-model="model.name"/>
+						</div>
+						<div class="form-group form-md-lookup">
+							<label>E-mails de notificaciones</label>
+							<input type="text" class="form-control" required ng-model="model.name"/>
+							<span class="help-block"><small>A estas direcciones se enviarán notificaciones y avisos.<br>Podés ingresar todas las que quieras separadas por coma,<br>ej: email1@example.com, email2@example.com, email3@example.com.</small></span>
+						</div>
+						<div class="form-group form-md-lookup">
+							<label>Lenguaje de la tienda</label>
+							<select class="form-control" name="repeatSelect" id="repeatSelect" ng-model="data.model">
+								<option ng-repeat="option in data.availableOptions" value="{{option.id}}">{{option.name}}</option>
+							</select>
+						</div>
+					</uib-tab>
+
+					
+					<uib-tab index="1" heading="Perfil">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<div class="form-group">
+										<label for="text">Biografia</label>
+										<div>	
+											<textarea data-ng-model="stores.text" ckeditor="" class="form-control" id="text" data-ng-ckeditor=""></textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="container">	
+								<div class="col-md-4">                        
+									<label>Cambiar Avatar</label>
+									<input type="file" name="filedata" accept="image/*" class="btn enu-uploader-fileinput">
+										<!--div class="btn btn-primary btn-file" data-ng-show="!uploader.isUploading">
+										<i class="fa fa -upload"></i>
+										<input type="file" multiple nv-file-select="" uploader="uploader" data-ng-disabled="uploader.isUploading" data-file-input="" class="label-info" /-->
+								</div>
+							</div>  
+						</div><br>
+					
+						<div class="row">                        
+							<div class="col-md-12">                        
+								<label>BANNERS</label><br><br>
+								<div class="col-md-5">
+								<div class="enu-uploader" id="profile-banner-uploader">
+										<span class="btn btn-primary fileinput-button enu-uploader-filebtn">
+											<i class="glyphicon glyphicon-plus"></i>
+											<span>Seleccionar imagen...</span>
+											<input type="file" name="filedata" accept="image/*" class="btn enu-uploader-fileinput">    </span>
+										<div class="progress enu-uploader-progress">
+											<mat-progress-bar mode="indeterminate"></mat-progress-bar>
+											<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%"></div>
+										</div>
+									
+										<div class="enu-uploader-result alert alert-danger hide"></div>
+										<div id="enu-uploader-list-item">
+											<div class="enu-uploader-list-item hide">
+												<img src="">
+												<a class="delete-btn">×</a>
+											</div>
+										</div>
+									</div>
+								</div>
+
+									<div class="col-md-9">
+											<div class="form-group">
+												<label class="col-md-4 control-label" for="profile_slider_speed">Velocidad del slider</label>                <div class="col-md-4">
+													<div class="input-group">
+														<input type="number" id="profile_slider_speed" name="profile_slider_speed" value="5" class="form-control input-md" min="0" step="any">                        <span class="input-group-addon">segundos</span>
+													</div>
+												</div>
+											</div>
+										</div>
+
+
+										<div class="panel-body">
+												<div class="col-md-4">
+												<img src="https://dev.enubila/php/media/files/mrodriguez/profile/banner_38f93f7318.png">
+												</div>
+												<div class="col-md-8">
+													<fieldset>
+													<div class="form-group">
+														<label class="col-md-3 control-label" for="url_38f93f7318">Link a</label>                    <div class="col-md-9">
+														<input type="text" id="url_38f93f7318" name="slide[38f93f7318][url]" value="" class="form-control autocomplete-link" style="">
+														<div class="label-selected-autocomplete selected-local-link">
+															<span></span>
+															<a class="close unselect-local-link">×</a>
+														</div>
+									
+														<div class="checkbox">
+															<label>
+															<input type="checkbox" name="slide[38f93f7318][new-tab]" value="1">                          Abrir en una pestaña nueva                        </label>
+														</div>
+														</div>
+													</div>
+									
+													<div class="form-group">
+														<label class="col-md-4 control-label" for="button1id">&nbsp;</label>
+														<div class="col-md-2 pull-right">
+														<button name="delete" class="btn btn-danger btn-sm btn-delete-slider" data-index="38f93f7318"><i class="glyphicon glyphicon-trash"></i></button>                    </div>
+													</div>
+									
+													</fieldset>
+												</div>
+											</div>
+								
+							</div>
+						</div>
+					</uib-tab>
+
+
+					<uib-tab index="2" heading="Modals">
+							<div class="row">
+								<div id="boton" style="float: right;">
+									<button class="btn btn-primary ng-binding" >Nuevo Modal</button>
+								</div>
+								<div class="col-md-12">
+									<div class="form-group form-md-lookup">
+										<label>Nombre</label>
+										<input class="form-control" type="text" class="" required ng-model="model.name"/>
+										<span class="help-block"><small>Nombre privado, no se mostrará en la tienda</small></span>			
+									</div>
+									<div class="form-group form-md-lookup">
+										<label>Titulo</label>
+										<input type="text" class="form-control" required ng-model="model.titulo"/>
+									</div>
+									<div class="form-group form-md-lookup">
+										<input type="checkbox" required ng-model="cerrar" ng-checked="true" />
+										<label>Permitir Cerrar</label>
+									</div>
+									<div class="form-group form-md-lookup" >
+										<label>Tipo:&nbsp;</label>
+											<input class="radio-inline" type="radio" ng-model="model.tipo"  value="login" ng-checked="true" /> Login / Registro
+											<input class="radio-inline" type="radio" ng-model="model.tipo" value="personalizado" /> Personalizado
+											<input class="radio-inline" type="radio" ng-model="model.tipo" value="embebido" /> Embebido
+									</div>
+									<div ng-switch="model.tipo">
+										<div ng-switch-when="login">
+											<label>Mensaje</label>
+											<input type="text" class="form-control" required ng-model="model.mensaje"/>
+										</div><br>
+										<div ng-switch-when="personalizado">
+											<label for="text">Contenido</label>
+										<div>	
+											<textarea data-ng-model="stores.text" ckeditor="" class="cke_toolbox" id="text" data-ng-ckeditor=""></textarea>
+										</div>
+										</div><br>
+										<div ng-switch-when="embebido">
+											<label for="text">Codigo del Embebido</label>
+											<div>	
+											<textarea class="form-control" id="text" ></textarea>
+											</div>
+										</div><br>
+									</div>
+									
+									<div class="form-group form-md-lookup col-md-4">
+										<div class="col-md-4" style="width:100%">
+											<label>Mostrar en Pantallas</label>	
+										</div>
+										<div class="col-md-7" ng-repeat="pantalla in pantallas">
+											<div class="action-checkbox">
+												<input id="{{pantalla.name}}" type="checkbox" value="{{pantalla.name}}" ng-checked="selection.indexOf(pantalla.name) > -1" ng-click="toggleSelection(pantalla.name)" />
+												<label for="{{pantalla.name}}"><br></label>
+													{{pantalla.name}}<br>
+											</div>	
+										</div>
+										<br><span class="help-block col-md-7"><small>Esperar <input type="text" value="0" size="2" class="form-control-md"/> segundos antes de abrir el modal</small></span>										
+									</div>
+																			
+									<div class="col-md-6">
+										<div class="col-md-3">
+											<label>Frecuencia</label>
+										</div>
+										<div class="col-md-8">
+											<input type="radio" ng-model="model.frecuencia" value="1" checked/> Siempre </br>
+											<input type="radio" ng-model="model.frecuencia" value="2" /> Una sola de vez por sesion </br>
+											<input type="radio" ng-model="model.frecuencia" value="3"/> Mostrar cada <input type="text" value="0" size="2" class="form-control-md" /> 
+											<select name="repeatSelect" id="repeatSelect" ng-model="data1.model">
+												<option class="form-control-md" ng-repeat="option in data1.availableOptions" value="{{option.id}}" size="6">{{option.name}}</option>
+											</select></br>
+										</div>
+									</div>
+										
+								<div class="col-md-12">
+										<label>Mostrar al realizar acciones</label>
+										<div ng-repeat="accion in acciones"> 
+											<div class="action-checkbox">
+												<input id="{{accion.name}}" type="checkbox" value="{{accion.name}}" ng-checked="selection.indexOf(accion.name) > -1" ng-click="toggleSelection(accion.name)" />
+												<label for="{{accion.name}}"></label>
+												{{accion.name}}
+											</div>												
+										</div>
+								</div><br><br>
+								
+								<div class="col-md-12">
+									<br><label> Seleccionar Productos / Categorias </label>
+									<div class="alert alert-info">
+										<p>Seleccione en qué interiores de productos o categorías desea que se apliquen las configuraciones.</p>
+										<p>Si no hay productos seleccionados, se aplicará la configuración a todos los productos.</p>
+										<p>Si no hay categorías seleccionadas, se aplicará la configuración a todas las categorías.</p>
+									</div>
+								
+								
+								
+									<input type="text" name="" id="" ng-model="model.productos"  class="form-control" >
+									<a href="http://">Remover todos</a>
+
+								</div>
+
+								<div class="col-md-12">
+									<label>Estado</label>
+									<select name="Select" id="Select" ng-model="model.estado" class="form-control">
+										<option ng-repeat="option in estado.availableOptions" value="{{option.id}}" >{{option.name}}</option>
+									</select></br>
+
+								</div>
+
+
+								<div class="col-md-12" style:"">
+									<button type="submit">Guardar</button>
+									<a href="">Borrar</a>
+								</div>
+							</div>	
+						</div>	
+					</uib-tab>					
+ 
+					<uib-tab index="3" heading="Información Fiscal">
+						<div class="row">
+							<div class="col-md-7 form-group form-md-lookup">
+								<label>Descripción</label>
+								<textarea class="form-control" id="text"  ng-model="" ></textarea>
+							</div>
+							<div>
+								<button class="btn btn-primary" type="submit">Guardar</button>
+							</div>
+						</div>
+					</uib-tab>
+
+					<uib-tab index="4" heading="Código Analytics">
+							<div class="row">
+								<div class="col-md-12 form-group form-md-lookup">
+									<textarea class="form-control" id="text"  ng-model="" ></textarea>
+									<span class="help-block"><small>Este código se insertará justo antes del cierre del '<body>' </small></span>
+								</div>
+								<div>
+									<button type="submit" class="btn btn-primary" >Guardar</button>										
+								</div>
+
+							</div>
+					</uib-tab>
+
+					<uib-tab index="5" heading="Metodos de Pago">
+						<div class="row">
+								<div class="col-md-12 form-group form-md-lookup">
+									<input type="checkbox" required ng-model="" ng-checked="true" />
+									<label>A convenir</label>
+								</div>
+
+								
+									<div>
+											<div class="title">
+													<input type="checkbox" required ng-model="model.nombre"  ng-disabled="true"/>
+													<label for="mp_status"><img src="https://dev.enubila/php/assets/images/mercadopago.gif" alt="MercadoPago"></label>
+											</div>
+										<label>Client ID:</label>
+										<input class="form-control" type="text" class="" required ng-model="model.name" value="1"/>
+										<label>Client Secret:</label>
+										<input class="form-control" type="text" class="" required ng-model="model.name" value="1"/>
+										<label>Conseguir las claves en</label> <a href="https://www.mercadopago.com/mla/herramientas/aplicaciones">www.mercadopago.com</a>
+									</div>
+								
+								<div>
+										<div class="title">
+												<input type="checkbox" required ng-model="model.nombre"  ng-disabled="true"/>
+												<img src="https://dev.enubila/php/assets/images/dineromail.gif" alt="DineroMail">
+										</div>
+									
+									<label>E_Comercio:</label>
+									<input class="form-control" type="text" class="" required ng-model="model.name" value="1"/>
+								</div>
+								
+
+								<div>
+									<div class="title">
+										<input type="checkbox" required ng-model="model.nombre"  ng-disabled="true"/>
+										<label for="cac_status">ClickACredit</label>
+									</div>
+									<label>Client ID:</label>
+									<input class="form-control" type="text" class="" required ng-model="model.name" value="1"/>
+									<label>Client Secret:</label>
+									<input class="form-control" type="text" class="" required ng-model="model.name" value="1"/>
+									<label>Conseguir las claves en</label> <a href="https://www.mercadopago.com/mla/herramientas/aplicaciones">www.mercadopago.com</a>
+								</div>
+						</div>
+					</uib-tab>
+
+					<uib-tab index="6" heading="Lógistica">
+							<div class="row">
+								<div class="col-md-12 form-group form-md-lookup">
+									<h3>Dirección de la tienda <a class="small link" data-target="div_form_data">ocultar</a></h3>
+									<div class="alert alert-info">
+										<p>Esta información se mostrará al comprador si selecciona "Retira por tienda" como método de envío y se utilizará para calcular los costos de envío.</p>
+									</div>
+									<hr>
+									<h3>Configuración de Métodos de envío <a class="small link" data-target="div_config">ocultar</a></h3>
+								
+									<div class="form-group form-md-lookup">Cantidad de items por bulto:<input type="text" class="form-control" name="items_per_bulto" value="1"></div>
+									<div class="form-group form-md-lookup">
+											<input type="checkbox" required ng-model="model.nombre" ng-checked="true" ng-disabled="true"/>
+											<label>A Convenir</label>
+									</div>
+									<div class="form-group form-md-lookup">
+											<input type="checkbox" required ng-model="model.nombre"/>
+											<label>Retira por Tienda</label>
+									</div>
+									<br>
+									<br>
+									<strong>Métodos de envío</strong>
+									<div class="row">
+										<a id="add_option" class="link">+ Agregar método de envío</a>
+									</div>
+								
+									<hr>
+								</div>
+							</div>
+					</uib-tab>
+				
+			
+				</uib-tabset>
+			</uib-tab>
+			
+			<uib-tab index="01" heading="Diseño">
+				<uib-tabset>
+					<uib-tab index="010" heading="General">
+						<div class="row">
+								<div class="col-md-12 form-group form-md-lookup alert alert-info">
+									<p>Ingrese su logo para mostrar en la cabecera del catálogo</p>
+								</div>
+
+								<div class="avatar_img">
+									<img src="https://dev.enubila/php/assets/images/s_noimage.gif" id="account_avatar">
+								</div>
+								<br>
+
+								<div class="col-md-12">
+									<label class="col-md-4">Cambiar Logo:</label>
+									<input class="col-md-6" type="file" id="file" name="file"/>
+								</div><br>
+
+								<div class="form-group form-md-lookup" >
+									<label class="col-md-5">Comportamiento botón de Registro:&nbsp;</label>
+								</div>
+								<div class="col-md-6">
+									<input type="radio" ng-model="model.registro"  value="default" ng-checked="true" /> Default<br>
+									<input type="radio" ng-model="model.registro" value="iframe" /> Link externo en iframe<br>
+									<input type="radio" ng-model="model.registro" value="ventana" /> Link externo en nueva ventana<br>
+								</div>
+								<div ng-switch="model.registro">
+									<div ng-switch-when="iframe">
+										<label for="text">Url</label>
+										<div>	
+											<input type="text" class="form-control" required ng-model="model.urliframe"/>
+										</div>
+									</div><br>
+									<div ng-switch-when="ventana">
+										<label for="text">Url</label>
+										<div>	
+											<input type="text" class="form-control" required ng-model="model.urlventana"/>
+										</div>
+									</div><br>
+								</div>
+									<hr>
+									<div class="form-group form-md-lookup" >
+										<label class="col-md-5">Comportamiento botón de Login:&nbsp;</label>
+									</div>
+									<div class="col-md-6">
+												<input type="radio" ng-model="model.login" value="default0" ng-checked="true" /> Default<br>
+												<input type="radio" ng-model="model.login" value="iframe0" /> Link externo en iframe<br>
+												<input type="radio" ng-model="model.login" value="ventana0" /> Link externo en nueva ventana<br>
+									</div>
+									<div ng-switch="model.login">
+										<div ng-switch-when="iframe">
+												<label for="text">Url</label>
+											<div>	
+												<input type="text" class="form-control" required ng-model="model.iframe"/>
+											</div>
+										</div><br>
+										<div ng-switch-when="ventana">
+											<label for="text">Url</label>
+											<div>	
+												<input type="text" class="form-control" required ng-model="model.ventana"/>
+											</div>
+										</div><br>
+									</div>
+									<hr>
+									<hr>
+
+									<div id="boton" style="width: 200px; margin: 0 auto;">
+										<button class="btn btn-primary ng-binding" >Guardar</button>
+									</div>
+								</div>
+					</uib-tab>
+
+					<uib-tab index="011" heading="Theme">
+							<div class="row">
+								<div ng-view></div>
+								<div ng-controller="MainController">
+									<div class="theme-selector">
+											
+											<div class="col-sm-6 col-md-6">
+												<div class="thumbnail">
+													<img src="https://dev.enubila/php/assets/images/themes/default.png">
+													<div class="text-center">
+														<h3>default</h3>
+														<br>
+														<p><a class="btn btn-info" href="#/default">Seleccionar</a></p>
+													</div>
+												</div>
+											</div> 
+
+											
+											<div class="col-sm-6 col-md-6">
+												<div class="thumbnail">
+													<img src="https://dev.enubila/php/assets/images/themes/muydecasa.png">
+													<div class="text-center">
+														<h3>Muy de Casa</h3>
+														<br>
+														<p><a class="btn btn-primary" href="#/muydecasa">Seleccionar</a></p>
+													</div>
+												</div>
+											</div>
+
+											<div class="col-sm-6 col-md-6">
+												p
+											</div>
+
+									<div class="col-sm-6 col-md-6">
+											<div class="thumbnail">
+												<img src="https://dev.enubila/php/assets/images/themes/ipactos.png">
+													<div class="text-center">
+														<h3>ipactos</h3>
+														<br>
+														<p><a class="btn btn-primary" href="#/ipactos">Seleccionar</a></p>
+													</div>
+											</div>
+										</div>
+
+									<div class="col-sm-6 col-md-6">
+										<div class="thumbnail">
+											<img src="https://dev.enubila/php/assets/images/themes/deyapa.png">
+												<div class="text-center">
+													<h3>DeYapa</h3>
+													<br>
+													<p><a class="btn btn-primary" href="#/deYapa">Seleccionar</a></p>
+												</div>
+										</div>
+									</div>
+
+									<div class="col-sm-6 col-md-6">
+										<div class="thumbnail">
+											<img src="https://dev.enubila/php/assets/images/themes/tdd.png">
+											<div class="text-center">
+												<h3>Tiempo de Descuento</h3>
+												<br>
+												<p><a class="btn btn-primary" href="#/tiempodedescuento">Seleccionar</a></p>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-sm-6 col-md-6">
+										<div class="thumbnail">
+											<img src="https://dev.enubila/php/assets/images/themes/handsoff.png">
+											<div class="text-center">
+												<h3>handsoff</h3>
+												<br>
+												<p><a class="btn btn-primary" href="#/handsoff">Seleccionar</a></p>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div ng-view></div>
+
+								</div>
+							
+							</div>
+					</uib-tab>
+
+					<uib-tab index="012" heading="Colores">
+						<div class="row">
+							<h3>Botones</h3>
+							<div class="form-group edit-btns col-md-12" id="edit_btn_1">
+								<label class="col-md-2 control-label">Botón 1
+								<i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="" data-original-title="Cerca mío; botones en interior de producto; solicitar cupón en listado de productos "></i>
+								</label>
+								<div class="col-md-7">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="input-group">
+											   <span class="input-group-addon">Fondo</span>
+											   <input type="color" id="btn_1_bg" name="config[colors][btns][1][bg]" value="#5f0f48" class="form-control colorpicker">					
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="input-group">
+											   <span class="input-group-addon">Texto</span>
+											   <input type="color" id="btn_1_txt" name="config[colors][btns][1][txt]" value="#ffffff" class="form-control colorpicker">
+											</div>
+										</div>
+									</div>
+									 
+									<div class="row">
+										<div class="col-md-6">
+											<div class="input-group">
+											   <span class="input-group-addon">Fondo</span>
+											   <input type="color" id="btn_1_bghover" name="config[colors][btns][1][bghover]" value="#5f0f48" class="form-control colorpicker">					
+											</div>
+											<span class="help-block">Colores al pasar el cursor por encima</span>
+										</div>
+										<div class="col-md-6">
+											<div class="input-group">
+												<span class="input-group-addon">Texto</span>
+												<input type="color" id="btn_1_txthover" name="config[colors][btns][1][txthover]" value="#ffffff" class="form-control colorpicker">					 
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						
+							<div class="form-group edit-btns col-md-12" id="edit_btn_2">
+								<label class="col-md-2 control-label">Botón 2
+								<i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="" data-original-title="Contactar al proveedor en interior de producto"></i>
+								</label>
+								<div class="col-md-7">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="input-group">
+											   <span class="input-group-addon">Fondo</span>
+											   <input type="color" id="btn_2_bg" name="config[colors][btns][2][bg]" value="#981760" class="form-control colorpicker">
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="input-group">
+											   <span class="input-group-addon">Texto</span>
+											   <input type="color" id="btn_2_txt" name="config[colors][btns][2][txt]" value="#fff" class="form-control colorpicker">
+											</div>
+										</div>
+									</div>
+										 
+									<div class="row">
+										<div class="col-md-6">
+											<div class="input-group">
+											   <span class="input-group-addon">Fondo</span>
+											   <input type="color" id="btn_2_bghover" name="config[colors][btns][2][bghover]" value="#981760" class="form-control colorpicker">
+											</div>
+											<span class="help-block">Colores al pasar el cursor por encima</span>
+										</div>
+										<div class="col-md-6">
+											<div class="input-group">
+											   <span class="input-group-addon">Texto</span>
+											   <input type="color" id="btn_2_txthover" name="config[colors][btns][2][txthover]" value="#fff" class="form-control colorpicker">
+											</div>
+										</div>
+									</div>
+					   			</div>
+					   		</div>
+
+						   <div class="form-group edit-btns col-md-12" id="edit_btn_3">
+								<label class="col-md-2 control-label">Botón 3						
+								<i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="" data-original-title="Solicitar cupon en interior de producto"></i>
+								</label>
+								<div class="col-md-7">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="input-group">
+												<span class="input-group-addon">Fondo</span>
+												<input type="color" id="btn_3_bg" name="config[colors][btns][3][bg]" value="#d2277d" class="form-control colorpicker">					
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="input-group">
+												<span class="input-group-addon">Texto</span>
+												<input type="color" id="btn_3_txt" name="config[colors][btns][3][txt]" value="#fff" class="form-control colorpicker">					
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6">
+											<div class="input-group">
+												<span class="input-group-addon">Fondo</span>
+												<input type="color" id="btn_3_bghover" name="config[colors][btns][3][bghover]" value="#d2277d" class="form-control colorpicker">					 
+											</div>
+											<span class="help-block">Colores al pasar el cursor por encima</span>
+										</div>
+										<div class="col-md-6">
+											<div class="input-group">
+												<span class="input-group-addon">Texto</span>
+												<input type="color" id="btn_3_txthover" name="config[colors][btns][3][txthover]" value="#fff" class="form-control colorpicker">					
+											</div>
+										</div>
+									</div>
+						   		</div>
+						   	</div>
+
+							<div class="form-group edit-btns col-md-12" id="edit_btn_4">
+								<label class="col-md-2 control-label">Botón 4
+								<i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="" data-original-title="Botones en columna"></i>
+								</label>
+									<div class="col-md-7">
+										<div class="row">
+											<div class="col-md-6">
+												<div class="input-group">
+													<span class="input-group-addon">Fondo</span>
+													<input type="color" id="btn_4_bg" name="config[colors][btns][4][bg]" value="#f0f0f0" class="form-control colorpicker">					 
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="input-group">
+													<span class="input-group-addon">Texto</span>
+													<input type="color" id="btn_4_txt" name="config[colors][btns][4][txt]" value="#828282" class="form-control colorpicker">				
+												</div>
+											</div>
+										</div>
+								
+										<div class="row">
+											<div class="col-md-6">
+												<div class="input-group">
+													<span class="input-group-addon">Fondo</span>
+													<input type="color" id="btn_4_bghover" name="config[colors][btns][4][bghover]" value="#f0f0f0" class="form-control colorpicker">				
+												</div>
+												<span class="help-block">Colores al pasar el cursor por encima</span>
+											</div>
+											<div class="col-md-6">
+												<div class="input-group">
+													<span class="input-group-addon">Texto</span>
+													<input type="color" id="btn_4_txthover" name="config[colors][btns][4][txthover]" value="#828282" class="form-control colorpicker">				
+												</div>
+											</div>
+										</div>
+									</div>
+							</div>
+
+							<hr>
+
+							<h3>Textos</h3>
+							<div class="form-group edit-btns" id="edit_txt_1">
+        						<label for="txt1_txt" class="col-md-2 control-label">Texto 1
+								<i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="" data-original-title="Nombre de producto"></i>
+                  				</label>
+								<div class="col-md-7">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="input-group">
+												<span class="input-group-addon">Color 1</span>
+												<input type="color" id="txt_1_txt" name="config[colors][txts][1][txt]" value="#5e0f47" class="form-control colorpicker">              
+											</div>
+										</div>
+            							<div class="col-md-6">
+              								<div class="input-group">
+                								<span class="input-group-addon">Color 2</span>
+												<input type="color" id="txt_1_txthover" name="config[colors][txts][1][txthover]" value="#5e0f47" class="form-control colorpicker">              
+											</div>
+              								<span class="help-block">Colores al pasar el cursor por encima. Disponible sólo para links</span>
+            							</div>
+          							</div>
+        						</div>
+
+    
+      						</div>
+
+						</div>
+					</uib-tab>
+
+					<uib-tab index="013" heading="Banners">
+						<div class="row">
+							<div class="col-md-12  alert alert-info">
+								<p>Ingrese banners para mostrar en el catálogo.</p>
+								<p>Medida recomendada: 950px x 200px.</p>
+							</div>						
+							<div class="input-group col-md-6">
+								<label>Velocidad de transición</label>
+							</div>
+							<div class="input-group col-md-12">
+								<input type="number" class="form-control" value="5" aria-describedby="basic-addon2">
+								<span class="input-group-addon" id="basic-addon2">segundos</span>
+							</div>
+
+							<hr>
+
+							<div class="col-md-12">
+								<input type="file" accept="image/*" class="btn enu-uploader-fileinput" name="filedata">
+							</div>
+							<div class="progress col-md-6">
+								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0"	aria-valuemin="0" aria-valuemax="100" style="width:0%">
+								</div>
+							</div>
+							<br>
+							<hr>
+						</div>
+					</uib-tab>
+
+					<uib-tab index="014" heading="Página Principal">
+							<div class="row">
+								<div class="col-md-12 form-group form-md-lookup">
+									<div class="title">
+										<input type="checkbox" required ng-model="cerrar" ng-checked="true" />
+										<label><b>Mostrar Productos</b></label>
+									</div>
+									<div>	
+										<textarea data-ng-model="stores.text" ckeditor="" class="form-control" id="text" data-ng-ckeditor=""></textarea>
+									</div>
+									</div>
+									<div>
+										<button class="btn btn-primary" type="submit">Guardar</button>
+									</div>
+							</div>
+					</uib-tab>
+
+					<uib-tab index="015" heading="Información de Contacto">
+						<div class="row">
+							<div class="col-md-12 form-group form-md-lookup">
+								<div>	
+									<textarea data-ng-model="stores.text" ckeditor="" class="form-control" id="text" data-ng-ckeditor=""></textarea>
+								</div>
+							</div>
+							<div>
+								<button class="btn btn-primary" type="submit">Guardar</button>
+							</div>
+						</div>
+					</uib-tab>
+
+
+
+				</uib-tabset>
+
+
+			</uib-tab>
+
+			<uib-tab index="02" heading="Promocionar">
+				<div class="row">
+					<div class="col-md-7 form-group form-md-lookup">
+						<div class="share_box">
+							<br>
+							<div class="image"><img src="https://dev.enubila/php/assets/images/twitter.gif"></div>
+							<div class="info">
+								<b>Publica en Twitter:</b>
+								<br>
+								Envía a tus seguidores tu tienda para que puedan visitarla: "Visita mi tienda! https://.dev.enubila/mrodriguez/"
+								<br><br>
+								<button class="button secondary" href="http://twitter.com/intent/tweet?text=Visita mi tienda! https://.dev.enubila/mrodriguez/ " target="_blank">Publicar en Twitter</button>
+								<br><br>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-7 form-group form-md-lookup">
+							<div class="share_box">
+								<br>
+								<div class="image"><img src="https://dev.enubila/php/assets/images/facebook.gif"></div>
+								<div class="info">
+									<b>Publica en facebook:</b>
+									<br>
+									Comparte con tus amigos que haz creado una tienda en YapaCart 
+									<br><br>
+									<button class="button secondary" href="" target="_blank">Publicar en facebook</button>
+									<br><br>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-7 form-group form-md-lookup">
+							<div class="share_box">
+								<br>
+								<div class="image"><img src="https://dev.enubila/php/assets/images/html.png"></div>
+								<div class="info">
+									<b>En tu web:</b>
+									<br>
+									Puedes poner un enlace en tu sitio web, blog o redes sociales hacia tu tienda para darle mayor difusión.
+									<br><br>
+									<input type="text" class="input_text" value="href=&quot;https://.dev.enubila/mrodriguez/&quot;">
+								</div>
+							</div>
+						</div>
+				</div>
+			</uib-tab>
+
+			<uib-tab index="03" heading="AdSense">
+				<div class="row">
+					<div class="col-md-7 form-group form-md-lookup">
+						<label>Código Banner Ancho</label>
+						<textarea class="form-control" id="text"  ng-model="" ></textarea>
+					</div>
+					<div class="col-md-7 form-group form-md-lookup">
+							<label>Código Banner Vertical</label>
+							<textarea class="form-control" id="text"  ng-model="" ></textarea>
+					</div>
+					<div class="col-md-7 form-group form-md-lookup">
+							<label>Código Banner Rectangular</label>
+							<textarea class="form-control" id="text"  ng-model="" ></textarea>
+					</div>
+					<div>
+						<button  style="margin-right: 200px; margin-left: 400px;" class="btn btn-primary" type="submit">Guardar</button>
+					</div>
+				</div>
+				
+			</uib-tab>
+
+			<uib-tab index="04" heading="Cupones de Descuentos">
+				<div class="row">
+					<div class="form-group form-md-lookup">
+						<label>Api key</label>
+						<input type="text" class="form-control" required ng-model="model.name"/>
+					</div>
+					<div class="form-group form-md-lookup">
+						<label>ID Micrositio</label>
+						<input type="text" class="form-control" required ng-model="model.name"/>
+					</div>
+					<div class="form-group form-md-lookup">
+						<label>Código de afiliado</label>
+						<input type="text" class="form-control" required ng-model="model.name"/>
+					</div>
+					<div>
+						<button class="btn btn-primary" type="submit">Guardar</button>
+						<button class="btn btn-danger" type="submit">Borrar Datos</button>
+					</div>
+				</div>
+			</uib-tab>
+			
+
+		
+		</uib-tabset>	
+
+		</div>		
+	</div>			
+</div>    

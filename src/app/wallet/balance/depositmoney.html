@@ -1,0 +1,75 @@
+<!-- UI para Ingreso de Dinero -->
+<div class="ibox float-e-margins">
+    <div class="col-lg-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">Ingresar Dinero
+                <!--{{'wallet.balance.dm | translate'}}-->
+            </div>
+        </div>
+        <div class="panel-body">
+            <form name="dmform" class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-lg-4"><label class="control-label">Tipo Transacción <!--{{'wallet.balance.dm.transactiontype | translate'}}--></label></div>
+                    <div class="col-lg-8">
+                        <select class="form-control" ng-options="transactiontype.transactionName for transactiontype in transactiontypes track by transactiontype.transactionId" ng-model="dm.transactionType"></select>
+                    </div>
+                </div>
+                <div ng-if="dm.transactionType.transactionId=='1'">
+                    <div class="form-group">
+                        <div class="col-lg-4"><label class="control-label">Cuenta Bancaria <!--{{'wallet.balance.dm.bankAccountId | translate'}}--></label></div>
+                        <div class="col-lg-8">
+                            <select class="form-control" ng-options="bauser_dm.accountShortDescription for bauser_dm in bankAccountUsers track by bauser_dm.accountId" ng-model="dm.bankAccountUser"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-4"><label class="control-label">Clave Bancaria <!--{{'wallet.balance.dm.bankAccountId | translate'}}--></label></div>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="password" ng-model="dm.password" ng-required="true" ng-minlength="22" ng-maxlength="22" />
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="dm.transactionType.transactionId=='2'">
+                    <div class="form-group">
+                        <div class="col-lg-4"><label class="control-label">Tarjeta de Crédito <!--{{'wallet.balance.dm.creditcard | translate'}}--></label></div>
+                        <div class="col-lg-8">
+                            <select class="form-control" ng-options="cc_dm.creditCardDescription for cc_dm in creditCardUsers track by cc_dm.creditCardId" ng-model="dm.creditCardUser" required></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-4"><label class="control-label">CVV <!--{{'wallet.balance.dm.cvv | translate'}}--></label></div>
+                        <div class="col-lg-3">
+                            <input class="form-control" type="number" ng-model="dm.validacioncode" ng-required="true" ng-minlength="3" ng-maxlength="3" />
+                        </div>
+                        <div class="col-lg-3">
+                            <img src="../../Content/img/cvv_credit_card.png" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-4"><label class="control-label">Fecha de Vencimiento<!--{{'wallet.balance.dm.expireddate | translate'}}--></label></div>
+                        <div class="col-lg-3">
+                            <select class="form-control" ng-options="ccmonth.monthName for ccmonth in months track by ccmonth.monthNumber" ng-model="dm.expiredMonth" required></select>
+                        </div>
+                        <div class="col-lg-3">
+                            <select class="form-control" ng-options="ccyear.year for ccyear in years track by ccyear.expiredyear" ng-model="dm.expiredYear" required></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4"><label class="control-label">Importe <!--{{'wallet.balance.dm.amount | translate'}}--></label></div>
+                    <div class="col-lg-8">
+                        <input class="form-control" ng-model="dm.amount" ng-required="true" />
+                    </div>
+                    <div role="alert">
+                        <span class="error" ng-show="dm.amount.$error.required">(Importe) es requerido <!--{{'wallet.balance.dm.amountrequired | translate'}}--></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-3">
+                        <button class="btn btn-success" ng-disabled="dmform.$invalid" ng-click="depositMoney()"><i class="fa fa-money"></i> Depositar <!--{{'wallet.balance.dm.deposit | translate'}}--></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

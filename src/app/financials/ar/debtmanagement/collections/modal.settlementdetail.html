@@ -1,0 +1,166 @@
+<form name="newItemForm" ng-submit="save()" novalidate>
+        <div class="modal-header">
+            <h4 class="modal-title">
+                <span class="glyphicon glyphicon-edit"></span> Liquidacion</h4>
+        </div>
+        <div class="modal-body">
+                
+                <div class="file-manager">
+                        <div class="row">
+                                <div class="col-md-2" style="padding-top: 1%">
+                                    <label>Liquidacion:</label>
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="form-group">       
+                                        
+                                         <input data-ng-model="document.number" class="form-control" type="text"  readonly >
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2" style="padding-top: 1%">
+                                    <label>Tipo</label>
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="form-group">
+                          
+                                        
+                                        <input name="voidDate"
+                                        data-ng-model="document.typeName"
+                                        class="form-control "
+                                        placeholder=""
+                                        ng-readonly="true"
+                                        ></br>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2" style="padding-top: 1%">
+                                    <label>Fecha de vencimiento</label>
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="form-group">
+                
+                                            <div >
+                                                <input name="voidDate"
+                                                data-ng-model="document.voidDate"
+                                                class="form-control "
+                                                placeholder=""
+                                                ng-readonly="true"
+                                                >
+                                                </div>
+                
+                                    </div>
+                                </div>
+                            </div>
+                            <!--
+                            <div class="row form-group hidden-xs m-t-sm" data-ng-show="false">
+                                  
+                                    <div class="col-sm-2">Nombre</div>
+                                    <div class="col-sm-3">Deudores</div>
+                                    <div class="col-sm-3">Acreedores</div>
+                                    <div class="col-sm-3" >Importe</div> 
+                                    
+                                    <hr>
+                            </div>
+                            <div class="row" data-ng-repeat="item in document.items track by $index" data-ng-show="false">  
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                            <input name="itemProd"
+                                            data-ng-model="item.product.name"
+                                            class="form-control"
+                                            type="text"
+                                            ng-readonly="true"
+                                            autocomplete="off">
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <div  data-lookup="debtorLookup"  data-ng-disabled="true" name="receiverId" data-ng-model="document.items[$index].debtors"  ng-readonly="true" ></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                            <div  data-lookup="acredLookup" name="acredLookup"  data-ng-disabled="true"data-ng-model="document.items[$index].creditors"  ng-readonly="true" ></div>
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                            <input name="itemProd"
+                                            data-ng-model="item.unitPrice"
+                                            class="form-control"
+                                            type="text"
+                                            ng-readonly="true"
+                                            autocomplete="off" money>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-group hidden-xs m-t-sm" data-ng-show="false">
+                                    <hr>
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-3"  style="padding-left: 20%;padding-top:1%">
+                                        <b>Total</b></div>
+                                    <div class="col-sm-3" >
+                                        <b>
+                                            <div class="form-group">
+                                                <input name="itemProd"
+                                                data-ng-model="totalItems"
+                                                class="form-control"
+                                                type="text"
+                                                ng-readonly="true"
+                                                autocomplete="off" money>
+                                            
+                                        </div>
+                                    </b>
+                                </div> 
+                            </div>
+                            -->
+                    </div> 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" ng-click="pdf()">Pdf</button>
+                    <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
+                </div>
+                <div class="row m-t-sm">
+                    <h4  ng-click="changedisplay();" ng-show="!displaySettlement">&nbsp;&nbsp;&nbsp;&nbsp;&#x25BC; Detalle de Deuda</h4>
+                    <h4  ng-click="changedisplay();" ng-show="displaySettlement">&nbsp;&nbsp;&nbsp;&nbsp;&#x25B2; Detalle de Deuda</h4>
+                    <div id="settlmentdetail" class="col-lg-12" style="display: none;">
+                            <table class="table table-stripped">
+                                <thead>
+                                    <tr>
+                                        <th>Credito</th>
+                                        <th>Desde</th>
+                                        <th>Hasta</th>
+                                        <th>Importe</th>
+                                        <th>Intereses</th>
+                                        <!--<th></th>-->
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-ng-repeat="parentItem in document.parentItems">
+                                        <td>{{parentItem.productName}}</td>
+                                        <td>{{parentItem.fromDate |  date:'dd/MM/yyyy' }}</td>
+                                        <td>{{parentItem.toDate |  date:'dd/MM/yyyy' }}</td>
+                                        <td>{{parentItem.amount | currency }}</td>
+                                        <td>{{parentItem.amountInterest | currency }}</td>
+                                        <!--<td><a href="" data-ng-click="viewCheckingAccount(account.id)"><i class="fa fa-eye"></i></a></td>-->
+                                        
+                                    </tr>
+                                    <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><b>{{ getTotalUnitPrice() | currency }}</b></td>
+                                            <td><b>{{ getTotalInterest() | currency }}</b></td>
+                                        </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>    
+            </form>

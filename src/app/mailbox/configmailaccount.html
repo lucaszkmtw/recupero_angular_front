@@ -1,0 +1,145 @@
+<div class="col-lg-12">
+    <div class="tabs-container">
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a data-toggle="tab" href="#tab-1"> <i class="fa fa-wrench"></i>Configuración Cuentas de Correo</a>
+            </li>
+            <!-- <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-lock"></i>Autenticación de Servidor</a></li>
+            <li class=""><a data-toggle="tab" href="#tab-3"><i class="fa fa-cogs"></i>Configuración Avanzada</a></li> -->
+        </ul>
+        <div class="tab-content">
+            <div id="tab-1" class="tab-pane active">
+                <div class="panel-body">
+                    <form class="form-horizontal" method="get" name="basic_config" ng-model="basic_config">
+                        <h4>Información de Usuario</h4>
+                        <div class="form-group">
+                            <div class="col-sm-2"><label class="control-label">Seleccione cuenta </label></div>
+                            <div class="col-sm-4">
+                                <select class="form-control m-b" ng-options="mailaccount.displayname for mailaccount in vm.mailAccounts track by mailaccount.idaddress" ng-model="vm.MailAccount" ng-change="vm.FillAccountForm(vm.MailAccount)"></select>
+                            </div>
+                            <div class="col-sm-2">
+                                <a class="btn btn-block btn-primary btn-sm" onclick="NewMailAccount()">Nueva</a>
+                            </div>
+                            <div class="col-sm-2">
+                                <a class="btn btn-block btn-danger btn-sm" onclick="DeleteMailAccount(vm.MailAccount)">Eliminar</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2"><label class="control-label">Nombre </label></div>
+                            <div class="col-sm-4"><input type="text" class="form-control" ng-model="vm.userName" value=""></div>
+                            <div class="col-sm-2"><label class="control-label">Correo electrónico</label></div>
+                            <div class="col-sm-4"><input type="text" class="form-control" ng-model="vm.email" value=""></div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <h4>Información Servidor Entrante</h4>
+                            </div>
+                            <div class="col-sm-6">
+                                <h4>Información Servidor Saliente</h4>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2"><label class="control-label">Servidor Entrante</label></div>
+                            <div class="col-sm-4"><input type="text" class="form-control" ng-model="vm.incomingserver" value=""></div>
+                            <div class="col-sm-2"><label class="control-label">Servidor Saliente</label></div>
+                            <div class="col-sm-4"><input type="text" class="form-control" ng-model="vm.outgoingserver" value=""></div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2"><label class="control-label">Tipo de Servidor</label></div>
+                            <div class="col-sm-2">
+                                <select name="vm.incomingserver_type" class="form-control">
+                                                <option value=""></option>
+                                                <option value="imap">IMAP</option>
+                                                <option value="pop3">POP3</option>
+                                            </select>
+                            </div>
+                            <div class="col-sm-1"><label class="control-label">Puerto</label></div>
+                            <div class="col-sm-1">
+                                <input type="text" class="form-control" ng-model="vm.incomingserver_port" />
+                            </div>
+                            <div class="col-sm-2"><label class="control-label">Tipo de Servidor</label></div>
+                            <div class="col-sm-2">
+                                <select name="vm.outgoingserver_type" class="form-control">
+                                    <option value=""></option>
+                                    <option value="imap">IMAP</option>
+                                    <option value="pop3">POP3</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-1"><label class="control-label">Puerto</label></div>
+                            <div class="col-sm-1">
+                                <input type="text" class="form-control" ng-model="vm.outgoingserver_port" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2"><label class="control-label">Seguridad Conexión</label></div>
+                            <div class="col-sm-4">
+                                <select name="vm.incomingserver_securityconnection" class="form-control">
+                                    <option value="ninguna">Ninguna</option>
+                                    <option value="starttls">STARTTLS</option>
+                                    <option value="ssltls">SSL/TLS</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2"><label class="control-label">Seguridad Conexión</label></div>
+                            <div class="col-sm-4">
+                                <select name="vm.outgoingserver_securityconnection" class="form-control">
+                                    <option value="ninguna">Ninguna</option>
+                                    <option value="starttls">STARTTLS</option>
+                                    <option value="ssltls">SSL/TLS</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2"><label class="control-label">Mét. Identificación</label></div>
+                            <div class="col-sm-4">
+                                <select name="vm.incomingserver_authenticationmethod" class="form-control">
+                                        <option value="1">Contraseña normal</option>
+                                        <option value="2">Contraseña cifrada</option>
+                                        <option value="3">Kerberos / GSSAPI</option>
+                                        <option value="4">NTLM</option>
+                                        <option value="5">Certificado TLS</option>
+                                        <option value="6">OAuth2</option>
+                                    </select>
+                            </div>
+                            <div class="col-sm-2"><label class="control-label">Mét. Identificación</label></div>
+                            <div class="col-sm-4">
+                                <select name="vm.outgoingserver_authenticationmethod" class="form-control">
+                                        <option value="1">Contraseña normal</option>
+                                        <option value="2">Contraseña cifrada</option>
+                                        <option value="3">Kerberos / GSSAPI</option>
+                                        <option value="4">NTLM</option>
+                                        <option value="5">Certificado TLS</option>
+                                        <option value="6">OAuth2</option>
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <h4>Información de Conexión</h4>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2"><label class="control-label">Nombre de Usuario</label></div>
+                            <div class="col-sm-4"><input type="text" class="form-control" ng-model="vm.useremail" value=""></div>
+                            <div class="col-sm-2"><label class="control-label">Contraseña</label></div>
+                            <div class="col-sm-4"><input type="password" class="form-control" ng-model="vm.password" value=""></div>
+                        </div>
+                        <div class="pull-right tooltip-demo">
+                            <button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Probar conexión"><i class="fa fa-cog"></i> Probar</button>
+                            <button class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Guardar"><i class="fa fa-save"></i> Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div id="tab-2" class="tab-pane">
+                <div class="panel-body">
+
+                </div>
+            </div>
+            <div id="tab-3" class="tab-pane">
+                <div class="panel-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

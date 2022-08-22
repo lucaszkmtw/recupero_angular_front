@@ -1,0 +1,86 @@
+﻿<div class="social-feed-box" data-ng-repeat="message in messages">
+    <div data-message="message" data-service-url="serviceUrl"></div>
+</div>
+
+<div class="social-avatar">
+    <a href="" class="pull-left">
+        <img alt="image" class="img-circle" src="Content/img/someone.jpg">
+    </a>
+    <div class="media-body">
+        <form name="newMessageForm" data-ng-submit="postMessage()">
+            <textarea class="form-control" placeholder="{{'messages.writemessage' | translate }}" data-ng-model="newMessage" required></textarea>
+            <button type="submit" style="margin-top: 3px;" data-ng-show="newMessage" data-ng-disabled="newMessageForm.$invalid || !newMessageForm.$dirty" class="btn btn-primary btn-sm"><i class="fa fa-envelope-o"></i>&nbsp;{{ 'command.sendmessage' | translate }}</button>
+        </form>
+    </div>
+</div>
+
+<script type="text/ng-template" id="message.html">
+    <div class="social-avatar">
+        <a href="" class="pull-left">
+            <img alt="image" class="img-circle" src="Content/img/someone.jpg">
+        </a>
+        <div class="media-body">
+            <a href="#">
+                {{message.personName}}
+            </a>
+            <small class="text-muted">{{ message.createDate | amTimeAgo}} - {{ message.createDate | date }}</small>
+        </div>
+    </div>
+    <div class="social-body">
+        <p data-ng-bind-html="message.body"></p>
+
+        <div class="btn-group">
+            <button class="btn btn-white btn-xs" data-ng-click="message.showCommentBox=!message.showCommentBox"><i class="fa fa-comments"></i> Commentar</button>
+        </div>
+    </div>
+    <div class="social-footer" data-ng-if="message.replies.length>0 || message.showCommentBox">
+        <div data-ng-repeat="reply in message.replies">
+            <div data-ng-include="'messageReplies.html'"></div>
+        </div>
+
+        <div class="social-comment" data-ng-if="message.showCommentBox">
+            <a href="" class="pull-left">
+                <img alt="image" class="img-circle" src="Content/img/someone.jpg">
+            </a>
+            <div class="media-body">
+                <form name="newCommentForm" data-ng-submit="postReply(message)">
+                    <textarea class="form-control" placeholder="{{'messages.writemessage' | translate }}" data-ng-model="message.newMessage" required></textarea>
+                    <button type="submit" style="margin-top: 3px;" data-ng-show="message.newMessage" data-ng-disabled="newCommentForm.$invalid || !newCommentForm.$dirty" class="btn btn-primary btn-sm"><i class="fa fa-envelope-o"></i>&nbsp;{{ 'command.sendmessage' | translate }}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/ng-template" id="messageReplies.html">
+    <div class="social-comment" style="margin-left:15px; margin-top: 7px;">
+        <a href="" class="pull-left">
+            <img alt="image" class="img-circle" src="Content/img/someone.jpg">
+        </a>
+        <div class="media-body">
+            <a href="#">
+                {{reply.personName}}
+            </a>
+            <span data-ng-bind-html="reply.body"></span>
+            <br />
+            <a href="" data-ng-click="reply.showCommentBox=!reply.showCommentBox">Responder</a> -
+            <small class="text-muted">{{ reply.createDate | amTimeAgo }}</small>
+        </div>
+
+        <div class="social-comment" data-ng-if="reply.showCommentBox">
+            <a href="" class="pull-left">
+                <img alt="image" class="img-circle" src="Content/img/someone.jpg">
+            </a>
+            <div class="media-body">
+                <form name="newCommentForm" data-ng-submit="postReply(reply)">
+                    <textarea class="form-control" placeholder="{{'messages.writemessage' | translate }}" data-ng-model="reply.newMessage" required></textarea>
+                    <button type="submit" style="margin-top: 3px;" data-ng-show="reply.newMessage" data-ng-disabled="newCommentForm.$invalid || !newCommentForm.$dirty" class="btn btn-primary btn-sm"><i class="fa fa-envelope-o"></i>&nbsp;{{ 'command.sendmessage' | translate }}</button>
+                </form>
+            </div>
+        </div>
+
+        <div data-ng-repeat="reply in reply.replies">
+            <div data-ng-include="'messageReplies.html'"></div>
+        </div>
+    </div>
+</script>

@@ -1,0 +1,79 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'findm.organismcategory' | translate}}
+            <small data-ng-show="organismcredittype.id"> {{organismcategory.categoryid}} {{organismcategory.personName}} </small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+            <button type="button" data-ng-click="save()" class="btn btn-primary">
+                <i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</button>
+        </div>
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+            <form role="form" name="organismcategoryForm">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <label for="organismId">Organismo</label>
+                            <div id="organismId" data-lookup="organismLookup" name="organismId" data-ng-model="organismcategories.organismId" data-business-partner-type-name="{{businessPartnerTypeName}}"  data-ng-disabled="organismcategories.Id != null" data-ng-change="loadProducts()" required></div>
+                            <span style="color:red" data-ng-show="organismcategoryForm.pesonid.$touched && organismcategoryForm.pesonid.$invalid">El Organismo es requerido.</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-9">
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="categoryId">Tipo de Crédito</label>
+                                    <div id="categoryId" data-lookup="categoryLookup" data-ng-model="params.categoryId" data-code="{{lookupProductType}}">
+                                        <span class="input-group-btn">
+                                            <button type="button" data-ng-disabled="!params.categoryId" data-ng-click="addCategory()" class="btn btn-default" style="margin-left: 5px;">
+                                                <i class="fa fa-plus"></i>&nbsp;Agregar</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 300px;">Tipos de Créditos</th>
+                                                <th style="width: 30px;"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <tr data-ng-repeat="category in organismcategories.categories">
+
+                                                <td>
+                                                  {{category.name}}
+                                                </td>
+                                                <td>
+                                                    <button data-ng-click="removeProduct(category)" type="button" class="btn btn-danger btn-xs">
+                                                        <i class="fa fa-trash-o"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr data-ng-show="organismcategories.categories.length==0">
+                                                <td colspan="5">No existen Tipos de Créditos asignados.</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

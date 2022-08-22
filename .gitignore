@@ -1,0 +1,11 @@
+node_modules
+bower_components
+package-lock.json
+src/yarn.lock
+src/.vs
+
+src/Scripts/app.js.map
+src/Scripts/app.js
+src/Web.config
+/.vs
+/npm-debug.log

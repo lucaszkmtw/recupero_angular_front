@@ -1,0 +1,105 @@
+﻿<div class="modal-header dialog-header-confirm">
+    <h4 class="modal-title"><span class="fa fa-tasks">&nbsp;</span>Propiedades</h4>
+</div>
+<div class="modal-body">
+    <ng-form role="form" name="fieldPropertiesForm">
+        <div class="row margin-bottom-20">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label for="name">Nombre</label>
+                    <input type="text" class="form-control" id="name" data-ng-model="field.name">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Tipo</label>
+                    <select class="form-control" ng-model="field.type" ng-options="item.name as item.value group by item.optgroup for item in fieldTypes"></select>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Id</label>
+                    <input type="text" class="form-control" ng-model="field.id">
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="form-group">
+                    <label>Definición</label>
+                    <div>{{ field | json }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label data-ng-show="field.type!=='iframe'">Título</label>
+                    <label data-ng-show="field.type==='iframe'">Inserte url</label>
+                    <input type="text" data-ng-model="field.name" value="{{field.name}}" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row" data-ng-show="field.type==='lookup'">
+            <div class="col-md-12">
+                <label>Nombre</label>
+                <input type="text" data-ng-model="field.lookup" class="form-control">
+            </div>
+        </div>
+        <div class="row" data-ng-show="showRequired(field)">
+            <div class="col-md-12">
+                <label class="headersmalltext">
+                    <input type="checkbox" icheck data-ng-model="field.required">Requerido
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Visibilidad</label>
+                    <input type="text" class="form-control" data-ng-model="field.visibility">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Patrón de validación</label>
+                    <input type="text" class="form-control" data-ng-model="field.pattern">
+                </div>
+            </div>
+        </div>
+        <div class="row" data-ng-show="showDefaultValue(field)">
+            <div class="col-md-2">Valor predeterminado:</div>
+            <div class="col-md-4">
+                <input type="text" data-ng-model="field.value" value="{{field.value}}" class="form-control">
+            </div>
+        </div>
+        <div class="row" data-ng-show="showAddOptions(field)">
+            <div class="col-md-2">Opciones:</div>
+            <div class="col-md-6">
+                <div data-ng-repeat="option in field.options">
+                    <button class="btn btn-default btn-xs" type="button" data-ng-click="moveOptionDown(option.id, field); $event.stopPropagation();" data-ng-disabled="$last"><span class="glyphicon glyphicon-arrow-down"></span></button>
+                    <button class="btn btn-default btn-xs" type="button" data-ng-click="moveOptionUp(option.id, field); $event.stopPropagation();" data-ng-disabled="$first"><span class="glyphicon glyphicon-arrow-up"></span></button>
+                    <input type="text" data-ng-model="option.text" value="{{option.text}}" class="form-control" style="display: inline-block; width: 200px;">
+                    <a class="btn btn-danger btn-sm" data-ng-click="deleteOption(field, option); $event.stopPropagation();"><span class="glyphicon glyphicon-minus"></span></a>
+                    <label class="btn btn-primary" data-ng-model="option.allowComments" uib-btn-checkbox="" btn-checkbox-true="'true'" btn-checkbox-false="'false'"><span class="glyphicon glyphicon-comment" title="Permitir comentarios"></span></label>
+                    <span class="label label-inverse">Value: {{ option.value }}</span>
+                </div>
+                <button class="btn btn-primary btn-sm" type="button" data-ng-click="addOption(field)"><span class="glyphicon glyphicon-plus"></span> Agregar Opción</button>
+            </div>
+        </div>
+        <div class="row" data-ng-show="field.type==='html'">
+            <div class="col-md-12">
+                <textarea data-ng-model="field.value" ckeditor="editorOptions" class="form-control" id="{{field.id}}" data-ng-ckeditor=""></textarea>
+            </div>
+        </div>
+
+        <div class="row margin-bottom-20">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <a href="" target="_blank" class="btn btn-default" data-ng-click="cancel()"> {{ 'command.close' | translate }}</a>
+                    <a href="" target="_blank" class="btn btn-primary" data-ng-click="ok()" data-ng-disabled="fieldPropertiesForm.$invalid || !fieldPropertiesForm.$dirty"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</a>
+                </div>
+            </div>
+        </div>
+    </ng-form>
+</div>

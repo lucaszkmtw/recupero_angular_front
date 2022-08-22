@@ -1,0 +1,53 @@
+<div class="mail-box-header">
+    <div class="pull-right tooltip-demo">
+        <button class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="Enviar" ng-click="vm.send()" ng-disabled="!vm.canSend()"><i class="fa fa-envelope"></i> Enviar</button>
+        <button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Descartar correo" ng-click="vm.discard()"><i class="fa fa-times"></i> Descartar</button>
+        <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Mover a Borrador" ng-click="vm.draft()"><i class="fa fa-pencil"></i> Borrador</button>
+    </div>
+    <h2>
+        Nuevo Correo
+    </h2>
+</div>
+<div class="mail-box">
+
+    <div class="mail-body">
+
+        <form class="form-horizontal" method="get" name="vm.email_form">
+            <div class="form-group"><label class="col-sm-2 control-label">De:</label>
+                <div class="col-sm-10"><input type="text" class="form-control" disabled ng-model="vm.mail_from" value="cardenat@gmail.com" ng-pattern="emailPattern()"></div>
+            </div>
+            <div class="form-group"><label class="col-sm-2 control-label">Para:</label>
+                <div class="col-sm-10"><input type="text" class="form-control" ng-model="mail_to" value="" ng-pattern="emailPattern()" ng-required="true"></div>
+                <div role="alert">
+                    <span class="error" ng-show="email_form.mail_to.$error.required">(Para) es requerido</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">CC:</label>
+                <div class="col-sm-10"><input type="text" class="form-control" ng-model="mail_cc" value="" ng-pattern="emailPattern()"></div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">CCO:</label>
+                <div class="col-sm-10"><input type="text" class="form-control" ng-model="mail_bcc" value="" ng-pattern="emailPattern()"></div>
+            </div>
+            <div class="form-group"><label class="col-sm-2 control-label">Asunto:</label>
+                <div class="col-sm-10"><input type="text" class="form-control" ng-model="mail_subject" value="" required></div>
+                <div role="alert">
+                    <span class="error" ng-show="email_form.mail_subject.$error.required">(Asunto) es requerido</span>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+    <div class="mail-text h-200">
+        <textarea ng-model="mail.body" ckeditor="editorOptions" class="form-control" id="{{mail.body}}" ng-ckeditor=""></textarea>
+        <div class="clearfix"></div>
+    </div>
+    <div class="mail-body text-right tooltip-demo">
+        <button class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="Enviar" ng-click="vm.send()" ng-disabled="!vm.canSend()"><i class="fa fa-envelope"></i> Enviar</button>
+        <button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Descartar correo" ng-click="vm.discard()"><i class="fa fa-times"></i> Descartar</button>
+        <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Mover a Borrador" ng-click="vm.draft()"><i class="fa fa-pencil"></i> Borrador</button>
+    </div>
+    <div class="clearfix"></div>
+</div>

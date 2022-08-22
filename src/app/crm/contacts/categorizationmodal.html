@@ -1,0 +1,17 @@
+﻿<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+            <form name="groupItemForm">
+                <h1>Grupos</h1>
+                <div class="row" data-ng-repeat="group in groups">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <input type="checkbox" data-ng-click="save(group, $event)" ng-checked="group.contactId"/>
+                            <label for="" >{{group.name}}</label>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <table style="width: 100%; margin-bottom: 5px;">
+            <tr>
+                <td style="width: 100px;">
+                    <button type="button" data-ng-click="addSectionContent()" data-ng-disabled="!params.contentId"
+                            class="btn btn-default pull-left" style="margin-right: 5px;">
+                        <span class="glyphicon glyphicon-plus"></span> Agregar
+                    </button>
+                </td>
+                <td>
+                    <div id="cmsContentLookup" data-lookup="cmsContentLookup" data-ng-model="params.contentId" data-section-id="{{params.sectionId}}" style="width: 100%; margin-right: 5px;"></div>
+                </td>
+                <td style="width: 150px;">
+                    <select data-ng-model="params.sectionContentsView" class="pull-left form-control">
+                        <option value="0">Todos</option>
+                        <option value="1">Sólo publicados</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div data-sectioncontentsgrid="" data-section-id="{{section.id}}" data-order-items-by="{{section.orderItemsBy}}" data-section-contents-view="{{params.sectionContentsView}}"></div>
+    </div>
+</div>

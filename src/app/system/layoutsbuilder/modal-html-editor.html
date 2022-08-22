@@ -1,0 +1,23 @@
+<div class="modal-header">
+        <h4 class="modal-title">
+                <span class="glyphicon glyphicon-edit"></span> Editor Html</h4>
+</div>
+<div class="modal-body">
+
+        <textarea id="comments" data-ng-model="textToEdit" class="form-control" style="height: 120px; width: 100%;" ckeditor=""></textarea>
+
+</div>
+<div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
+        <button type="button" class="btn btn-primary" ng-click="save(textToEdit)">Guardar</button>
+</div>
+
+<style>
+        .cke_dialog {
+                z-index: 10055 !important;
+        }
+
+        .modal {
+                z-index: 2050 !important;
+        }
+</style>

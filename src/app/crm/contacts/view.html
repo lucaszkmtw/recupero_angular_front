@@ -1,0 +1,76 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'crm.contacts' | translate }} <small>{{contact.person.firstName}} {{contact.person.lastName}}</small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+            <a href="" target="_blank" class="btn btn-primary" data-ng-click="edit()"><i class="fa fa-pencil-square-o"></i> {{ 'command.edit' | translate }}</a>
+        </div>
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content-np">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="profile-image">
+                        <img src="Content/img/someone.jpg" class="img-circle circle-border m-b-md" alt="profile">
+                    </div>
+                    <div class="profile-info">
+                        <div>
+                            <div>
+                                <h2 class="no-margins">
+                                    {{contact.person.name}}
+                                </h2>
+                                <h4>CUIT: <span>{{contact.person.code | cuit}}</span></h4>
+                                <h4><i class="fa fa-envelope"></i>&nbsp;Correos electrónicos: </h4>
+                                <ul style="list-style-type: none">
+                                    <li ng-repeat="email in contact.person.emails">
+                                        {{email.address}}
+                                        <span class="pull-right"> {{personService.getEmailTypeName(email.typeId) | translate }}</span>
+                                    </li>
+                                </ul>
+                                <h4><i class="fa fa-phone"></i>&nbsp;Teléfonos: </h4>
+                                <ul style="list-style-type: none">
+                                    <li ng-repeat="phone in contact.person.phones">
+                                        {{phone.number}}
+                                        <span class="pull-right"> {{personService.getPhoneTypeName(phone.typeId) | translate }}</span>
+                                    </li>
+                                </ul>
+                                <h4><i class="fa fa-map-marker"></i>&nbsp;Direcciones: </h4>
+                                <ul style="list-style-type: none">
+                                    <li ng-repeat="address in contact.person.addresses">
+                                        <span>{{address.address.name}}, 
+                                            <span ng-repeat="path in address.address.place.path track by $index">
+                                                {{path.name}}
+                                            </span>
+                                        </span>
+                                        <span class="pull-right">{{personService.getAddressTypeName(address.typeId) | translate}}</span>
+                                    </li>
+                                </ul>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <tabs data="tabData" template-url="ui-router-tabs-custom-ui-view-template.html"></tabs>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <ui-view autoscroll></ui-view>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

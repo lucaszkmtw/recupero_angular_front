@@ -1,0 +1,28 @@
+﻿<form name="newSectionForm" class="form-horizontal" role="form">
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <button type="button" class="btn btn-default navbar-btn" data-ng-click="back()" title="Volver">
+                <span class="glyphicon glyphicon-arrow-left"></span>
+            </button>
+            <button type="button" class="btn btn-success navbar-btn" data-ng-click="saveNewSection()" data-ng-disabled="newSectionForm.$invalid || !newSectionForm.$dirty" title="Crear">
+                <span class="glyphicon glyphicon-floppy-save"></span>&nbsp;Crear
+            </button>
+        </div>
+    </nav>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="name">Nombre</label>
+        <div class="col-md-6">
+            <input id="name" name="name" type="text" placeholder="Nombre" ng-model="newSection.name" class="form-control" required />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-2"></div>
+        <div class="col-md-6">
+            <label class="checkbox">
+                <input type="checkbox" data-ng-model="newSection.published" />
+                Publicada
+            </label>
+        </div>
+    </div>
+</form>

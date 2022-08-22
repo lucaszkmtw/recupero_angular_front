@@ -1,0 +1,106 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-6">
+        <h2 data-ng-show="document.id">
+            {{ document.documentType.name }} <small data-ng-show="document.id">{{document.number | documentNumber}}</small>
+        </h2>
+        <h2 data-ng-show="!document.id">
+            {{ 'command.new.f' | translate }} {{ document.documentType.name }}
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-6">
+        <div class="title-action">
+            <a href="" target="_blank" class="btn btn-white" data-ng-click="back()"><i class="fa fa-arrow-left"></i> {{ 'command.back' | translate }}</a>
+            <a href="" target="_blank" class="btn btn-white" data-ng-show="!documentOptions.edit" data-ng-click="edit()"><i class="fa fa-pencil"></i> {{ 'command.edit' | translate }}</a>
+            <a href="" target="_blank" class="btn btn-primary" data-ng-show="documentOptions.edit" data-ng-click="save()"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</a>
+        </div>
+    </div>
+</div>
+
+<form role="form" name="checkForm" ng-controller="FinancialsCheckController">
+    <div class="row" style="margin-top: 10px;">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="bankId">Banco</label>
+                <div id="bankId" data-lookup="financialsBankLookup" data-ng-model="item.bankAccountId" ng-disabled="!documentOptions.edit"></div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="financialsCheckBookLookup">Chequera</label>
+                <div id="financialsCheckBookLookup" data-lookup="financialsCheckBookLookup" data-ng-model="item.checkBookId" data-filter="item.bankAccountId" ng-disabled="!documentOptions.edit">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="systemPersonLookupemisor">Emisor</label>
+                <div id="systemPersonLookupemisor" data-lookup="systemPersonLookup" data-ng-model="item.issuerId" data-filter="item.issuerId" ng-disabled="!documentOptions.edit"></div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="systemPersonLookupreceptor">Receptor</label>
+                <div id="systemPersonLookupreceptor" data-lookup="systemPersonLookup" data-ng-model="item.issuerId" data-filter="item.issuerId" ng-disabled="!documentOptions.edit">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="checkNumber">Número</label>
+                <input type="text" class="form-control" id="checkNumber" name="checkNumber" data-ng-model="item.checkNumber" ng-readonly="!documentOptions.edit">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="financialCheckStatusLookup">Estado</label>
+                <div id="financialCheckStatusLookup" data-lookup="financialCheckStatusLookup" data-ng-model="item.status" data-filter="item.status" ng-disabled="!documentOptions.edit">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <label for="issueDate">Fecha Emisión</label>
+            <div id="issueDate" data-date-picker="" data-ng-model="item.issueDate" required ng-disabled="!documentOptions.edit"></div>
+        </div>
+        <div class="col-md-4">
+            <label for="voidDate">Fecha Vencimiento</label>
+            <div id="voidDate" data-date-picker="" data-ng-model="item.voidDate" ng-disabled="!documentOptions.edit" ng-readonly="!documentOptions.edit"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <label for="issueDate">Fecha Deposito</label>
+            <div id="issueDate" data-date-picker="" data-ng-model="item.depositDate" required ng-disabled="!documentOptions.edit"></div>
+        </div>
+        <div class="col-md-4">
+            <label for="voidDate">Fecha Cobro</label>
+            <div id="voidDate" data-date-picker="" data-ng-model="item.collectionDate" ng-disabled="!documentOptions.edit" ng-readonly="!documentOptions.edit"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 m-t-sm">
+            <div class="form-group">
+                <label for="netAmount">Importe Neto</label>
+                <div class="input-group">
+                    <span class="input-group-addon">$</span>
+                    <input type="text" class="form-control" id="netAmount" name="netAmount" data-ng-model="item.amount" money ng-readonly="!documentOptions.edit">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row m-t-sm">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="comments">Observaciones</label>
+                <textarea id="comments" data-ng-model="item.comments" class="form-control" style="height: 120px; width: 100%;"></textarea>
+            </div>
+        </div>
+    </div>
+</form>

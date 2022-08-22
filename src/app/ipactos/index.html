@@ -1,0 +1,129 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            Dashboard - Ipactos
+            <!-- {{ 'ipactos.dashboard' | translate }} -->
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+
+    <div ng-include="'app/ipactos/menuipactos.html'"></div>
+    <div class="hr-line-dashed"></div>
+
+    <div class="wrapper wrapper-content" data-ng-controller="IpactosDashboardController">
+        <div class="row">
+            <div class="col-lg-2">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h4>Cuentas a Cobrar
+                            <!--{{'ipactos.accountsreceivable' | translate}}-->
+                        </h4>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins">{{accountsReceivable}}</h1>
+                        <small>Total <!--{{'ipactos.accountsreceivabletotal' | translate}}--></small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h4>Cuentas a Pagar
+                            <!--{{'ipactos.accountspayable' | translate}}-->
+                        </h4>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins">{{accountsPayable}}</h1>
+                        <small>Total <!--{{'ipactos.accountspayable.total' | translate}}--></small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h4>Financiación Disponible
+                            <!--{{'wallet.balance.receivedpayments' | translate}}-->
+                        </h4>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins">{{financingAvailable}}</h1>
+                        <small>Total <!--{{'wallet.balance.total' | translate}}--></small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h4>Liquidez
+                            <!--{{'wallet.balance.transferfunds' | translate}}-->
+                        </h4>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins">{{liquidityAvailable}}</h1>
+                        <small>Total <!--{{'wallet.balance.total' | translate}}--></small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h4>Inversiones
+                            <!--{{'wallet.balance.transferfunds' | translate}}-->
+                        </h4>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins">{{investmentAvailable}}</h1>
+                        <small>Total <!--{{'wallet.balance.total' | translate}}--></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row white-bg">
+            <div class="col-lg-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title"><strong>Acciones Rápidas</strong></div>
+                    <div class="ibox-content">
+                        <form name="botones" class="form-horizontal">
+                            <div class="form-group">
+                                <button class="btn btn-block btn-outline btn-primary" ng-click="generarComprobante()"><i class="fa fa-plus"></i> Generar Comprobante <!--{{'wallet.balance.add | translate'}}--></button>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-block btn-outline btn-primary"><i class="fa fa-plus"></i> Gestionar Cobranzas&nbsp;&nbsp;<!--{{'wallet.balance.add | translate'}}--></button>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-block btn-outline btn-primary"><i class="fa fa-plus"></i> Financiamiento&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <!--{{'wallet.balance.add | translate'}}--></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title"><strong>Historial de Operaciones</strong></div>
+                    <div class="ibox-content">
+                        </br>
+                        </br>
+                        </br>
+                        </br>
+                        <img src="../../Content/img/hand_ok.png" class="img-responsive center-block" height="72" width="72" />
+                        <div class="text-center">No se encontraron operaciones</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title"><strong>Notificaciones</strong></div>
+                    <div class="ibox-content">
+                        <div class="text-center"><i class="fa fa-bell"></i> Tareas Pendientes (1)</div>
+                    </div>
+                </div>
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title"><strong><i class="fa fa-cogs"></i> Genere su primer comprobante</strong></div>
+                    <div class="ibox-content">
+                        <div class="text-center">Genere su primer comprobante, es simple y rápido</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

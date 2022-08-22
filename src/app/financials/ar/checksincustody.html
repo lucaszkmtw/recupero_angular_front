@@ -1,0 +1,36 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-6">
+        <h2>
+            {{ 'financials.ar.checksincustody' | translate }}
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-6">
+        <div class="title-action">
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary" data-ng-click="deposit()" data-ng-disabled="!checkedItems.length > 0" data-ng-show="view == 1">
+                    Depositar
+                </button>
+            </div>
+
+            <button type="button" class="btn btn-default" data-ng-show="canRequestFinancing()" data-ng-click="requestFinancing()" data-ng-disabled="!checkedItems.length > 0">
+                Financiar
+            </button>
+
+            <button type="button" class="btn btn-default" data-ng-show="canCollect()" data-ng-click="collect()" data-ng-disabled="!checkedItems.length > 0">
+                Gestión cobranzas
+            </button>
+        </div>
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content np">
+            <div class="row">
+                <div class="col-md-12">
+                    <div data-financials-ar-checks-in-custody-grid="" data-selected-items="params.selectedItems" ></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

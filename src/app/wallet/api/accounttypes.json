@@ -1,0 +1,7 @@
+[{
+    "accountTypeId": "1",
+    "accountTypeName": "Check Account"
+}, {
+    "accountTypeId": "2",
+    "accountTypeName": "Saving Account"
+}]

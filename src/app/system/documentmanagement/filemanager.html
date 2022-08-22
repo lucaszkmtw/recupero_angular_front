@@ -1,0 +1,139 @@
+﻿<div class="ibox">
+    <div class="ibox-content">
+        <div class="row" style="position: relative;">
+            <div class="col-lg-3 col-md-5 col-sm-12 m-b-md">
+                <div class="file-manager"  data-ng-if="!readonly" >
+                    <div class="btn-group m-b-sm" uib-dropdown is-open="status.isopen">
+                        <button id="newCommand" type="button" class="btn btn-primary" uib-dropdown-toggle>Nuevo</button>
+                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                            <li role="menuitem"><a ng-click="newFolder()"><i class="fa fa-folder-o"></i>&nbsp;Carpeta</a></li>
+                            <li role="menuitem">
+                                <div system-document-management-file-upload="" folder-guid="{{folder.guid}}"></div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <h5>{{ 'sy.dm.folders' | translate }}</h5>
+                    <!--
+                    <div style="height: 650px;" slim-scroll>
+                    -->
+                    <perfect-scrollbar infinite-scroll="loadMore()" infinite-scroll-distance="2" class="file-manager-scroller" wheel-propagation="true" wheel-speed="10" min-scrollbar-length="20">
+                        <ul class="folder-list" style="padding: 0">
+                            <li data-ng-repeat="child in folders">
+                                    <a style="text-overflow: ellipsis; overflow: hidden;"  ng-click="navigate(child.guid)">
+                                <!-- <a style="text-overflow: ellipsis; overflow: hidden;" ui-sref="app.filemanager.folder({folderGuid:child.guid})"> -->
+                                    <i class="fa fa-folder-o"></i> {{ child.name | translate }}</a></li>
+                        </ul>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-7 col-sm-12">
+                <div class="row m-b-sm">
+                    <div class="col-md-8">
+                        <ol class="page-breadcrumb breadcrumb" data-ng-show="!params.showSearchResults">
+                            <li>
+                                  
+                                    <a  ng-click="navigate(session.profileFolderGuid)">
+                                <!-- <a ui-sref="app.filemanager.folder({folderGuid:session.profileFolderGuid})"> -->
+                                <i class="fa fa-home"></i></a>
+                            <li ng-repeat="ancestor in folder.ancestors | reverse">
+                                    <a  ng-click="navigate(ancestor.guid)" ng-bind-html="ancestor.name | translate"></a>
+                                <!-- <a ui-sref="app.filemanager.folder({folderGuid:ancestor.guid})" ng-bind-html="ancestor.name | translate"></a> -->
+                        </ol>
+                        <div data-ng-show="params.showSearchResults">Resultados de la búsqueda</div>
+                    </div>
+                    <div class="col-md-4">
+                        <form name="searchDocumentsForm" ng-submit="search()" class="ng-pristine ng-valid">
+                            <div class="input-group">
+                                <input type="text" placeholder="Buscar" class="input-sm form-control" data-ng-model="params.filter"> <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-sm btn-primary"> Buscar</button>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row" data-ng-show="params.showSearchResults">
+                    <div class="col-lg-12">
+                        <table class="table table-striped">
+                            <tr>
+                                <th style="width: 30px;"></th>
+                                <th>Nombre</th>
+                                <th style="width: 90px;">Fecha</th>
+                            </tr>
+                            <tr data-ng-repeat="result in searchResults">
+                                <td style="width: 30px;"><i data-ng-if="result.type===0" class="fa fa-folder-o"></i><i data-ng-if="result.type===1" class="fa fa-file-o"></i></td>
+                                <td>
+                                        <a ng-if="result.type===0" ng-click="navigate(result.guid)">{{result.name}}</a>
+                                    <!-- <a ng-if="result.type===0" ui-sref="app.filemanager.folder({folderGuid:result.guid})">{{result.name}}</a> -->
+                                    <a ng-if="result.type===1" target="_new" ng-href="http://devapi.centraloperativa.com/api/system/documentmanagement/files/{{result.guid}}">{{result.name}}</a>
+                                </td>
+                                <td style="width: 180px;">{{result.createDate | amDateFormat: 'L LT' }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="row" data-ng-show="!params.showSearchResults">
+                    <div class="col-lg-12">
+                        <div class="file-box" data-ng-repeat="file in folder.files" style="overflow-y: auto;">
+
+                          
+                            <div class="file">
+                                    <input type="checkbox" ng-model="file.selected"  ng-click="selectFile($event,file)" style="float: right;margin-right: 2px">
+                                <a data-ng-click="viewFile($event, file)">
+                                    <span class="corner"></span>
+
+                                    <div class="icon">
+                                        <i class="fa fa-file"></i>
+                                    </div>
+                                    <div class="file-name" title="{{file.name}}">
+                                        {{ file.name | cut:true:10:' ...'}}
+                                        <br />
+                                        <small>{{ file.createDate | amDateFormat: 'L LT' }}</small>
+                                    </div>
+                                </a>
+                                <!-- <button type="button" class="btn btn-info">Seleccionar</button> -->
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div style="position: absolute; z-index: 2; margin: 100px 50%" ng-class="{ 'invisible' : !params.isBusy }">
+                <div class="sk-spinner sk-spinner-wave">
+                    <div class="sk-rect1"></div>
+                    <div class="sk-rect2"></div>
+                    <div class="sk-rect3"></div>
+                    <div class="sk-rect4"></div>
+                    <div class="sk-rect5"></div>
+                </div>
+            </div>
+                
+        </div>
+    </div>
+</div>
+
+<div system-document-management-image-viewer data="params.fileViewerOptions"></div>
+
+<script type="text/ng-template" id="systemDocumentManagementNewFolder.html">
+    <div class="modal-header dialog-header-confirm">
+        <h4 class="modal-title"><span class="fa fa-tasks">&nbsp;</span>Nueva carpeta</h4>
+    </div>
+    <div class="modal-body" style="height: 300px;">
+        <ng-form role="form" name="newFolderForm">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label for="name">Nombre</label>
+                        <input type="text" class="form-control" id="name" name="name" data-ng-model="newFolder.name" required>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning" data-ng-click="cancel()">Cancelar</button>
+                <button type="button" class="btn btn-success" data-ng-click="ok()">Guardar</button>
+            </div>
+        </ng-form>
+    </div>
+</script>

@@ -1,0 +1,122 @@
+
+
+<div class="panel-compact">
+    <div class="row m-t-sm">
+        <div class="col-md-12">
+            <div class="form-group">
+                    <label for="sponsorId"><h3>Promotor :</h3></label> 
+                     <a>
+                           
+                             <span data-ng-click="openSponsorSelector()" class="fa fa-plus-square" style="color:gray;height: 30px">
+                        </a>
+                      
+                        <div class="ibox-content">
+
+                            <div>
+                                <div class="feed-activity-list" data-ng-repeat="selectedSponsorPerson in teamPersons  |  filter:isPromotorFilter track by $index">
+                                      
+                                    <div class="feed-element">
+                                        <a href="#" class="pull-left">
+
+                                            <img data-ng-if="selectedSponsorPerson.person.profilePictureUrl" alt="image" class="img-circle" src="{{selectedSponsorPerson.person.profilePictureUrl}}">
+                                            <img data-ng-if="!selectedSponsorPerson.person.profilePictureUrl" alt="image" class="img-circle" src="Content/img/someone.jpg">
+                                        </a>
+                                        <div class="media-body ">
+                                            <div class="pull-right" style="margin-bottom:-20px">
+                                               <a> <span data-ng-click="editDescription(selectedSponsorPerson)" class="glyphicon glyphicon-edit" style="color:gray;height: 30px"></span></a>
+                                                 <a ><span  data-ng-click="removeSelectedPerson(selectedSponsorPerson)" class="fa fa-times-rectangle" style="color:gray;height: 30px;margin-top: -20px"></a>
+                                                </div>
+                                            <strong>{{ selectedSponsorPerson.person.name }}</strong> <br>
+                                            <span  class="badge badge-success">Promotor</span>
+                                            <div class="well">
+                                                  <p ng-bind-html="selectedSponsorPerson.description"></p>
+                                    
+                                            </div>
+                                            <div class="pull-right">
+                                                <a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> Like </a>
+                                                <a class="btn btn-xs btn-white"><i class="fa fa-eye"></i> Seguir</a>
+                                                <a class="btn btn-xs btn-primary"><i class="fa fa-pencil"></i> Mensaje</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+   
+                    
+            </div>
+        </div>
+    </div>
+        <div class="row m-t-sm">
+        <div class="col-md-12">
+            <h3 class="form-group">
+                    <label for="teemId"><h3>Equipo :</h3></label> 
+                 
+                           <a><span data-ng-click="openTeemSelector()" class="fa fa-plus-square" style="color:gray;height: 30px"></a>
+                      <div class="ibox-content">
+
+                            <div>
+                                <div class="feed-activity-list" data-ng-repeat="selectedPerson in teamPersons |  filter:isTeamFilter track by $index  ">
+                                    <br>
+                                    <div class="feed-element">
+                                        <a href="#" class="pull-left">
+                                            <img data-ng-if="selectedSponsorPerson.person.profilePictureUrl"  alt="image" class="img-circle" src="{{selectedPerson.person.profilePictureUrl}}">
+                                            <img data-ng-if="!selectedSponsorPerson.person.profilePictureUrl" alt="image" class="img-circle" src="Content/img/someone.jpg">
+                                        </a>
+                                        <div class="media-body ">
+                                            <div class="pull-right" style="margin-bottom:-20px">
+                                               <a> <span data-ng-click="editDescription(selectedPerson)" class="glyphicon glyphicon-edit" style="color:gray;height: 30px"></span></a>
+                                                 <a ><span  data-ng-click="removeSelectedPerson(selectedPerson)" class="fa fa-times-rectangle" style="color:gray;height: 30px;margin-top: -20px"></a>
+                                                </div>
+                                            <strong>{{ selectedPerson.person.name }}</strong> <br>
+                                            <span ng-repeat="tag in selectedPerson.tags track  by $index" class="badge badge-success">{{tag}}</span>
+                                            <!-- <div  ng-repeat="tag in selectedPerson.tags track  by $index">
+                                                <strong>{{ tag }}</strong>
+                                            </div> -->
+                                          
+                                            <div class="well">
+                                                  <p ng-bind-html="selectedPerson.description"></p>
+                                    
+                                            </div>
+                                            <div class="pull-right">
+                                                <a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> Like </a>
+                                                <a class="btn btn-xs btn-white"><i class="fa fa-eye"></i> Seguir</a>
+                                                <a class="btn btn-xs btn-primary"><i class="fa fa-pencil"></i> Mensaje</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+   
+                     
+            </div>
+        </div>
+
+                           <!-- <div data-ng-repeat="selectedPerson in teamPersons |  filter:isTeamFilter">
+                          <h3 class="person-name" data-ng-show="selectedPerson.personName">
+                               <div class="row m-t-sm">
+                                     <div class="col-md-1" style="vertical-align: middle;display: inline-block;">
+                                           <a><span data-ng-click="removeSelectedPerson(selectedPerson.personId)" class="fa fa-times-rectangle" style="color:red;height: 30px;margin-top: 30px"></a>
+                                        
+                                     
+                                          </div>
+                                    <div class="col-md-3">
+                                             
+                                             <p style="font-weight: normal"> <i class="fa fa-address-book-o"></i> {{ selectedPerson.rol.name }} :</p>
+                                           
+                                        <img alt="image" class="img-circle" src="{{selectedPerson.personImageUri}}">
+                                            {{ selectedPerson.personName }}
+                                       
+                                           </div>
+                                         <div class="col-md-8">
+                                              <textarea id="comments" ckeditor="" ng-bind-html="selectedPerson.description" data-ng-model="selectedPerson.description"  class="form-control" style="height: 120px; width: 100%;"></textarea>
+                                            
+                                         </div>
+                                        
+                               </div>
+                                    
+                        </h3>
+                         <hr>
+                        </div>    -->
+                     
+            </div>
+        </div>
+
+</div>

@@ -1,0 +1,39 @@
+<div data-ng-show="!project.id" class="m-t-sm alert alert-info ng-scope">Debe guardar el proyecto primero para poder asociar archivos.</div>
+<div class="file-manager" ng-if="project.id">
+   
+    <div class="panel-compact">
+        <div class="row m-t-sm">
+            <div class="col-md-10">
+                <h3 class="form-group">
+                    
+                        <button type="button" class="btn btn-primary" data-ng-click="openImagesSelector()">
+                                Agregar Imagenes
+                            </button>
+                </h3>
+
+                        <div data-ng-repeat="image in Images ">
+                            <h3 data-ng-show="image.typeId">
+                                <div class="row m-t-sm">
+                                        <div class="col-md-1" style="vertical-align: middle;display: inline-block;">
+                                                <button type="button"
+                                                        class="btn btn-danger "
+                                                        style="margin-top: 50px"
+                                                        data-ng-click="removeSelectedImage(image.id)">
+                                                    Quitar
+                                                </button>
+                                            </div>
+                                        <div class="col-md-3">
+                                            <img alt="image" class="img-circle" src="{{image.src}}">
+                                                {{ image.name }}
+                                            </div>
+                                        
+                                            
+                                </div>
+                                        
+                            </h3>
+                            </div>  
+            </div>
+        </div>
+        
+    </div>
+</div>

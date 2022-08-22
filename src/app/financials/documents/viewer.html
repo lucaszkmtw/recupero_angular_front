@@ -1,0 +1,30 @@
+﻿
+<div class="ibox">
+    <div class="ibox-content">
+        <div class="row">
+            <div class="col-md-2">
+                <ul class="nav nav-second-level" data-ng-if="params.items.length > 0">
+                    <li ui-sref-active="active" data-ng-repeat="subMenuItem in params.items">
+                        <a data-ui-sref="app.paymentdocuments.documentslist({ module: params.module, documentTypeName: subMenuItem.name })" ui-sref-opts="{reload: true, notify: true}">
+                            <i class="{{subMenuItem.iconClass}}"></i>{{ subMenuItem.text | translate }}
+                            <!--<span class="fa arrow" data-ng-if="subMenuItem.items && subMenuItem.items.length > 0"></span>-->
+                        </a>
+                        <ul class="nav nav-third-level" data-ng-if="subMenuItem.items.length > 0">
+                            <li ui-sref-active="active" data-ng-repeat="subMenuItem2 in subMenuItem.items">
+                                <a data-ui-sref="app.paymentdocuments.documentslist({ module: params.module, documentTypeName: subMenuItem2.name })" ui-sref-opts="{reload: true, notify: true}">
+                                    <i class="{{subMenuItem2.iconClass}}"></i>{{ subMenuItem2.text | translate }}
+                                    <!--<span class="fa arrow" data-ng-if="subMenuItem.items && subMenuItem.items.length > 0"></span>-->
+                                </a>
+                            </li>
+                        </ul>
+
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-10">
+                <div data-financials-documents-grid="" data-view="params.selectedDocumentType" data-selected-items="$storage.selectedDocuments" data-isbusiness="params.selectedDocumentType.isbusiness" data-module="params.module" style="border: 1px solid #e7eaec;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+

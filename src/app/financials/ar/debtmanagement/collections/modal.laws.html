@@ -1,0 +1,69 @@
+<form name="newItemForm" ng-submit="save()" novalidate>
+        <div class="modal-header">
+            <h4 class="modal-title">
+                <span class="glyphicon glyphicon-edit"></span> Agregar Leyes</h4>
+        </div>
+        <div class="modal-body">
+            <div class="file-manager">
+    
+                <div class="row">
+                    <div class="col-md-2" style="padding-top: 1%">
+                        <label>Seleccione la Ley</label>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="form-group">
+    
+                            <div name="lawLookup" data-lookup="lawLookup" data-ng-model="newLaw.LawId" data-organism-id="{{item.issuerId}}" data-show-add-new="{{false}}"
+                                required></div>
+    
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                        <div class="col-md-7">
+                                <div class="form-group">
+                                        <input data-ng-model="newLaw.Text" class="form-control" type="text" required>
+                                </div>
+                        </div>
+                        <div class="col-md-2" style="padding-top: 1%">
+                                <button type="button"  class="btn btn-primary" data-ng-disabled="newItemForm.$invalid" data-ng-click="addLaw()"><i class="fa fa-plus"></i> Agregar</button>
+   
+                        </div>
+                </div>
+                <hr>
+                <div class="row" ng-if="item.lawTexts">
+                    <div class="col-md-12">
+                        <hr>
+                        <label><b>Leyes ingresadas</b></label>
+    
+                        <div class="row" style="margin-top: 15px;" data-ng-repeat="field in item.lawTexts track by $index">
+                          <div class="col-lg-1">
+                                <a><span  data-ng-click="removeSelectedItem($index)" class="fa fa-times-rectangle" style="color:gray;height: 30px;margin-top: 10px;"></a>
+                          </div>
+                            <div class="col-md-3">
+                                <b>{{field.name}} </b>
+                            </div>
+                            <div class="col-md-8">
+                          
+                                <div >
+                                    <input data-ng-model="item.lawTexts[$index].text" class="form-control" type="text"  readonly>
+                                </div>
+    
+                             
+                            </div>
+                        </div>
+        
+                       
+                         
+                       
+                      
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
+            <button type="button" class="btn btn-primary"  ng-click="save()">Guardar</button>
+        </div>
+    </form>

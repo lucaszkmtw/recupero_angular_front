@@ -1,0 +1,287 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'health.treatmentrequest' | translate }}
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+            <button type="button" class="btn btn-info" data-ng-show="treatmentRequest.id" data-ng-click="view()"><i class="fa fa-eye"></i> {{ 'command.view' | translate }}</button>
+            <button type="button" class="btn btn-primary" data-ng-disabled="treatmentRequestForm.$invalid || !treatmentRequestForm.$dirty" data-ng-click="save()"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</button>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+            <form role="form" name="treatmentRequestForm">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="date">Fecha</label>
+                            <div id="date" data-date-picker="" data-ng-model="treatmentRequest.date" required="true"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for=""></label>
+                            <div class="radio i-checks">
+                                <label style="padding-left: 0;"> <input icheck type="checkbox" data-ng-value="false" ng-model="treatmentRequest.isUrgent"> Es urgente</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for=""></label>
+                            <div class="radio i-checks">
+                                <label style="padding-left: 0;"> <input icheck type="checkbox" data-ng-value="false" ng-model="treatmentRequest.tratamientoSur" disabled=""> Recupero sur</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <label for="healthPatientLookup">Paciente</label>
+                            <div id="healthPatientLookup" data-lookup="healthPatientLookup" data-ng-model="treatmentRequest.patientId" required></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <label for="healthDoctorLookup">Médico</label>
+                            <div id="healthDoctorLookup" data-lookup="healthDoctorLookup" data-ng-model="treatmentRequest.doctorId" required></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <system-workflows-tags-lookup data-items="treatmentRequest.workflowInstance.tags" workflow-id="treatmentRequest.workflowInstance.workflowId"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <fieldset>
+                            <legend style="margin-bottom: 0;">Diagnósticos</legend>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="healthCommercialDrugLookup"></label>
+                                    <div id="healthDiseaseLookup" data-lookup="healthDiseaseLookup" data-ng-model="params.diseaseId">
+                                        <span class="input-group-btn">
+                                            <button type="button" data-ng-disabled="!params.diseaseId" data-ng-click="addPatientDiagnostic()" class="btn btn-default" style="margin-left: 5px;"><i class="fa fa-plus"></i>&nbsp;Agregar</button>
+                                        </span>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 300px;">Diagnóstico</th>
+                                                <th>Comentarios</th>
+                                                <th style="width: 30px;"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr data-ng-repeat="diagnostic in treatmentRequest.diagnostics">
+                                                <td>
+                                                    ({{diagnostic.disease.code}}) {{diagnostic.disease.name}}
+                                                </td>
+                                                <td><input tpye="text" class="form-control" data-ng-model="diagnostic.comments" /></td>
+                                                <td>
+                                                    <button data-ng-click="removePatientDiagnostic(diagnostic)" type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr data-ng-show="treatmentRequest.diagnostic.length==0">
+                                                <td colspan="5">No existen diagnósticos asignados a esta solicitud.</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <fieldset>
+                            <legend style="margin-bottom: 0;">Medicamentos</legend>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="healthCommercialDrugLookup"></label>
+                                    <div id="healthCommercialDrugLookup" data-lookup="healthCommercialDrugLookup" data-ng-model="params.commercialDrugId">
+                                        <span class="input-group-btn">
+                                            <button type="button" data-ng-disabled="!params.commercialDrugId" data-ng-click="addTreatmentRequestDrug()" class="btn btn-default" style="margin-left: 5px;"><i class="fa fa-plus"></i>&nbsp;Agregar</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 300px;">Medicamento</th>
+                                                <th style="width: 40px;">Cantidad</th>
+                                                <th style="width: 40px;">Frecuencia</th>
+                                                <th>Comentarios</th>
+                                                <th style="width: 30px;"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr data-ng-repeat="drug in treatmentRequest.drugs">
+                                                <td>
+                                                    {{drug.commercialDrug.name}} {{drug.commercialDrug.drugPresentationName}} - {{drug.commercialDrug.personName}} - {{drug.commercialDrug.drugName}}
+                                                </td>
+                                                <td>
+                                                    <input tpye="text" class="form-control" style="width: 50px;" data-ng-model="drug.quantity" required />
+                                                </td>
+                                                <td>
+                                                    <input tpye="text" class="form-control" style="width: 50px;" data-ng-model="drug.frequency" required />
+                                                </td>
+                                                <td><input tpye="text" class="form-control" data-ng-model="drug.comments" /></td>
+                                                <td>
+                                                    <button data-ng-click="removeTreatmentRequestDrug(drug)" type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr data-ng-show="treatmentRequest.drugs.length==0">
+                                                <td colspan="5">No existen medicamentos asignados a esta solicitud.</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <fieldset>
+                            <legend style="margin-bottom: 0;">Insumos</legend>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="catalogProductLookup"></label>
+                                    <div id="catalogProductLookup" data-lookup="catalogProductLookup" data-ng-model="params.productId">
+                                        <span class="input-group-btn">
+                                            <button type="button" data-ng-disabled="!params.productId" data-ng-click="addTreatmentRequestProduct()" class="btn btn-default" style="margin-left: 5px;"><i class="fa fa-plus"></i>&nbsp;Agregar</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 30px;"></th>
+                                                <th style="width: 400px;">Producto</th>
+                                                <th style="width: 40px;">Cantidad</th>
+                                                <th>Comentarios</th>
+                                                <th style="width: 30px;"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr data-ng-repeat="product in treatmentRequest.products">
+                                                <td><button data-ng-click="showProductInfo(product)" type="button" class="btn btn-default"><i class="fa fa-plus"></i></button></td>
+                                                <td style="vertical-align: middle;">
+                                                    {{product.product.tags}} - {{product.product.name}}
+                                                </td>
+                                                <td>
+                                                    <input tpye="text" class="form-control" style="width: 50px;" data-ng-model="product.quantity" required />
+                                                </td>
+                                                <td><input tpye="text" class="form-control" data-ng-model="product.comments" /></td>
+                                                <td>
+                                                    <button data-ng-click="removeTreatmentRequestProduct(product)" type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr data-ng-show="treatmentRequest.products.length==0">
+                                                <td colspan="5">No existen insumos asignados a esta solicitud.</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <fieldset>
+                            <legend style="margin-bottom: 0;">Prácticas</legend>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="healthMedicalPracticeLookup"></label>
+                                    <div id="healthMedicalPracticeLookup" data-lookup="healthMedicalPracticeLookup" data-ng-model="params.medicalPracticeId">
+                                        <span class="input-group-btn">
+                                            <button type="button" data-ng-disabled="!params.medicalPracticeId" data-ng-click="addTreatmentRequestPractice()" class="btn btn-default" style="margin-left: 5px;"><i class="fa fa-plus"></i>&nbsp;Agregar</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 30px;"></th>
+                                                <th style="width: 200px;">Nombre</th>
+                                                <th style="width: 40px;">Cantidad</th>
+                                                <th style="width: 80px;">Frecuencia</th>
+                                                <th>Comentarios</th>
+                                                <th style="width: 30px;"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr data-ng-repeat="practice in treatmentRequest.practices">
+                                                <td><button data-ng-click="showPracticeInfo(practice)" type="button" class="btn btn-default"><i class="fa fa-plus"></i></button></td>
+                                                <td>
+                                                    (){{practice.medicalPractice.code}}) {{practice.medicalPractice.name}}
+                                                </td>
+                                                <td>
+                                                    <input tpye="text" class="form-control" style="width: 50px;" data-ng-model="practice.quantity" required />
+                                                </td>
+                                                <td>
+                                                    <input tpye="text" class="form-control" data-ng-model="practice.frequency" required />
+                                                </td>
+                                                <td><input tpye="text" class="form-control" data-ng-model="practice.comments" /></td>
+                                                <td>
+                                                    <button data-ng-click="removeTreatmentRequestPractice(practice)" type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr data-ng-show="treatmentRequest.practices.length==0">
+                                                <td colspan="5">No existen prácticas asignadas a esta solicitud.</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="form-group form-md-lookup">
+                            <label for="healthPharmacyLookup">Farmacia de entrega</label>
+                            <div id="healthPharmacyLookup" data-lookup="healthPharmacyLookup" data-ng-model="treatmentRequest.pharmacyId"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label for="comments">Comentarios</label>
+                                <textarea data-ng-model="treatmentRequest.comments" class="form-control" id="comments" data-ng-ckeditor=""></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

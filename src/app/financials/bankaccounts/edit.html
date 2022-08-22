@@ -1,0 +1,77 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'financials.bankaccounts' | translate }} <small data-ng-show="bank.id">{{bankaccount.code}} {{bankaccount.number}}</small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+            <a href="" target="_blank" class="btn btn-primary" data-ng-click="save()"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</a>
+        </div>
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <uib-tabset>
+        <uib-tab heading="Propiedades">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <form role="form" name="bankAccountForm">
+                        <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label >Persona</label>
+                                        <div id="personId" data-lookup="systemPersonLookup" data-ng-model="bankaccount.personId" data-business-partner-type-name="bp.types.creditor"  required></div> 
+                                    </div>
+                                </div>
+                            </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="bankId">Sucursal Bancaria</label>
+                                    <div id="bankId" data-lookup="financialBankBranchesLookup" data-ng-model="bankaccount.bankBranchId"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="currencyId">Moneda</label>
+                                    <div id="currencyId" data-lookup="financialCurrenciesLookup" data-ng-model="bankaccount.currencyId"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row margin-bottom-20">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="code">CBU</label>
+                                    <input type="text" class="form-control" id="code" data-ng-model="bankaccount.code">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row margin-bottom-20">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="number">Número</label>
+                                    <input type="text" class="form-control" id="number" data-ng-model="bankaccount.number">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row margin-bottom-20">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="name">Descripción</label>
+                                    <input type="text" class="form-control" id="name" data-ng-model="bankaccount.description">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </uib-tab>
+        <uib-tab heading="Movimientos">
+
+        </uib-tab>
+    </uib-tabset>
+</div>

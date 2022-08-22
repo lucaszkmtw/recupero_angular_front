@@ -1,0 +1,95 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            Wallet - Activity
+            <!-- {{ 'wallet.summary' | translate }} -->
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+
+    <div ng-include="'app/wallet/menuwallet.html'"></div>
+    <div class="hr-line-dashed"></div>
+
+    <div class="hr-line-dashed"></div>
+    <!-- <div class="row wrapper border-bottom white-bg page-heading"> -->
+    <div class="col-lg-12">
+        <div class="tabs-container">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-rocket"></i>Movimientos</a></li>
+                <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-envelope"></i>Movimientos (Saldo y Comisiones)</a></li>
+                <li class=""><a data-toggle="tab" href="#tab-3"><i class="fa fa-users"></i>Tablas y Gráficos</a></li>
+            </ul>
+            <div class="tab-content">
+                <div id="tab-1" class="tab-pane active">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <div class="col-lg-2">
+                                <select class="form-control">
+                                    <option value="0" selected>Todos</option>
+                                    <option value="1">Completados</option>
+                                    <option value="2">Pendientes</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4">
+                                <select class="form-control">
+                                    <option value="0" selected>Todas las Transacciones</option>
+                                    <option value="1">Pago Enviado</option>
+                                    <option value="2">Pago Recibido</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-3">
+                                <select class="form-control">
+                                    <option value="0" selected>Todas las Divisas</option>
+                                    <option value="1">USD</option>
+                                    <option value="2">EUR</option>
+                                    <option value="2">VEF</option>
+                                </select>
+                            </div>
+                            <div class="ibox-content">
+
+                                <div class="row">
+                                    <div data-wallet-activity-grid="" class="white-bg"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tab-2" class="tab-pane active">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <div class="col-lg-2">
+                                <select class="form-control">
+                                            <option value="0" selected>Todos</option>
+                                            <option value="1">Completados</option>
+                                            <option value="2">Pendientes</option>
+                                        </select>
+                            </div>
+                            <div class="col-lg-3">
+                                <select class="form-control">
+                                            <option value="0" selected>Todas las Divisas</option>
+                                            <option value="1">USD</option>
+                                            <option value="2">EUR</option>
+                                            <option value="2">VEF</option>
+                                        </select>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="row">
+                                    <div data-wallet-activity-short-grid="" class="white-bg"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tab-3" class="tab-pane active">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Tablas y Gráficos </h5>
+                            <div class="ibox-content">
+                                <div class="row">
+                                    <!-- <div data-wallet-activity-grid="" class="white-bg"></div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>

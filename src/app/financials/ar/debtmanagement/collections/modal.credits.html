@@ -1,0 +1,192 @@
+<form name="newItemForm" ng-submit="save()" novalidate>
+    <div class="modal-header">
+        <h4 class="modal-title">
+            <span class="glyphicon glyphicon-edit"></span> Agregar Creditos</h4>
+    </div>
+    <div class="modal-body">
+        <div class="file-manager">
+
+            <div class="row">
+                <div class="col-md-2" style="padding-top: 1%">
+                    <label>Seleccione el tipo</label>
+                </div>
+                <div class="col-md-7">
+                    <div class="form-group">
+
+                        <div name="productsconfigLookup" data-lookup="productsconfigLookup" data-ng-model="item.productId" data-category-id="{{item.categoryId}}" data-show-add-new="{{false}}"
+                            required></div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row" ng-if="item.fieldsJSON.length > 0">
+                <div class="col-md-12">
+                    <hr>
+                    <label>Complete los datos requeridos</label>
+
+                    <div class="row" style="margin-top: 15px;">
+                        <div class="col-md-3">
+                            <b> Fecha Emisión</b>
+                        </div>
+                        <div class="col-md-8">
+                                <div data-date-picker="" data-ng-model="item.itemDate" data-ng-change="setNotificationDate()" required></div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top: 15px;">
+                        
+                        <div class="col-md-3">
+                            <b> Fecha Acto Administrativo</b>
+                        </div>
+                        
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <div >
+                                    <input name="notificationDate"
+                                        data-ng-model="item.itemDate"
+                                        class="form-control "
+                                        placeholder=""
+                                        ng-readonly="true"
+                                        ></br>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <b> Fecha Vencimiento</b>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <div >
+                                    <input name="voidDate"
+                                        data-ng-model="item.voidDate"
+                                        class="form-control "
+                                        placeholder=""
+                                        ng-readonly="true"
+                                        ></br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top: 15px;">
+                        <div class="col-md-3">
+                            <b>Importe</b>
+                        </div>
+                        <div class="col-md-8">
+                            <input data-ng-model="item.unitPrice" class="form-control" type="text" money required>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top: 15px;" data-ng-repeat="field in item.fieldsJSON track by $index">
+                        <div class="col-md-3">
+                            <b>{{field.id}}# {{field.name}}</b>
+                        </div>
+                        <div class="col-md-8">
+                            <div ng-if="field.type ==='date'">
+                                <div data-date-picker="" data-ng-model="item.fieldsJSON[$index].value" required></div>
+                            </div>
+                            <div ng-if="field.type ==='money'">
+                                <input data-ng-model="item.fieldsJSON[$index].value" class="form-control" type="text" money required>
+                            </div>
+                            <div ng-if="field.type ==='text'">
+                                <input data-ng-model="item.fieldsJSON[$index].value" class="form-control" type="text" required>
+                            </div>
+
+                            <div ng-if="field.type ==='array'">
+                                    <select name="Select" id="Select" ng-model="item.fieldsJSON[$index].value" class="form-control">
+                                            <option ng-repeat="option in item.fieldsJSON[$index].list" value="{{option}}" >{{option}}</option>
+                                            </select>
+                                <!-- <input data-ng-model="item.fieldsJSON[$index].value" class="form-control" type="text" required> -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top: 15px;">
+                        <div class="col-md-3">
+                            <b> Seleccione una ley</b>
+                        </div>
+                        <div class="col-md-8">
+                            <div name="lawLookup" data-lookup="lawLookup" data-ng-model="newLaw.LawId" data-product-id="{{item.productId}}" data-category-id="{{item.categoryId}}" data-show-add-new="{{false}}" required></div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 15px;">
+                            <div class="col-md-7">
+                                    <div class="form-group">
+                                            <input data-ng-model="newLaw.Text" class="form-control" type="text" required>
+                                    </div>
+                            </div>
+                            <div class="col-md-2" style="padding-top: 1%">
+                                    <button type="button"  class="btn btn-primary" data-ng-disabled="!(newLaw.LawId && item.lawTexts.length != 1)" data-ng-click="addLaw()"><i class="fa fa-plus"></i> Agregar</button>
+       
+                            </div>
+                    </div>
+
+                    <hr>
+                    <div class="row" ng-if="item.lawTexts">
+                        <div class="col-md-12">
+                            <hr>
+                            <label><b>Leyes ingresadas</b></label>
+                            <div class="row" style="margin-top: 15px;">
+                                <div class="col-lg-1">                                    
+                                </div>
+                                <div class="col-md-3">
+                                    <b>Ley</b>
+                                </div>
+                                <div class="col-md-2">
+                                    <b>Prescripción</b>
+                                </div>
+                                <div class="col-md-6">
+                                    <b>Texto</b>
+                                </div>
+                            </div> 
+
+                            <div class="row" style="margin-top: 15px;" data-ng-repeat="field in item.lawTexts track by $index">
+                                <div class="col-lg-1">
+                                    <a><span  data-ng-click="removeSelectedItem($index)" class="fa fa-times-rectangle" style="color:gray;height: 30px;margin-top: 10px;"></a>
+                                </div>
+                                <div class="col-md-3">
+                                    <b>{{field.name}} </b>
+                                </div>
+                                <div class="col-md-2">
+                                    <b>{{field.prescription}} </b>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div >
+                                        <input data-ng-model="item.lawTexts[$index].text" class="form-control" type="text"  readonly>
+                                    </div>                             
+                                </div>
+                            </div>                         
+                        </div>
+                    </div>
+
+
+                    <div class="row" style="margin-top: 15px;">
+                        <hr>
+                        <div class="col-md-6">
+                            <div class="form-group form-md-lookup">
+                                <b>Deudor</b>
+                                <div id="receiverId" data-lookup="debtorLookup" name="receiverId" data-ng-model="item.debtors" required></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group form-md-lookup">
+                                <b>Acreedor</b>
+                                <div id="acredLookup" data-lookup="acredLookup" name="acredLookup" data-ng-model="item.creditors" required></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
+        <button type="button" class="btn btn-primary" data-ng-disabled="!(item.itemDate && item.unitPrice > 0)" ng-click="save()">Guardar</button>
+        <!--<button type="button" class="btn btn-primary" data-ng-disabled="!(item.lawTexts && item.notificationDate && item.unitPrice > 0)" ng-click="save()">Guardar</button>-->
+    </div>
+</form>

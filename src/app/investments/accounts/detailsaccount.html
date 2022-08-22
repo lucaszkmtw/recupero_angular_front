@@ -1,0 +1,481 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+
+
+    <div class="col-lg-8">
+        <h2>
+            {{ 'investmentaccounts.accounts' | translate }}
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+  
+</div>
+
+<div class="tabs-container">
+    <ul class="nav nav-tabs">
+        <li class="active">
+
+            <a data-toggle="tab" class="font-bold" href="#tab-Detalles">
+                Mis Cuentas
+            </a>
+        </li>
+     
+    </ul>
+</div>
+<div class="tab-content">
+    <div id="tab-Detalles" class="tab-pane active">
+        <div class="">
+            <div class="row">
+                <div class="col-lg-8">
+
+                    <div class="row" style="max-height:160px; background-color:white;">
+                        <div class="col-lg-7">
+                            <div class="row wrapper border-bottom white-bg">
+                                <h2 class="font-bold">
+                                    Cuenta Inversión $
+                                </h2>
+                                <h4>316-406428/1</h4>
+                            </div>
+                        </div>
+                        <!-- <div class="col-lg-4"> -->
+                        <!-- <div class="flot-chart"> -->
+                        <!-- <div class="flot-chart-content" id="flot-line-chart"></div> -->
+                        <!-- </div> -->
+                        <!-- </div> -->
+                        <div class="col-lg-5" style="text-align:right">
+                            <h4>Saldo disponible</h4>
+                            <span class="text-success">
+                                <h2 class="font-bold">
+                                    $19.587,17
+                                </h2>
+                            </span>
+                        </div>
+                    </div>
+
+                    <hr />
+                    <div id="voy-a-small">
+                        <div class="input-group-btn  pull-left">
+                            <button data-toggle="dropdown" class="btn btn-white draggable-toggle" type="button"
+                                    aria-expanded="false">
+                                Accesos
+                                <span class="caret"></span>
+                            </button>
+                            <ul class=dropdown-menu pull-right">
+                                <li>
+                                    <a href="#">
+                                        <span class="m-l-xs">Mis Comprobantes</span>
+                                        <span style="float:right"><i class="fa fa-chevron-right"></i></span>
+                                    </a>
+                                </li>
+                                <li>
+
+                                    <a href="#">
+                                        <span class="m-l-xs">Tenencias</span>
+                                        <span style="float:right"><i class="fa fa-chevron-right"></i></span>
+                                    </a>
+
+                                </li>
+                                <li>
+
+                                    <a href="#">
+                                        <span class="m-l-xs">Suscripciones</span>
+                                        <span style="float:right"><i class="fa fa-chevron-right"></i></span>
+                                    </a>
+
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="input-group-btn pull-right">
+                            <button data-toggle="dropdown" class="btn btn-white draggable-toggle" type="button"
+                                    aria-expanded="false">
+                                Voy a..
+                                <span class="caret"></span>
+                            </button>
+                            <ul class=dropdown-menu pull-right">
+                                <li>
+                                    <a href="#">
+                                        <span class="m-l-xs">Mis resumenes</span>
+                                        <span style="float:right"><i class="fa fa-chevron-right"></i></span>
+                                    </a>
+                                </li>
+                                <li>
+
+                                    <a href="#">
+                                        <span class="m-l-xs">Transferencias</span>
+                                        <span style="float:right"><i class="fa fa-chevron-right"></i></span>
+                                    </a>
+
+                                </li>
+                                <li>
+
+                                    <a href="#">
+                                        <span class="m-l-xs">Operar con cuentas</span>
+                                        <span style="float:right"><i class="fa fa-chevron-right"></i></span>
+                                    </a>
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12" style="float:left">
+
+                            <span class="text-success">
+                                <h2 class="font-bold">
+                                    Últimos Movimientos
+                                </h2>
+                            </span>
+
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+
+                                    <div class="ibox-tools">
+                                        <a class="collapse-link">
+                                            <i class="fa fa-chevron-up"></i>
+                                        </a>
+
+                                        <a class="close-link">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="ibox-content">
+
+                                    <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
+                                        <thead>
+                                            <tr>
+                                                <th class="col-md-1">FECHA</th>
+                                                <th class="col-md-4">CONCEPTO</th>
+                                                <th class="col-md-1 text-right">IMPORTE</th>
+                                                <th class="col-md-1 text-right">SALDO</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="gradeX">
+                                                <td><span class="text-success"><b>18/07/2017</b></span></td>
+                                                <td>
+                                                    TRANFERENCIA XX200063970
+                                                </td>
+                                                <td class="text-right"><span class="error text-danger"><b>-8.400,00</b> </span></td>
+                                                <td class="text-right"><span class="text-success"><b>19.587,17</b></span></td>
+
+                                            </tr>
+                                            <tr class="gradeX">
+                                                <td><span class="text-success"><b>17/07/2017</b></span></td>
+                                                <td>
+                                                    DEBITO DIRECTO
+                                                </td>
+                                                <td class="text-right"><span class="error text-danger"><b>-519,86</b> </span></td>
+                                                <td class="text-right"><span class="text-success"><b>27.987,17</b></span></td>
+
+                                            </tr>
+                                            <tr class="gradeX">
+                                                <td><span class="text-success"><b>17/07/2017</b></span></td>
+                                                <td>
+                                                    PAGO DE SERVICIOS TARJETA 03541859 OP832
+                                                </td>
+                                                <td class="text-right"><span class="error text-danger"><b>-383,46</b> </span></td>
+                                                <td class="text-right"><span class="text-success"><b>29.021.31</b></span></td>
+
+                                            </tr>
+                                            <tr class="gradeX">
+                                                <td><span class="text-success"><b>16/07/2017</b></span></td>
+                                                <td>
+                                                    ACREDITAMIENTO DE HABERES
+                                                </td>
+                                                <td class="text-right"><span class="text-primary"><b>+34.547,52</b> </span></td>
+                                                <td class="text-right"><span class="text-success"><b>29.021.31</b></span></td>
+
+                                            </tr>
+                                            <tr class="gradeX">
+                                                <td><span class="text-success"><b>15/07/2017</b></span></td>
+                                                <td>
+                                                    TRANFERENCIA DE TERCEROS
+                                                </td>
+                                                <td class="text-right"><span class="text-primary"><b>+14.207,00</b> </span></td>
+                                                <td class="text-right"><span class="text-success"><b>49.021.31</b></span></td>
+
+                                            </tr>
+                                            <tr class="gradeX">
+                                                <td><span class="text-success"><b>18/07/2017</b></span></td>
+                                                <td>
+                                                    TRANFERENCIA XX200063970
+                                                </td>
+                                                <td class="text-right"><span class="error text-danger"><b>-8.400,00</b> </span></td>
+                                                <td class="text-right"><span class="text-success"><b>19.587,17</b></span></td>
+
+                                            </tr>
+                                            <tr class="gradeX">
+                                                <td><span class="text-success"><b>17/07/2017</b></span></td>
+                                                <td>
+                                                    DEBITO DIRECTO
+                                                </td>
+                                                <td class="text-right"><span class="error text-danger"><b>-519,86</b> </span></td>
+                                                <td class="text-right"><span class="text-success"><b>27.987,17</b></span></td>
+
+                                            </tr>
+                                            <tr class="gradeX">
+                                                <td><span class="text-success"><b>17/07/2017</b></span></td>
+                                                <td>
+                                                    PAGO DE SERVICIOS TARJETA 03541859 OP832
+                                                </td>
+                                                <td class="text-right"><span class="error text-danger"><b>-383,46</b> </span></td>
+                                                <td class="text-right"><span class="text-success"><b>29.021.31</b></span></td>
+
+                                            </tr>
+                                            <tr class="gradeX">
+                                                <td><span class="text-success"><b>16/07/2017</b></span></td>
+                                                <td>
+                                                    ACREDITAMIENTO DE HABERES
+                                                </td>
+                                                <td class="text-right"><span class="text-primary"><b>+34.547,52</b> </span></td>
+                                                <td class="text-right"><span class="text-success"><b>29.021.31</b></span></td>
+
+                                            </tr>
+                                            <tr class="gradeX">
+                                                <td><span class="text-success"><b>15/07/2017</b></span></td>
+                                                <td>
+                                                    TRANFERENCIA DE TERCEROS
+                                                </td>
+                                                <td class="text-right"><span class="text-primary"><b>+14.207,00</b> </span></td>
+                                                <td class="text-right"><span class="text-success"><b>49.021.31</b></span></td>
+
+                                            </tr>
+
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="4">
+                                                    <ul class="pagination pull-right"></ul>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-4">
+
+                    <div class="panel panel-primary pull-right">
+
+                        <div class="panel-heading">
+                            Buscar Movimientos
+                        </div>
+                        <div class="panel-body">
+                            <div class="content ">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <h4>Fecha:</h4>
+                                    </div>
+
+                                    <div class="col-xs-8 pull-right">
+                                        <input type="hidden" data-ng-model="detailsaccount.FilterDate" data-ndatepicker=""
+                                               id="FilterDate"
+                                               style="width: 200px;" />
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <h4>Importe:</h4>
+                                    </div>
+
+                                    <div class="col-xs-8 pull-right">
+                                        <div class="form-group">
+
+                                            <div class="input input-group">
+                                                <input type="text" class="input-sm form-control" name="start" placeholder="desde" />
+                                                <span class="input-group-addon">-</span>
+                                                <input type="text" class="input-sm form-control" name="end" placeholder="hasta" />
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <h4>Tipo:</h4>
+                                    </div>
+
+                                    <div class="col-xs-8 pull-right">
+                                        <div class="form-group pull-right ">
+
+                                            <div class="input-group-btn ">
+                                                <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button">Seleccione el Tipo <span class="caret"></span></button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#">Action</a></li>
+                                                    <li><a href="#">Another action</a></li>
+                                                    <li><a href="#">Something else here</a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="#">Separated link</a></li>
+                                                </ul>
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <h4>Concepto:</h4>
+                                    </div>
+
+                                    <div class="col-xs-8 pull-right">
+                                        <div class="form-group pull-right ">
+
+                                            <div class="input-group-btn ">
+                                                <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button">Seleccione un concepto <span class="caret"></span></button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#">Action</a></li>
+                                                    <li><a href="#">Another action</a></li>
+                                                    <li><a href="#">Something else here</a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="#">Separated link</a></li>
+                                                </ul>
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                        <h5><a href="#">Borrar filtros</a></h5>
+                                    </div>
+                                    <div class="col-xs-4 ">
+                                        <div class="input-group-btn ">
+                                            <button type="button" class="btn btn-primary">Ver resultados </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="voy-a" class="ibox-content">
+                        <h2>Accesos </h2>
+
+                        <ul class="todo-list m-t">
+                            <li>
+
+                                <a href="#">
+                                    <span class="m-l-xs">Mis comprobantes</span>
+                                    <span style="float:right"><i class="fa fa-chevron-right"></i></span>
+                                </a>
+
+                            </li>
+
+                            <li>
+
+                                <a href="#">
+                                    <span class="m-l-xs">Tenencias</span>
+                                    <span style="float:right"><i class="fa fa-chevron-right"></i></span>
+                                </a>
+
+                            </li>
+                            <li>
+
+                                <a href="#">
+                                    <span class="m-l-xs">Suscripciones</span>
+                                    <span style="float:right"><i class="fa fa-chevron-right"></i></span>
+                                </a>
+
+                            </li>
+                            <li>
+
+                                <a href="#">
+                                    <span class="m-l-xs">Comercio Exterior</span>
+                                    <span style="float:right"><i class="fa fa-chevron-right"></i></span>
+                                </a>
+
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4" style="float:right">
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+    <div id="tab-CrearCuenta" class="tab-pane">
+
+    </div>
+</div>	
+
+<style>
+    #data_1 {
+        width: 177px;
+        text-align: right;
+    }
+
+    .vertical-center {
+        display: flex;
+        align-items: center;
+    }
+
+    .dropdown-menu {
+        width: 220px !important;
+    }
+
+    #banner1 {
+        height: 250px !important;
+    }
+
+    #banner2 {
+        height: 250px !important;
+    }
+
+    #voy-a-small {
+        display: none;
+        margin-right: 75px;
+    }
+
+
+    @media screen and (min-width: 0px) and (max-width: 1200px) {
+        #voy-a {
+            display: block;
+        }
+
+        #voy-a-small {
+            display: block;
+        }
+
+        #banner2 {
+            display: block;
+        }
+    }
+
+
+    @media screen and (min-width: 200px) and (max-width: 1200px) {
+        #voy-a {
+            display: none;
+        }
+
+        #banner2 {
+            display: none;
+        }
+    }
+</style>

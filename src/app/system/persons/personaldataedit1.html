@@ -1,0 +1,108 @@
+﻿<div data-slimscroll="{ height: '360px'}">
+    <div class="row">
+        <div class="col-xs-11">
+            <div class="form-group">
+                <label for="email">Emails</label>
+                <div data-ng-repeat="email in person.emails">
+                    <div class="row" style="margin-top: 3px;">
+                        <div class="col-xs-11" style="padding-right: 5px;">
+                            <div class="input-group">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ personService.getEmailTypeName(email.typeId) | translate }} <span class="caret"></span></button>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li><a href="#" data-ng-click="email.typeId=2">{{ personService.getEmailTypeName(2) | translate }}</a></li>
+                                        <li><a href="#" data-ng-click="email.typeId=3">{{ personService.getEmailTypeName(3) | translate }}</a></li>
+                                        <li><a href="#" data-ng-click="email.typeId=4">{{ personService.getEmailTypeName(4) | translate }}</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="#" data-ng-click="email.typeId=1">{{ personService.getEmailTypeName(1) | translate }}</a></li>
+                                    </ul>
+                                </div>
+                                <input type="text" class="form-control" id="address" name="address" data-ng-model="email.address" data-ng-change="emailAddressChanged(email)">
+                            </div>
+                        </div>
+                        <div class="col-xs-1" style="padding-left: 0;">
+                            <button data-ng-click="removeEmail(email)" type="button" class="btn btn-default" data-ng-show="email.address!=null"><i class="fa fa-remove" title="Eliminar"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-11">
+            <div class="form-group">
+                <label>Teléfonos</label>
+                <div data-ng-repeat="phone in person.phones">
+                    <div class="row" style="margin-top: 3px;">
+                        <div class="col-xs-11" style="padding-right: 5px;">
+                            <div class="input-group">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ personService.getPhoneTypeName(phone.typeId) | translate }} <span class="caret"></span></button>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li><a href="#" data-ng-click="phone.typeId=2">{{ personService.getPhoneTypeName(2) | translate }}</a></li>
+                                        <li><a href="#" data-ng-click="phone.typeId=3">{{ personService.getPhoneTypeName(3) | translate }}</a></li>
+                                        <li><a href="#" data-ng-click="phone.typeId=4">{{ personService.getPhoneTypeName(4) | translate }}</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="#" data-ng-click="phone.typeId=1">{{ personService.getPhoneTypeName(1) | translate }}</a></li>
+                                    </ul>
+                                </div>
+                                <input type="text" class="form-control" id="number" name="number" data-ng-model="phone.number" data-ng-change="phoneNumberChanged(phone)">
+                            </div>
+                        </div>
+                        <div class="col-xs-1" style="padding-left: 0;">
+                            <button data-ng-click="removePhone(phone)" type="button" class="btn btn-default" data-ng-show="phone.number!=null"><i class="fa fa-remove" title="Eliminar"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="form-group">
+                <label>Direcciones</label>
+                <div data-ng-repeat="address in person.addresses">
+                    <div class="row" style="margin-top: 3px;">
+                        <div class="col-xs-11" style="//padding-right: 5px;">
+                            <div class="input-group">
+                                <div class="input-group-btn" style="//width: 150px;">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ personService.getAddressTypeName(address.typeId) | translate }} <span class="caret"></span></button>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li><a href="#" data-ng-click="address.typeId=2">{{ personService.getAddressTypeName(2) | translate }}</a></li>
+                                        <li><a href="#" data-ng-click="address.typeId=3">{{ personService.getAddressTypeName(3) | translate }}</a></li>
+                                        <li><a href="#" data-ng-click="address.typeId=4">{{ personService.getAddressTypeName(4) | translate }}</a></li>
+                                        <li><a href="#" data-ng-click="address.typeId=5">{{ personService.getAddressTypeName(5) | translate }}</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="#" data-ng-click="address.typeId=1">{{ personService.getAddressTypeName(1) | translate }}</a></li>
+                                    </ul>
+                                </div>
+                                <div class="input-group-field">
+                                    <input type="text" class="form-control" style="width:200px;" id="addressStreet" name="addressStreet" data-ng-model="address.address.street" data-ng-change="addressChanged(address)" placeholder="Calle">
+                                </div>
+                                <div class="input-group-field">
+                                    <input type="text" class="form-control m-l-xs" style="width: 80px;" id="addressStreetNumber" name="addressStreetNumber" data-ng-model="address.address.streetNumber" data-ng-change="addressChanged(address)" placeholder="Altura">
+                                </div>
+                                <div class="input-group-field">
+                                    <input type="text" class="form-control m-l-xs" style="width: 80px;" id="addressFloor" name="addressFloor" data-ng-model="address.address.floor" data-ng-change="addressChanged(address)" placeholder="Piso">
+                                </div>
+                                <div class="input-group-field">
+                                    <input type="text" class="form-control m-l-xs" style="width: 80px;" id="addressAppartment" name="addressAppartment" data-ng-model="address.address.appartment" data-ng-change="addressChanged(address)" placeholder="Dpto">
+                                </div>
+                                <div class="input-group-field">
+                                    <input type="text" class="form-control m-l-xs" style="width: 80px;" id="addressZip" name="addressZip" data-ng-model="address.address.zipCode" data-ng-change="addressChanged(address)" placeholder="C.P">
+                                </div>
+                                <div class="input-group-field pull-left" >
+                                    <div name="systemPlaceLookup{{$index}}" data-lookup="systemPlaceLookup" data-ng-model="address.address.placeId" ></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-1" style="//padding-left: 0;">
+                            <button data-ng-click="removeAddress(address)" type="button" class="btn btn-default" data-ng-show="address.address.street!=null || address.address.streetNumber!=null || address.address.id!=null"><i class="fa fa-remove" title="Eliminar"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

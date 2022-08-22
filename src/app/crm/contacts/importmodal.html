@@ -1,0 +1,76 @@
+﻿
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+            <form name="importItemForm">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-import">
+                            <label for="name">Archivo</label>
+
+                            <div class="row m-t-sm" >
+                                <div class="col-md-12">
+                                    <div class="file-manager">
+                                        <div class="text-center">
+                                            <div data-ng-show="uploader.isUploading">
+                                                <div class="row" data-ng-repeat="item in uploader.queue">
+                                                    <div class="col-sm-12">
+                                                        <uib-progressbar class="progress-striped" value="item.progress" type="">{{item.progress}}%</uib-progressbar>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="btn btn-primary btn-file btn-block" data-ng-show="!uploader.isUploading">
+                                                <i class="fa fa-upload"></i>
+                                                <span style="margin-left: 3px;">Seleccione un archivo CSV</span>
+                                                <input type="file" multiple nv-file-select="" uploader="uploader" data-ng-disabled="uploader.isUploading" data-file-input="" />
+                                            </div>
+                                        </div>
+                                        <div class="hr-line-dashed"></div>
+                                        <ul class="folder-list" style="padding: 0">
+                                            <li data-ng-repeat="folder in document.folders"><a href=""><i class="fa fa-folder"></i> {{folder.name}}</a></li>
+                                            <li data-ng-repeat="file in document.files"><a href="" data-ng-click="openFile(file)"><i class="fa fa-file"></i> {{file.name}}</a></li>
+                                        </ul>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>   
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="title-action" style="text-align: left;">
+                            Nombre del archivo subido: {{response.fileName}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="title-action" style="text-align: left;">
+                            Columnas
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="title-action" style="text-align: left;" data-ng-repeat="column in columns">
+                            {{$index}}) {{column.name}} - Mapear con: 
+                            <select data-ng-model="column.map" class="form-control" data-ng-options="option.value as option.name for option in mapColumns"></select>
+                        </div>
+                    </div>
+                </div>
+                             
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="title-action" style="text-align: left;">
+                            <button type="button" class="btn btn-primary" data-ng-click="save()" data-ng-disabled="importItemForm.$invalid || ! importItemForm.$dirty"><i class="fa fa-file-o"></i> {{ 'command.save' | translate }}</button>
+                        </div>
+                    </div>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+</div>

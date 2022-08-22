@@ -1,0 +1,30 @@
+﻿<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+            <form name="personPollsForm">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <h3>La persona {{person.name}} tiene mas de una encuesta cargada</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div data-polls-person-responses-grid="" data-person-id="personId" data-form="form"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="title-action" style="text-align: left;">
+                            <button type="button" class="btn btn-primary" data-ng-click="continue()" ><i class="fa fa-file-o"></i> Continuar</button>
+                            <button type="button" class="btn btn-danger" data-ng-click="cancel()" ><i class="fa fa-times"></i>&nbsp;Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

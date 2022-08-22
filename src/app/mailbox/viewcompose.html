@@ -1,0 +1,111 @@
+<form class="form-horizontal">
+    <div class="mail-box-header">
+        <div class="pull-right tooltip-demo">
+            <a class="btn btn-sm btn-primary" ng-show="vm.forwardflag||vm.replyflag" data-toggle="tooltip" data-placement="top" title="{{mailbox.viewcompose.sendbutton}}" ng-click="vm.send()"><i class="fa fa-envelope"></i> Enviar {{mailbox.viewcompose.sendbutton}}</a>
+            <a class="btn btn-sm btn-success" ng-show="!vm.replyflag&&!vm.forwardflag" data-toggle="tooltip" data-placement="top" title="{{mailbox.viewcompose.replybutton}}" ng-click="vm.reply()"><i class="fa fa-reply"></i> Responder {{mailbox.viewcompose.replybutton}}</a>
+            <a class="btn btn-sm btn-primary" ng-show="!vm.replyflag&&!vm.forwardflag" data-toggle="tooltip" data-placement="top" title="{{mailbox.viewcompose.forwardbutton}}" ng-click="vm.forward()"><i class="fa fa-arrow-right"></i> Reenviar {{mailbox.viewcompose.forwardbutton}}</a>
+            <a class="btn btn-sm btn-white" ng-hide="vm.forwardflag||vm.replyflag" data-toggle="tooltip" data-placement="top" title="{{mailbox.viewcompose.printbutton}}" ng-click="vm.print()"><i class="fa fa-print"></i> Imprimir {{mailbox.viewcompose.printbutton}}</a>
+            <a class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="{{mailbox.viewcompose.trashbutton}}" ng-click="vm.discard()"><i class="fa fa-trash-o"></i> Descartar {{mailbox.viewcompose.deletebutton}}</a>
+        </div>
+        <h2>
+            Mensaje {{mailbox.viewcompose.messagetitle | translate}}
+        </h2>
+
+        <div class="mail-tools tooltip-demo m-t-md" ng-show="vm.replyflag">
+            <div class="form-group">
+                <div class="col-sm-1"><label class="control-label">De: {{mailbox.viewcompose.mailfrom | translate}}</label></div>
+                <div class="col-sm-3"><label class="control-label">{{vm.mail_from}}</label></div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-1"><label class="control-label">Para: {{mailbox.viewcompose.mailto | translate}}</label></div>
+                <div class="col-sm-11"><input type="text" class="form-control" ng-model="vm.mail.mail_to_reply" ng-pattern="emailPattern()" ng-required="true"></div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-1"><label class="control-label">Asunto: {{mailbox.viewcompose.subject | translate}}</label></div>
+                <div class="col-sm-11"><input type="text" class="form-control" ng-model="vm.mail.mail_subject_reply" ng-required="true"></div>
+            </div>
+        </div>
+        <div id="reply" ng-show="vm.replyflag">
+            <div class="mail-text h-100">
+                <textarea ng-model="mail.bodyreply" ckeditor="editorOptions" class="form-control" id="{{mail.bodyreply}}" ng-ckeditor=""></textarea>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+        <div class="mail-tools tooltip-demo m-t-md" ng-show="vm.forwardflag">
+            <div class="form-group">
+                <div class="col-sm-1"><label class="control-label">De: {{mailbox.viewcompose.mailfrom | translate}}</label></div>
+                <div class="col-sm-3"><label class="control-label">{{vm.mail_from}}</label></div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-1"><label class="control-label">Para: {{mailbox.viewcompose.mailto | translate}}</label></div>
+                <div class="col-sm-11"><input type="text" class="form-control" ng-model="vm.mail.mail_to_forward" ng-pattern="emailPattern()" ng-required="true"></div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-1"><label class="control-label">Asunto: {{mailbox.viewcompose.subject | translate}}</label></div>
+                <div class="col-sm-11"><input type="text" class="form-control" ng-model="vm.mail.mail_subject_forward" ng-required="true"></div>
+            </div>
+        </div>
+
+        <div id="forward" ng-show="vm.forwardflag">
+            <div class="mail-text h-100">
+                <textarea ng-model="mail.bodyforward" ckeditor="editorOptions" class="form-control" id="{{mail.bodyforward}}" ng-ckeditor=""></textarea>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+        <div class="mail-tools tooltip-demo m-t-md">
+            <h3>
+                <span class="font-normal">Asunto: {{mailbox.viewcompose.subject | translate}}</span> {{vm.mail.subject}}
+            </h3>
+            <h5>
+                <span class="pull-right font-normal">{{vm.mail.sentdate}}</span>
+                <span class="font-normal">De: {{mailbox.viewcompose.mailfrom | translate}} </span>{{vm.mail.senderid}}
+            </h5>
+        </div>
+    </div>
+    <div class="mail-box">
+        <div class="mail-body">
+            <p>
+                {{vm.mail.body}}
+            </p>
+        </div>
+        <div class="mail-attachment">
+            <p>
+                <span><i class="fa fa-paperclip"></i> {{vm.mail.attachmentsnumber}} anexos {{mailbox.viewcompose.attachments | translate}}  - </span> |
+                <a href="">Descargar archivos adjuntos {{mailbox.viewcompose.downloadattachedfiles | translate}} </a> |
+                <a href="">Ver todos los archivos {{mailbox.viewcompose.viewallattachedfiles | translate}}</a>
+            </p>
+
+            <div class="attachment">
+                <div class="file-box" ng-repeat="attach in vm.mail.attachments">
+                    <div class="file">
+                        <a href="">
+                            <span class="corner"></span>
+                            <div class="icon">
+                                <i class="fa fa-file"></i>
+                            </div>
+                            <div class="file-name">
+                                {{attach.attachmentname}}
+                                <br/>
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="mail-body text-right tooltip-demo">
+            <a class="btn btn-sm btn-primary" ng-show="vm.forwardflag||vm.replyflag" data-toggle="tooltip" data-placement="top" title="{{mailbox.viewcompose.sendbutton}}" ng-click="vm.send()"><i class="fa fa-envelope"></i> Enviar {{mailbox.viewcompose.sendbutton}}</a>
+            <a class="btn btn-sm btn-success" ng-show="!vm.replyflag&&!vm.forwardflag" data-toggle="tooltip" data-placement="top" title="{{mailbox.viewcompose.replybutton}}" ng-click="vm.reply()"><i class="fa fa-reply"></i> Responder {{mailbox.viewcompose.replybutton}}</a>
+            <a class="btn btn-sm btn-primary" ng-show="!vm.replyflag&&!vm.forwardflag" data-toggle="tooltip" data-placement="top" title="{{mailbox.viewcompose.forwardbutton}}" ng-click="vm.forward()"><i class="fa fa-arrow-right"></i> Reenviar {{mailbox.viewcompose.forwardbutton}}</a>
+            <a class="btn btn-sm btn-white" ng-hide="vm.forwardflag||vm.replyflag" data-toggle="tooltip" data-placement="top" title="{{mailbox.viewcompose.printbutton}}" ng-click="vm.print()"><i class="fa fa-print"></i> Imprimir {{mailbox.viewcompose.printbutton}}</a>
+            <a class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="{{mailbox.viewcompose.trashbutton}}" ng-click="vm.discard()"><i class="fa fa-trash-o"></i> Descartar {{mailbox.viewcompose.deletebutton}}</a>
+        </div>
+        <div class="clearfix"></div>
+
+
+    </div>
+</form>

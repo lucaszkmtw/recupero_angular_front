@@ -1,0 +1,41 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'findm.normative' | translate }} <small data-ng-show="normative.id">{{normative.name}} {{normative.observations}}</small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+            <button type="button" class="btn btn-danger" data-ng-click="delete()" data-ng-show="normative.id"><i class="fa fa-trash"></i> {{ 'command.delete' | translate }}</button>                          
+            <button type="button" data-ng-click="save()" class="btn btn-primary" data-ng-disabled="normativeForm.$invalid || !normativeForm.$dirty"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</button>
+            <!--<a href="" target="_blank" class="btn btn-primary" data-ng-click="save()"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</a> -->
+        </div>
+    </div>
+ </div>
+ <div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+            <form role="form" name="normativeForm">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="name">Normativa</label>
+                            <input type="text" class="form-control" id="name" name="name" data-ng-model="normative.name" data-ng-disabled="normative.id"  required>                            
+                            <span  style="color:red" data-ng-show="normativeForm.name.$touched && normativeForm.name.$invalid">La Normativa es requerida.</span>                              
+                        </div>
+                    </div>
+                </div>              
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="observations">Observaciones</label>
+                            <input type="text" class="form-control" id="observations" data-ng-model="normative.observations">                           
+                        </div>
+                    </div>
+                </div>             
+            </form>
+        </div>
+    </div>
+ </div>
+ 

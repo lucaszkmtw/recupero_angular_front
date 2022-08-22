@@ -1,0 +1,43 @@
+﻿<div class="modal-header dialog-header-confirm">
+    <h4 class="modal-title"><span class="fa fa-tasks">&nbsp;</span>Nuevo Médico</h4>
+</div>
+<div class="modal-body" style="height: 300px;">
+    <ng-form role="form" name="searchPersonForm" data-ng-show="params.step==1">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="systemPersonLookup">Persona</label>
+                    <div id="systemPersonLookup" data-lookup="systemPersonLookup" data-ng-model="doctor.personId"></div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" data-ng-click="cancel()">Cancelar</button>
+            <button type="button" class="btn btn-success" data-ng-disabled="!doctor.personId" data-ng-click="params.step=2">Siguiente</button>
+        </div>
+    </ng-form>
+
+    <ng-form role="form" name="newDoctorForm" data-ng-show="params.step==2">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label for="registrationNumber">Matrícula</label>
+                    <input type="text" class="form-control" id="registrationNumber" name="registrationNumber" data-ng-model="doctor.registrationNumber">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label for="systemPersonSkillsLookup">Especialidades</label>
+                    <div id="systemPersonSkillsLookup" data-lookup="systemPersonSkillsLookup" data-ng-model="doctor.skillIds">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning" data-ng-click="cancel()">Cancelar</button>
+                <button type="button" class="btn btn-default" data-ng-click="params.step=1">Anterior</button>
+                <button type="button" class="btn btn-success" data-ng-click="save()">Guardar</button>
+            </div>
+    </ng-form>
+</div>

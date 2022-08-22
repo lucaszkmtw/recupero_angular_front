@@ -1,0 +1,25 @@
+[{
+    "id": "1",
+    "campaignType": "Landing",
+    "campaignName": "Campaña Landing de Prueba 1",
+    "campaignSubject": "Lanzamiento de Prueba 1",
+    "campaignSentdate": "01/10/2017 10:00 AM"
+}, {
+    "id": "2",
+    "campaignType": "Emailing",
+    "campaignName": "Campaña Emaling de Prueba 2",
+    "campaignSubject": "Lanzamiento de Prueba 2",
+    "campaignSentdate": "02/10/2017 12:10 PM"
+}, {
+    "id": "3",
+    "campaignType": "Social",
+    "campaignName": "Campaña Social de Prueba 3",
+    "campaignSubject": "Lanzamiento de Prueba 3",
+    "campaignSentdate": "02/10/2017 17:45 PM"
+}, {
+    "id": "4",
+    "campaignType": "Landing-Emailing",
+    "campaignName": "Campaña Landing-Emailing de Prueba 4",
+    "campaignSubject": "Lanzamiento de Prueba 4",
+    "campaignSentdate": "04/10/2017 15:34 PM"
+}]

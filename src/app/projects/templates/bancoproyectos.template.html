@@ -1,0 +1,273 @@
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="row">
+            <div class="col-md-12 bg-white">
+              
+                            <a  ng-if="!isViewMode"  style="float:right;" href="" target="_blank" class="btn btn-info" data-ng-click="addSlide()"><i class="fa fa-plus-square-o"></i> Agregar Slide </a> 
+                       
+                <div id="inSlider" class="carousel carousel-fade" data-ride="carousel" style="margin-top: 40px">
+                    
+                    <ol class="carousel-indicators">
+                        <li ng-repeat="slide in vm.template.templateJSON.headerSlide  track by $index" data-target="#inSlider" data-slide-to="{{$index}}"
+                            ng-class="isFirstSlide($index) ? 'active' : ''"></li>
+
+                    </ol>
+                    <div class="carousel-inner" role="listbox">
+                        <div ng-attr-id="{{ 'slide-' + slide.id }}" ng-repeat="slide in vm.template.templateJSON.headerSlide  track by $index" ng-class="isFirstSlide($index) ? 'item active' : 'item'">
+
+                            <div class="container">
+                   
+
+                                <div class="carousel-caption one">
+                             
+                                        <div ng-if="!isViewMode" class="well" style="background-color: #FbFbFb ">
+                                                <a style="float: right" ><span  data-ng-click="removeSlide(slide)" class="fa  fa-trash-o" style="color:gray;height: 30px;"></a>
+                                                <a style="float: right;margin-right:10px "> <span data-ng-click="editSlideHtml(slide.innerHtml, slide)" class="glyphicon glyphicon-edit" style="color:gray;height: 30px"></span></a>
+                                               
+                                                <h1 ng-bind-html="slide.innerHtml"></h1>
+                                            </div>
+                                    <h1 ng-if="isViewMode" ng-bind-html="slide.innerHtml"></h1>
+                                </div>
+
+                            </div>
+                           
+                            <div class="header-back ">
+                              
+                                <img data-ng-src="{{slide.image}}" width="100%" >
+                            </div>
+
+                        </div>
+
+
+                    </div>
+     
+            <a class="left carousel-control" href="#inSlider" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+                    <a class="right carousel-control" href="#inSlider" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+                </div>
+
+
+
+
+                <div class="row" style="margin-top: -3%;">
+                    <div class="col-sm-8">
+                        <!-- <div class="file-column"> -->
+                        <div class="row ">
+                            <div class="col-sm-3">
+                                <div class="user-pic">
+                                    <div class="ratio-round">
+                                        <img data-ng-if="projectSponsor.person.profilePictureUrl" data-ng-src="{{projectSponsor.person.profilePictureUrl}}" alt="{{projectSponsor.personName}}"
+                                            title="{{projectSponsor.personName}}" />
+
+
+                                        <img data-ng-if="!projectSponsor.person.profilePictureUrl" src="Content/img/someone.jpg" alt="{{projectSponsor.personName}}"
+                                            title="{{projectSponsor.personName}}" />
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-9" style="">
+                                <div class="investor-name">
+                                    <h3> <span class="navy">{{projectSponsor.person.name}}</span></h3>
+                                    <span class="syndicating">
+                               Sponsor
+
+                              
+                        </span>
+                                    <p align="justify" ng-bind-html="projectSponsor.description">
+                                        <br>
+                                    </p>
+                                    <!-- <p align="justify">
+                                        Descipcion Sponsor Descipcion Sponsor Descipcion Sponsor Descipcion Sponsor Descipcion Sponsor Descipcion Sponsor Descipcion
+                                        Sponsor Descipcion Sponsor Descipcion Sponsor Descipcion Sponsor Descipcion Sponsor
+                                        Descipcion Sponsor Descipcion Sponsor Descipcion Sponsor Descipcion Sponsor
+                                        <br>
+                                    </p> -->
+                                </div>
+                                <div class="spacer-20px"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-4" style="">
+
+                        <div class="grey-box oportunity-file">
+                            <div class="white-box">
+                                <header>
+
+
+                                    <div class="logo-company-big">
+
+                                        <div class="ratio-16x9">
+
+                                            <a ng-if="!isViewMode" style="float: right;z-index:999999;margin-left:90%">
+                                                              
+                                                     <span data-ng-click="editImage(fieldByName('projectGoalsImage'))" class="glyphicon glyphicon-edit" style="color:gray;height: 30px"></span> 
+                                                         <!-- <span data-ng-click="editHtml(data.templateData.sourceJSON.projectGoals.review,'projectGoals.review')" class="glyphicon glyphicon-edit" style="color:gray;height: 30px"></span> -->
+                                                   
+                                                        </a>
+                                            <img ng-if="fieldByName('projectGoalsImage').value  === ''" src="Content/img/noimage.jpeg" title="" alt="" />
+
+                                            <img ng-if="!(fieldByName('projectGoalsImage').value === '')" src="{{fieldByName('projectGoalsImage').value}}" title="" alt="" />
+
+                                        </div>
+                                    </div>
+
+                                    <h3>
+                                        {{project.name}}
+
+                                    </h3>
+
+
+                                    <div ng-if="!isViewMode" class="well" style="background-color: #FbFbFb ">
+                                        <a style="float: right"> <span data-ng-click="editHtml(fieldByName('projectGoalsReview').value, 'projectGoalsReview')" class="glyphicon glyphicon-edit" style="color:gray;height: 30px"></span></a>
+                                        <p ng-if="!(fieldByName('projectGoalsReview').value === '')" ng-bind-html="fieldByName('projectGoalsReview').value"></p>
+                                        <p ng-if="(fieldByName('projectGoalsReview').value === '')" ng-bind-html="vm.review"></p>
+                                    </div>
+                                    <p ng-if="(isViewMode === true && !(fieldByName('projectGoalsReview').value === ''))"   ng-bind-html="fieldByName('review').value"></p>
+                                    <p ng-if="(isViewMode === true && (fieldByName('projectGoalsReview').value === ''))"  ng-bind-html="vm.review"></p>
+                               
+                                </header>
+
+                                <div id="opportunity-investment-card-progress-header">
+                                    <div class="row">
+                                        <div   ng-class="isViewMode ? 'col-xs-6 invested ' : 'col-xs-6'">
+                                            {{vm.total | currency:'USD':true:'1.2-2'}}
+
+                                        </div>
+
+                                        <div ng-class="isViewMode ? 'col-xs-6 target ' : 'col-xs-6'" >
+                                            {{vm.contractAmount | currency:'USD':true:'1.2-2'}}
+
+                                        </div>
+                                    </div>
+                                    <div class="progress progress-mini">
+                                        <div ng-style="{ 'width' : (vm.total/vm.contractAmount)*100}" class="progress-bar"></div>
+
+                                    </div>
+
+
+                                    <div class="invested-pie">
+                                        Comprometidos
+                                        <span>Objetivo</span>
+                                    </div>
+
+                                    <div class="row oportunity-details">
+                                        <div class="col-xs-4" ng-if="vm.investorsCount > 0">
+                                            <span> {{vm.investorsCount}}</span> <br/>Inversores
+                                        </div>
+
+                                        <div class="col-xs-4" ng-if="vm.collaboratorsCount > 0">
+                                            <span>{{vm.collaboratorsCount}}</span> <br/>Interesados
+                                        </div>
+
+                                        <div class="col-xs-4 oportunity-day" ng-if="vm.followersCount > 0">
+                                            <span>{{vm.followersCount}}</span>
+                                            <div class="days-left warning">Seguidores</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+                <uib-tabset class="tabs">
+                        <uib-tab heading="Equipo">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                           
+                                            <div id="aboutStartup" class="container clearfix" style="width: unset!important;">
+                                                <h5 class="area-title">
+                                                    <i class="fa fa-2x fa-paper-plane"></i> Equipo
+                                                </h5>
+                                                <div class="row">
+                                                    <div data-ng-repeat="personTeam in project.members |  filter:isTeamFilter ">
+                                                        <article class="col-xs-12 col-md-4">
+                                                            <div class="article-details">
+                                                                <a href="/app/system/persons/{{personTeam.person.id}}" title="{{personTeam.person.name}}" class="profilelink" data-type="user">
+                                                                    <div class="user-pic">
+                                                                        <div class="ratio-round">
+                                                                            <img  style="width: unset;" data-ng-if="personTeam.person.profilePictureUrl" src="{{personTeam.person.profilePictureUrl}}" class="img-circle ng-scope" alt="{{personTeam.person.name}}" title="{{personTeam.person.name}}">
+                                                                            <img  style="width: unset;"  data-ng-if="!personTeam.person.profilePictureUrl" src="Content/img/someone.jpg" class="img-circle ng-scope" alt="{{personTeam.person.name}}" title="{{personTeam.person.name}}">
+                                                                        </div>
+                                                                    </div>
+                                                                    <h4 style="min-height: 50px;">
+                                                                        {{personTeam.person.name}}
+                                                                    </h4>
+                                                                    <span ng-repeat="tag in personTeam.tags track  by $index" class="badge badge">{{tag}}</span>
+                                                                   
+                                                                </a>
+        
+                                                            </div>
+                                                        </article>
+                                                    </div>
+        
+        
+                                                </div>
+        
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </uib-tab>
+                    <uib-tab ng-repeat="tab in vm.template.templateJSON.tabs" heading="{{tab.name |htmlToPlaintext }}">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+
+                                    <div id="aboutStartup" class="">
+                                        <h5 class="area-title">
+                                            <i class="fa fa-2x fa-paper-plane"></i> {{tab.name | htmlToPlaintext }}
+                                            <div ng-if="!isViewMode" id="actionLiks" style="float:right">
+                                                <a> <span data-ng-click="editHtmlTab(tabdById(tab.id),'name')" class="glyphicon glyphicon-edit" style="color:gray;height: 30px"></span></a>
+                                                <a><span  data-ng-click="removeTab(tab)" class="fa fa-times-rectangle" style="color:gray;height: 30px;"></a>
+                                            </div>
+                                            <!-- <a  style="float: right"> <span data-ng-click="editHtmlTab(tabdById(tab.id),'name')" class="glyphicon glyphicon-edit" style="color:gray;height: 30px"></span></a> -->
+                                        </h5>
+
+
+                                        <div class="row m-t-sm">
+                                            <div class="col-md-12">
+                                                <div class="file-column">
+                                                    <div class="well" style="background-color: #FbFbFb ">
+                                                        <a style="float: right"> <span data-ng-click="editHtmlTab(tabdById(tab.id),'innerHtml')" class="glyphicon glyphicon-edit" style="color:gray;height: 30px"></span></a>
+
+                               
+                                                        <p ng-if="(tab.id===1 && !(tabdById(tab.id).innerHtml === ''))"  ng-bind-html="tabdById(tab.id).innerHtml"></p>
+                                                       <p ng-if="(tab.id===1 && (tabdById(tab.id).innerHtml === ''))"  ng-bind-html="vm.description"></p>
+
+                                                    </div>
+                                                    <!-- <div align="justify" ng-bind-html="project.description">
+                                                                    <br>
+                                                                </div> -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- </section> -->
+                                </div>
+                            </div>
+                        </div>
+                    </uib-tab>
+                    <uib-tab-button handler="addTab()" text="+Add "></uib-tab-button>
+
+
+
+
+                </uib-tabset>
+            </div>
+        </div>
+    </div>
+</div>

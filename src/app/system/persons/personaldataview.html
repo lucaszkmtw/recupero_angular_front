@@ -1,0 +1,45 @@
+﻿<div class="ibox">
+    <div class="ibox-content">
+        <div class="row" data-ng-show="person.birthDate">
+            <div class="col-xs-6">
+                <strong>Fecha de nacimiento:</strong> <span>{{person.birthDate | amDateFormat: 'L' }} ({{(person.birthDate | amDifference : null : 'years')*-1 }} años de edad)</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6" style="margin-top: 10px;">
+                <i class="fa fa-envelope"></i>&nbsp;<strong>Correos electrónicos:</strong>
+            </div>
+        </div>
+        <div data-ng-repeat="email in person.emails" class="row m-t-xs">
+            <div class="col-xs-6">
+                <div><a href="mailto:{{email.address}}">{{email.address}}</a></div>
+                <div>{{personService.getEmailTypeName(email.typeId) | translate }}</div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6" style="margin-top: 10px;">
+                <i class="fa fa-phone"></i>&nbsp;<strong>Teléfonos:</strong>
+            </div>
+        </div>
+        <div data-ng-repeat="phone in person.phones" class="row m-t-xs">
+            <div class="col-xs-6">
+                <div><a href="tel:{{phone.number}}">{{phone.number}}</a></div>
+                <div>{{personService.getPhoneTypeName(phone.typeId) | translate }}</div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6" style="margin-top: 10px;">
+                <i class="fa fa-map-marker"></i>&nbsp;<strong>Direcciones:</strong>
+            </div>
+        </div>
+        <div data-ng-repeat="address in person.addresses" class="row m-t-xs">
+            <div class="col-xs-6">
+                <div>{{address.address.name}}, {{address.address.place.path}}</div>
+                <div>{{ personService.getAddressTypeName(address.typeId) | translate }}</div>
+            </div>
+        </div>
+    </div>
+</div>

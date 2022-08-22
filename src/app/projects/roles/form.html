@@ -1,0 +1,34 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'projects.rol' | translate }} <small>{{rol.name}} </small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+            <button type="button" class="btn btn-danger" data-ng-click="delete()" data-ng-show="investor.id"><i class="fa fa-trash"></i> {{ 'command.delete' | translate }}</button>
+            <button type="button" class="btn btn-primary" data-ng-click="save()"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</button>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+             
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label >Nombre del rol</label>
+                          <input type="text" class="form-control" placeholder="name" data-ng-model="rol.name" />
+                    </div>
+                </div>
+            </div>
+      
+     
+
+        </div>
+    </div>
+</div>

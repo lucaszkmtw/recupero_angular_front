@@ -1,0 +1,615 @@
+﻿<div class="animated fadeInRight" data-ng-if="options.edit===false">
+    <div class="row">
+        <div class="col-sm-6"></div>
+        <div class="col-sm-6 text-right">
+            <h4>No. <span class="text-navy">{{ document.documentType.shortName }} {{document.number | documentNumber}}</span></h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <span>De:</span>
+            <address>
+                <strong>{{document.issuer.name}}</strong><br>
+                {{document.issuer.addresses[0].address.name}}<br>
+                <abbr title="Teléfono" data-ng-show="document.issuer.phones.length>0">T:</abbr> {{document.issuer.phones[0].number}}
+            </address>
+        </div>
+
+        <div class="col-sm-6 text-right">
+            <span>A:</span>
+            <address>
+                <strong>{{document.receiver.name}}</strong><br>
+                {{document.receiver.addresses[0].address.name}}<br>
+                <abbr title="Teléfono" data-ng-show="document.receiver.phones.length>0">T:</abbr> {{document.receiver.phones[0].number}}
+            </address>
+        </div>
+    </div>
+
+    <div class="row" data-ng-show="module==3">
+        <div class="col-sm-6">
+            <span>Transportista:</span>
+            <address>
+                <strong>{{document.dispatcher.name}}</strong>   <br>
+                {{document.dispatcher.addresses[0].address.name}}<br>
+                <abbr title="Teléfono" data-ng-show="document.dispatcher.phones.length>0">T:</abbr> {{document.dispatcher.phones[0].number}}
+            </address>
+        </div>
+        <div class="col-md-6">
+            <span>Depósito de {{ document.documentType.shortName==='RMS' ? 'Destino' : 'Orígen' }}:</span>
+            <span>{{document.site.name}}</span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <strong>Estado:</strong><span class="label label-primary" style="font-size: 12px; margin-left: 5px;">{{documentStatus.name}}</span>
+            <span class="m-l-sm" data-ng-show="document.approvalWorkflowInstance && !document.approvalWorkflowInstance.isTerminated && !document.approvalWorkflowInstance.currentWorkflowActivity.isFinal">
+                <strong>Asignado a:</strong>
+                <span style="font-size: 12px; margin-left: 5px;">
+                    <span data-ng-repeat="assignedRole in document.approvalWorkflowInstance.assignedRoles" data-ng-show="!claim.workflowInstance.isTerminated"><span class="label label-default" style="font-size: 12px;">{{assignedRole.roleName}}</span></span>
+                </span>
+            </span>
+        </div>
+        <div class="col-sm-6 text-right">
+            <span><strong>Fecha:</strong> {{document.documentDate | amDateFormat: 'L'}}</span><br>
+            <span data-ng-show="document.voidDate"><strong>Fecha Vencimiento:</strong> {{document.voidDate | amDateFormat: 'L' }}</span>
+        </div>
+    </div>
+    <div class="row m-t-sm" data-ng-if="document.approvalWorkflowInstance">
+        <div class="col-md-6">
+            <strong>Categorías:</strong>
+            <system-workflow-instance-tags data-tags="{{document.approvalWorkflowInstance.tags}}"></system-workflow-instance-tags>
+        </div>
+    </div>
+
+    <div class="table-responsive m-t">
+        <table class="table invoice-table">
+            <thead>
+                <tr>
+                    <th>Concepto</th>
+                    <th>Cantidad</th>
+                    <th data-ng-hide="module==3">Importe Unitario</th>
+                    <th data-ng-hide="module==3">Subtotal</th>
+                    <th data-ng-hide="module==3">Iva</th>
+                    <th data-ng-hide="module==3">Total</th>
+                    <th data-ng-show="module==3">Depósito</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="item in document.items">
+                    <td>
+                        <div><strong>{{item.product.name}}</strong></div>
+                    </td>
+                    <td>{{item.quantity}}</td>
+                    <td data-ng-hide="module==3">{{item.unitPrice | currency}}</td>
+                    <td data-ng-hide="module==3">{{item.subTotal | currency}}</td>
+                    <td data-ng-hide="module==3">{{item.vat | currency}}</td>
+                    <td data-ng-hide="module==3">{{item.total | currency}}</td>
+                    <td data-ng-show="module==3">{{item.site.name}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- /table-responsive -->
+
+    <table class="table invoice-total" data-ng-hide="module==3">
+        <tbody>
+            <tr>
+                <td><strong>Sub Total :</strong></td>
+                <td>{{ document.netAmount | currency }}</td>
+            </tr>
+            <tr>
+                <td><strong>IVA :</strong></td>
+                <td>{{ document.vatAmount | currency }}</td>
+            </tr>
+            <tr>
+                <td><strong>TOTAL :</strong></td>
+                <td>{{ document.totalAmount | currency }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="well m-t">
+        <strong>Observaciones</strong>
+        {{document.comments}}
+    </div>
+
+    <uib-tabset style="margin-top: 10px;">
+        <uib-tab heading="Mensajes" active="tab.active" class="dsads">
+            <div data-message-thread="" data-messages="document.messages" data-service-url="messageServiceUrl"></div>
+        </uib-tab>
+
+        <uib-tab heading="Historial">
+            <system-workflow-instance-history data-ng-model="document.approvalWorkflowInstance"></system-workflow-instance-history>
+        </uib-tab>
+        <uib-tab heading="Archivos relacionados" select="selectLinkedFiles()">
+            <div data-ng-show="!document.id" class="m-t-sm alert alert-info">Debe guardar el documento primero para poder asociar archivos.</div>
+            <div class="row m-t-sm" data-ng-show="document.id">
+                <div class="col-md-12">
+                    <div class="file-manager">
+                        <div class="text-center">
+                            <div data-ng-show="uploader.isUploading">
+                                <div class="row" data-ng-repeat="item in uploader.queue">
+                                    <div class="col-sm-12">
+                                        <uib-progressbar class="progress-striped" value="item.progress" type="">{{item.progress}}%</uib-progressbar>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="btn btn-primary btn-file btn-block" data-ng-show="!uploader.isUploading">
+                                <i class="fa fa-upload"></i>
+                                <span style="margin-left: 3px;">Asociar archivos</span>
+                                <input type="file" multiple nv-file-select="" uploader="uploader" data-ng-disabled="uploader.isUploading" data-file-input="" />
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <ul class="folder-list" style="padding: 0">
+                            <li data-ng-repeat="folder in document.folders"><a href=""><i class="fa fa-folder"></i> {{folder.name}}</a></li>
+                            <li data-ng-repeat="file in document.files"><a href="" data-ng-click="openFile(file)"><i class="fa fa-file"></i> {{file.name}}</a></li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </uib-tab>
+        <uib-tab heading="Autorizaciones" data-ng-show="document.status>0">
+            <div class="col-lg-12">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Usuario / Rol</th>
+                            <th>Fecha asignación</th>
+                            <th>Estado</th>
+                            <th>Fecha autorización</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-ng-repeat-start="approval in document.approvalWorkflowInstance.approvals">
+                            <td>
+                                {{approval.userName}}{{approval.roleName}}
+                            </td>
+                            <td>
+                                {{approval.createDate | amDateFormat: 'L LT' }}
+                            </td>
+                            <td>{{ ::(('status.' + approval.status) | lowercase) | translate}}</td>
+                            <td>
+                                <span data-ng-show="approval.date">{{approval.date | amDateFormat: 'L LT' }}</span>
+                            </td>
+                        </tr>
+                        <tr data-ng-show="showingDetails" data-ng-repeat-end="">
+                            <td colspan="4">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        Proveedor: <span data-ng-show="practice.vendorId"><a data-ui-sref="app.procurement.vendoredit({ vendorId: practice.vendor.id })">{{practice.vendor.person.name}}</a></span>
+                                        <span data-ng-show="!practice.vendorId">No posee proveedor asignado</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        Fecha inicio:
+                                        <span data-ng-show="practice.fromDate">{{practice.fromDate | amDateFormat: 'L' }}</span>
+                                        <span data-ng-show="!practice.fromDate">Sin asignar</span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        Fecha fin:
+                                        <span data-ng-show="practice.toDate">{{practice.toDate | amDateFormat: 'L' }}</span>
+                                        <span data-ng-show="!practice.toDate">Sin asignar</span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </uib-tab>
+    </uib-tabset>
+</div>
+<!--
+<div class="row">
+    <div class="col-md-12">
+        <h3>Document: {{ document | json }}</h3>
+    </div>
+</div>
+-->
+
+<ng-form role="form" name="businessDocumentForm" data-ng-if="options.edit===true">
+    <div class="row m-t-sm">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="number">Documento</label>
+                <div class="row">
+                    <div class="col-md-6">
+                        <select class="form-control" id="typeId" data-ng-model="document.typeId" data-ng-options="documentType.id as documentType.name for documentType in documentTypes" ng-change="documentChanged()"></select>
+                    </div>
+                    <div class="col-md-6">
+                        <input required data-ng-model="document.number" id="number"
+                               name="documentNumber"
+                               data-ui-mask="9999-99999999"
+                               type="text" class="form-control" style="width: 150px;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="documentDate">Fecha</label>
+            <div id="documentDate" data-date-picker="" data-ng-model="document.documentDate" required></div>
+        </div>
+        <div class="col-md-3">
+            <label for="voidDate">Fecha vencimiento</label>
+            <div id="voidDate" data-date-picker="" data-ng-model="document.voidDate"></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6" data-ng-if="module==1 || (module==3 && document.documentType.shortName==='RME')">
+            <div class="form-group form-md-lookup">
+                <label for="vendorId">Proveedor</label>
+                <div id="vendorId" data-lookup="procurementVendorPersonLookup" ng-change="documentChanged()" data-ng-model="document.issuerId"></div>
+            </div>
+        </div>
+
+        <div class="col-md-6" data-ng-if="module==2 || (module==3 && document.documentType.shortName==='RMS')">
+            <div class="form-group form-md-lookup">
+                <label for="clientId">Cliente</label>
+                <div id="clientId" data-lookup="salesClientPersonLookup" ng-change="documentChanged()" data-ng-model="document.receiverId"></div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-sm-4" data-ng-hide="module==3">
+                    <div style="margin-top: 30px;">
+                        <input type="checkbox" icheck data-ng-model="document.byOrderOf" name="byOrderOf" class="form-control" data-ng-change="byOrderOfChanged()" />&nbsp;Pago por cuenta y orden?
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="form-group form-md-lookup" data-ng-show="document.byOrderOf" data-ng-if="module==1">
+                        <label for="clientId">Cliente</label>
+                        <div id="byOrderOfClientId" data-lookup="salesClientPersonLookup" data-ng-model="document.options.receiverId"></div>
+                    </div>
+                    <div class="form-group form-md-lookup" data-ng-show="document.byOrderOf" data-ng-if="module==2">
+                        <label for="clientId">Proveedor</label>
+                        <div id="byOrderOfVendorId" data-lookup="salesClientPersonLookup" data-ng-model="document.options.receiverId"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" data-ng-if="module==3">
+
+        <div class="col-md-6">
+            <div class="form-group form-md-lookup">
+                <label for="dispatcherId">Transportista</label>
+                <div id="dispatcherId" data-lookup="systemPersonLookup" data-ng-model="document.dispatcherId"></div>
+            </div>
+        </div>
+
+        <div class="col-md-6" data-ng-if="options.businessPartnerId">
+            <div class="form-group form-md-lookup">
+                <label for="inventorySiteId">Depósito de {{ document.documentType.shortName==='RMS' ? 'Destino' : 'Orígen' }}</label>
+                <div id="inventorySiteId" data-lookup="invSiteLookup" data-person-id="{{options.businessPartnerId}}" data-ng-model="document.inventorySiteId" required></div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="condicionVta">Condición de Venta:</label>
+                <select class="form-control" name="condicionVta" id="condicionVta">
+                    <option ng-repeat="paymentMethod in paymentMethods" value="{{paymentMethod[0]}}">{{paymentMethod[1]}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <label for="itemTypesId">Conceptos</label>
+            <select name="itemTypesId" id="itemTypesId" class="form-control" data-ng-model="document.itemTypesId" data-ng-options="item.id as item.name for item in itemTypesEnum"></select>
+        </div>
+
+        <div class="col-md-4" data-ng-show="document.itemTypesId == 2 || document.itemTypesId ==3">
+            <div class="form-group">
+                <label for="fromServiceDate">Fecha de Servicio:</label>
+
+                <div class="input-group">
+                    <span class="input-group-addon">Desde:</span>
+                    <div id="fromServiceDate" name="fromServiceDate" data-date-picker="" data-ng-model="document.fromServiceDate" ng-required="document.itemTypesId>1"></div>
+
+                    <span class="input-group-addon">Hasta:</span>
+                    <div id="toServiceDate" name="toServiceDate" data-date-picker="" data-ng-model="document.toServiceDate" ng-required="document.itemTypesId>1"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" data-ng-hide="module==3">
+        <div class="col-md-2">
+            <label for="CAE">CAE / CAI</label>
+            <input id="CAE" name="CAE" type="text" class="form-control" data-ng-model="document.cae" />
+        </div>
+
+        <div class="col-md-2">
+            <label for="CAEVoidDate">Fecha vto. CAE</label>
+            <div id="CAEVoidDate" name="CAEVoidDAte" data-date-picker="" data-ng-model="document.caeVoidDate"></div>
+        </div>
+    </div>
+
+    <div class="row m-t-sm" data-ng-if="document.approvalWorkflowInstance">
+        <div class="col-md-9">
+            <system-workflows-tags-lookup data-items="document.approvalWorkflowInstance.tags" workflow-id="document.approvalWorkflowInstance.workflowId" />
+        </div>
+    </div>
+
+    <uib-tabset style="margin-top: 20px;">
+        <uib-tab heading="Conceptos">
+            <div class="panel-compact">
+                <div class="row form-group hidden-xs m-t-sm">
+                    <div class="col-sm-1">Cód.</div>
+                    <div class="col-sm-2">Concepto</div>
+                    <div class="col-sm-1">Cantidad</div>
+                    <div class="col-sm-1">Unidad</div>
+                    <div class="col-sm-1" data-ng-hide="module==3">Imp. Unitario</div>
+                    <div class="col-sm-1" data-ng-hide="module==3">Bonif. (%)</div>
+                    <div class="col-sm-1" data-ng-hide="module==3">Subtotal</div>
+                    <div class="col-sm-1" data-ng-hide="module==3">Alícuota</div>
+                    <div class="col-sm-1" data-ng-hide="module==3">Imp. IVA</div>
+                    <div class="col-sm-1" data-ng-hide="module==3">Total</div>
+                    <div class="col-sm-2" data-ng-show="module==3">Depósito</div>
+                    <div class="col-sm-1"></div>
+                </div>
+
+                <div class="row" data-ng-repeat="item in document.items">
+                    <div class="col-sm-1">
+                        <div class="form-group">
+                            <input name="itemCode"
+                                   data-ng-model="item.code"
+                                   class="form-control"
+                                   type="text"
+                                   autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <div name="catalogProductLookup" data-lookup="catalogProductLookup" data-ng-model="item.productId" data-show-add-new="{{false}}"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <div class="form-group">
+                            <input name="itemQuantity"
+                                   data-ng-model="item.quantity"
+                                   class="form-control cantidad"
+                                   placeholder=""
+                                   step="0.01"
+                                   type="number"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <div class="form-group">
+                            <select name="itemUnitTypeId"
+                                    data-ng-model="item.unitTypeId"
+                                    class="form-control"
+                                    required>
+                                <option ng-repeat="unitType in unitTypes" value="{{unitType[0]}}" data-ng-selected="item.unitTypeId==unitType[0]">{{unitType[1]}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-1" data-ng-hide="module==3">
+                        <div class="form-group">
+                            <input name="itemUnitPrice" data-ng-model="item.unitPrice" class="form-control" type="text" money ng-required="module!=3">
+                        </div>
+                    </div>
+                    <div class="col-sm-1" data-ng-hide="module==3">
+                        <div class="form-group">
+                            <input name="itemBonus"
+                                   data-ng-model="item.bonus" class="form-control" type="text" money ng-required="module!=3">
+                        </div>
+                    </div>
+                    <div class="col-sm-1" data-ng-hide="module==3">
+                        <div class="form-group">
+                            <input name="itemSubTotal"
+                                   data-ng-model="item.subTotal" class="form-control" type="text" money readonly>
+                        </div>
+                    </div>
+                    <div class="col-sm-1" data-ng-hide="module==3">
+                        <div class="form-group">
+                            <select name="itemVatRate"
+                                    data-ng-model="item.vatRate"
+                                    class="form-control"
+                                    data-ng-init="21"
+                                    data-ng-options="item.id as item.name for item in vatRates"></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-1" data-ng-hide="module==3">
+                        <div class="form-group">
+                            <input name="itemVat" data-ng-model="item.vat" class="form-control" type="text" money readonly>
+                        </div>
+                    </div>
+                    <div class="col-sm-1" data-ng-hide="module==3">
+                        <div class="form-group">
+                            <input name="itemTotal" data-ng-model="item.total" class="form-control" type="text" money readonly>
+                        </div>
+                    </div>
+                    <div class="col-sm-2" data-ng-show="module==3">
+                        <div class="form-group">
+                            <select name="itemSiteId" data-ng-model="item.inventorySiteId" data-ng-options="inventorySite.id as inventorySite.name for inventorySite in tenantInventorySites"></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <div class="form-group text-center">
+                            <button class="btn btn-danger" type="button"
+                                    data-ng-click="resetNewItem(item)">
+                                <i class="fa fa-trash-o"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <ng-form name="newItemForm" isolate-form>
+                    <div class="row">
+                        <div class="col-sm-1">
+                            <div class="form-group">
+                                <input name="newItemCode"
+                                       data-ng-model="options.newItem.code"
+                                       class="form-control" type="text"
+                                       autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <div id="catalogProductId" data-lookup="catalogProductLookup" data-ng-model="options.newItem.productId"></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-1">
+                            <div class="form-group">
+                                <input name="quantity" data-ng-model="options.newItem.quantity"
+                                       class="form-control cantidad" placeholder="" step="0.01" type="number"
+                                       required>
+                            </div>
+                        </div>
+                        <div class="col-sm-1">
+                            <div class="form-group">
+                                <select name="itemUnitTypeId"
+                                        data-ng-model="options.newItem.unitTypeId"
+                                        class="form-control"
+                                        required>
+                                    <option ng-repeat="unitType in unitTypes" value="{{unitType[0]}}">{{unitType[1]}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-1" data-ng-hide="module==3">
+                            <div class="form-group">
+                                <input name="unitPrice" data-ng-model="options.newItem.unitPrice"
+                                       data-ng-change="unitPriceChanged(options.newItem)" class="form-control" type="text" required money>
+                            </div>
+                        </div>
+                        <div class="col-sm-1" data-ng-hide="module==3">
+                            <div class="form-group">
+                                <input name="bonus" data-ng-model="options.newItem.bonus"
+                                       data-ng-change="bonusChanged(options.newItem)"
+                                       class="form-control" type="text" required money>
+                            </div>
+                        </div>
+                        <div class="col-sm-1" data-ng-hide="module==3">
+                            <div class="form-group">
+                                <input name="subTotal" data-ng-model="options.newItem.subTotal" class="form-control" type="text" money readonly required>
+                            </div>
+                        </div>
+                        <div class="col-sm-1" data-ng-hide="module==3">
+                            <div class="form-group">
+                                <select name="itemVatRate"
+                                        data-ng-model="options.newItem.vatRate"
+                                        class="form-control"
+                                        data-ng-init="21"
+                                        data-ng-change="vatRateChanged(options.newItem)"
+                                        data-ng-options="item.id as item.name for item in vatRates"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-1" data-ng-hide="module==3">
+                            <div class="form-group">
+                                <input name="vat" data-ng-model="options.newItem.vat" class="form-control" type="text" money required readonly>
+                            </div>
+                        </div>
+                        <div class="col-sm-1" data-ng-hide="module==3">
+                            <div class="form-group">
+                                <input name="total" data-ng-model="options.newItem.total" class="form-control" type="text" required readonly money>
+                            </div>
+                        </div>
+                        <div class="col-sm-2" data-ng-show="module==3">
+                            <div class="form-group">
+                                <select name="newItemSiteId" class="form-control" data-ng-model="options.newItem.inventorySiteId" data-ng-options="inventorySite.id as inventorySite.name for inventorySite in tenantInventorySites"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-1">
+                            <div class="form-group text-center">
+                                <button class="btn btn-primary" type="button" data-ng-disabled="!isItemValid(options.newItem)" data-ng-click="addItem()" title="Agregar concepto"><i class="fa fa-check"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </ng-form>
+
+                <div class="row m-t-sm">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="comments">Observaciones</label>
+                            <textarea id="comments" data-ng-model="document.comments" class="form-control" style="height: 120px; width: 100%;"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-horizontal" data-ng-hide="module==3">
+                        <div class="form-group">
+                            <label class="control-label col-sm-7" for="netAmount">Importe Neto</label>
+                            <div class="input-group col-sm-3">
+                                <span class="input-group-addon">$</span>
+                                <input type="text" class="form-control" id="netAmount" name="netAmount" data-ng-model="document.netAmount" money ng-readonly="module!=3">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-7" for="vatAmount">Importe IVA</label>
+                            <div class="input-group col-sm-3">
+                                <span class="input-group-addon">$</span>
+                                <input type="text" class="form-control" id="vatAmount" name="vatAmount" data-ng-model="document.vatAmount" money ng-readonly="module!=3">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-7" for="totalAmount">Importe Total</label>
+                            <div class="input-group col-sm-3">
+                                <span class="input-group-addon">$</span>
+                                <input type="text" class="form-control" style="text-align: right;" id="totalAmount" name="totalAmount" data-ng-model="document.totalAmount" money ng-readonly="module!=3">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </uib-tab>
+        <uib-tab heading="Documentos relacionados" select="selectLinkedDocuments()">
+            <div class="m-t-sm alert alert-info" data-ng-show="!document.id">Debe guardar el documento primero para poder relacionar documentos.</div>
+            <div data-ng-show="document.id">
+                <div class="row m-t-sm">
+                    <div class="col-sm-10">
+                        <div id="linkedDocumentId" data-lookup="businessDocumentsDocumentLookup" data-ng-model="options.linkedDocumentId"></div>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn btn-primary" data-ng-click="linkDocument()"
+                                data-ng-disabled="!(options.linkedDocumentId)">
+                            Asociar
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12" style="padding-top: 10px;">
+                        <div data-ng-if="options.loadLinkedDocuments" data-linked-documents-grid=""
+                             data-document-type-id="<?= DocumentTypes::InvoiceTypeId ?>"
+                             data-document-id="{{invoice.id}}" data-height="200"></div>
+                    </div>
+                </div>
+            </div>
+        </uib-tab>
+        <uib-tab heading="Archivos relacionados" select="selectLinkedFiles()">
+            <div data-ng-show="!document.id" class="m-t-sm alert alert-info">Debe guardar el documento primero para poder asociar archivos.</div>
+            <div class="row m-t-sm" data-ng-show="document.id">
+                <div class="col-md-12">
+                    <div class="file-manager">
+                        <div class="text-center">
+                            <span class="btn btn-primary btn-file btn-block" data-ng-class="{disabled: uploader.isUploading}">
+                                <span data-ng-switch="uploader.isUploading">
+                                    <i data-ng-switch-when="false" class="fa fa-upload"></i>
+                                    <i data-ng-switch-when="true" class="fa fa-spinner fa-pulse"></i>
+                                </span>
+                                <span style="margin-left: 3px;">Asociar archivos</span>
+                                <input type="file" multiple nv-file-select="" uploader="uploader" data-ng-disabled="uploader.isUploading" data-file-input="" />
+                            </span>
+                            <span class="fileupload-process"></span>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <ul class="folder-list" style="padding: 0">
+                            <li data-ng-repeat="folder in document.folders"><a href=""><i class="fa fa-folder"></i> {{folder.name}}</a></li>
+                            <li data-ng-repeat="file in document.files"><a href="" data-ng-click="openFile(file)"><i class="fa fa-file"></i> {{file.name}}</a></li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </uib-tab>
+    </uib-tabset>
+</ng-form>

@@ -1,0 +1,64 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            Wallet Summary
+            <!-- {{ 'wallet.summary' | translate }} -->
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+
+    <div ng-include="'app/wallet/menuwallet.html'"></div>
+    <div class="hr-line-dashed"></div>
+    <!-- <div class="row wrapper border-bottom white-bg page-heading"> -->
+    <div class="col-lg-4">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Balance
+                    <!--{{'wallet.summary_balance'}}-->
+                </h5>
+                <div class="ibox-tools">
+                    <a href="#">Ver más <!--{{'wallet.summary_seemore'}}--></a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <h5 class="text-left">Disponibilidad
+                    <!--{{ 'wallet.summary_available' | translate }}-->
+                </h5>
+                <h2 class="text-right">500 USD
+                    <!--{{'wallet.summary_availablemount' | translate}} {{wallet.summary_currency}}-->
+                </h2>
+            </div>
+        </div>
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Facturas
+                    <!--{{'wallet.summary_invoice'}}-->
+                </h5>
+                <div class="ibox-tools">
+                    <a href="#">Ver más <!--{{'wallet.summary_seemore'}}--></a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <span>Crea y envía facturas personalizadas. Tu cliente puede pagarte en linea con sus tarjetas o por Wallet</span>
+                <!--<span>{{'wallet.summary.message'}}</span>-->
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Actividad Reciente
+                    <!--{{'wallet.summary_recentlyactivity'}}-->
+                </h5>
+                <div class="ibox-tools">
+                    <a href="#">Ver más <!--{{'wallet.summary_seemore'}}--></a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+                    <div data-wallet-summary-grid="" class="white-bg"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

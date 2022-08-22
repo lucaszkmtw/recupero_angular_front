@@ -1,0 +1,50 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'system.permission' | translate }} <small>{{permission.name}}</small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+            <a href="" target="_blank" class="btn btn-primary" data-ng-click="save()"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</a>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+            <form role="form" name="editPermissionForm">
+                <div class="row margin-bottom-20">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="name">{{ 'label.name' | translate}}</label>
+                            <input type="text" class="form-control" id="name" data-ng-model="permission.name" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="name">{{ 'system.users' | translate}}</label>
+                    </div>
+                </div>
+                <div class="row m-b">
+                    <div class="col-md-12">
+                        <div data-system-permission-users-grid="" data-permission-id="params.permissionId"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="name">{{ 'system.roles' | translate}}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div data-system-permission-roles-grid="" data-permission-id="params.permissionId"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

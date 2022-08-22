@@ -1,0 +1,104 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-8">
+            <h2>
+                {{ 'findm.product' | translate }} <small data-ng-show="product.id">{{product.name}} </small>
+            </h2>
+            <div ncy-breadcrumb class="page-breadcrumb"></div>
+        </div>
+        <div class="col-lg-4">
+            <div class="title-action"> 
+                <button type="button" class="btn btn-danger" data-ng-click="delete()" data-ng-show="product.id"><i class="fa fa-trash"></i> {{ 'command.delete' | translate }}</button>       
+                <button type="button" data-ng-click="save()" class="btn btn-primary" data-ng-disabled="productForm.$invalid "><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</button>           
+                <!--a href="" target="_blank" class="btn btn-primary" data-ng-click="save()" data-ng-disabled="organismForm.$invalid || !organismForm.$dirty"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</a-->
+            </div>
+        </div>
+     </div> 
+     <div class="wrapper wrapper-content">
+        <div class="ibox">
+            <div class="ibox-content">
+                <form role="form" name="productForm">
+                      <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="name">Nombre</label>
+                                    <input type="text" class="form-control" id="name" name="name" data-ng-model="product.name" required>
+                                    <span  style="color:red" data-ng-show="productForm.name.$touched && productForm.name.$invalid">El Nombre es requerido.</span>                                                      
+                                </div>
+                           </div>
+                        </div>        
+                          
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <h3>Campos adicionales</h3>
+                                
+                                <br>
+                                <div style="float: right ;">
+                                    <button type="button"  class="btn btn-primary" data-ng-click="openFieldsSelector()"><i class="fa fa-plus"></i> Agregar</button>
+                                </div>
+                                    <br>
+                            </div>
+                        </div>
+                    </div>    
+                    <div class="row">
+                            <div class="col-md-12">
+                                    <div class="panel-compact">
+                                            <div class="row form-group hidden-xs m-t-sm">
+                                                    <div class="col-sm-1"></div>
+                                                    <div class="col-sm-1">#</div>
+                                                    <div class="col-sm-2">Nombre</div>
+                                                    <div class="col-sm-3">Tipo</div>
+                                                
+                                                    <hr>
+                                                </div>
+                                                <div class="row" data-ng-repeat="item in product.fieldsJSON track by $index">
+                                                        <div class="col-sm-1">
+                                                            <div class="form-group">
+                                                                   
+                                                                    <a><span  data-ng-click="removeSelectedItem($index)" class="fa fa-times-rectangle" style="color:gray;height: 30px;margin-top: 10px;"></a>
+                                                                   
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                                <div class="form-group">
+                                                                       
+                                                                        <b>{{$index + 1}}</b>
+                                                                       
+                                                                </div>
+                                                            </div>
+                                                        <div class="col-sm-2">
+                                                            <div class="form-group">
+                                                                    <input name="itemProd"
+                                                                    data-ng-model="item.name"
+                                                                    class="form-control"
+                                                                    type="text"
+                                                                    ng-readonly="true"
+                                                                    autocomplete="off">
+                                                               
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-3">
+                                                                <div class="form-group">
+                                                                        <input name="itemProd"
+                                                                        data-ng-model="item.type"
+                                                                        class="form-control"
+                                                                        type="text"
+                                                                        ng-readonly="true"
+                                                                        autocomplete="off">
+                                                                   
+                                                                </div>
+                                                            </div>
+                                                        
+                                                     
+                                                          
+                                                </div>
+                                        
+                            </div>
+                    </div>
+                    
+                    
+                </form>
+            </div>
+        </div>
+     </div>
+     

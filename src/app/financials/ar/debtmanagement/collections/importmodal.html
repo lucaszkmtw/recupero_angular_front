@@ -1,0 +1,89 @@
+<div class="modal-header dialog-header-confirm">
+    <button type="button" class="close" ng-click="no()"><i style="color:white;" class="fa fa-window-close"></i></button>
+    <h4 class="modal-title">
+        Importar archivo
+    </h4>
+</div>
+<div class="modal-body">
+
+    <form name="importItemForm">     
+        <div class="row" >
+            <div class="col-md-8">
+                <div class="form-import">
+                    <!-- <label for="name">Archivo</label> -->
+
+                    <div class="row m-t-sm">
+                        <div class="col-md-12">
+                            <div class="file-manager">
+                                <div class="text-center">
+                                    <div data-ng-show="uploader.isUploading">
+                                        <div class="row" data-ng-repeat="item in uploader.queue">
+                                            <div class="col-sm-12">
+                                                <uib-progressbar class="progress-striped" value="item.progress" type="">{{item.progress}}%</uib-progressbar>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="btn btn-primary btn-file btn-block" data-ng-show="!uploader.isUploading">
+                                        <i class="fa fa-upload"></i>
+                                        <span style="margin-left: 3px;">Seleccione el archivo</span>
+                                        <input type="file" multiple nv-file-select="" uploader="uploader" data-ng-disabled="uploader.isUploading" data-file-input=""
+                                        />
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <ul class="folder-list" style="padding: 0">
+                                    <li data-ng-repeat="folder in document.folders">
+                                        <a href="">
+                                            <i class="fa fa-folder"></i> {{folder.name}}</a>
+                                    </li>
+                                    <li data-ng-repeat="file in document.files">
+                                        <a href="" data-ng-click="openFile(file)">
+                                            <i class="fa fa-file"></i> {{file.name}}</a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" >
+            <div class="col-md-6">
+                <div class="form-group">
+                    <b>Expediente</b>
+                        <input data-ng-model="BusinessDocumentNumber" class="form-control" type="text" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" >
+            <div class="col-md-6">
+                <div class="form-group form-md-lookup">
+                    <b>Deudor</b>
+                    <div id="debtorId" data-lookup="debtorSingleLookup" name="debtorId" data-ng-model="DebtorId" required></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group form-md-lookup">
+                    <b>Acreedor</b>
+                    
+                    <div id="creditorId" data-lookup="acredLookup" name="creditorId" data-ng-model="CreditorId" required></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="title-action" style="text-align: left;">
+                    Nombre del archivo subido: {{response.fileName}}
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button"  ng-if="response.fileName && CreditorId && DebtorId && BusinessDocumentNumber.length > 0" class="btn btn-primary" data-ng-click="save()">
+        <i class="fa fa-file-o"></i> {{ 'command.save' | translate }}</button>
+</div>

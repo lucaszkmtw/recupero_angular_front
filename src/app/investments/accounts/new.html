@@ -1,0 +1,130 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'investmentaccounts.new.account' | translate }} <small>{{account.personName}} </small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+            <button type="button" class="btn btn-primary" data-ng-click="asset()" data-ng-show="account.id"> {{ 'Nueva inversión' | translate }}</button>
+            <button type="button" class="btn btn-danger" data-ng-click="delete()" data-ng-show="manager.id"><i class="fa fa-trash"></i> {{ 'command.delete' | translate }}</button>
+            <button type="button" class="btn btn-primary" data-ng-click="save()"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</button>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label for="firstName">Tipo de Cuenta</label>
+                        <div class="radio i-checks">
+                            <label style="padding-left: 0;"> <input icheck type="radio" value="0" data-ng-value="0"  ng-model="type"> Inversión </label>
+                        </div>
+                        <div class="radio i-checks">
+                            <label style="padding-left: 0;"> <input icheck type="radio" value="1" data-ng-value="1" ng-model="type"> Custodia </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <p><b>Saldo</b></p>
+                    <font size="6"><b>{{account.balance | currency}}</b> </font>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Nombre (Prefijo de la cuenta)</label>
+                        <input type="text" class="form-control" data-ng-model="account.partnerAccount.code" placeholder="Nombre / Prefijo de cuenta" />
+                    </div>
+                </div>
+            </div>
+           
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="currencyId">Moneda</label>
+                        <div id="currencyId" data-lookup="financialCurrenciesLookup" data-ng-model="account.currency.id"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="investmentInvestorLookup" text-align="center">Inversor</label>
+                            <div id="investorId" data-lookup="investmentInvestorLookup" data-ng-model="account.investorId" data-ng-change="loadInvestorCommission()"></div>  
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group" data-ng-init="investorCommission=0.00">
+                            <label for="investmentInvestorCommission">% Interes</label>
+                            <input type="number" min="0.00" max="100" step="0.01" class="form-control" data-ng-model="account.investorAssignment"> 
+                        </div>
+                    </div>                    
+            </div>
+
+            <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="investmentManagerLookup">Gestor</label>
+                            <div id="managerId" data-lookup="investmentManagerLookup" data-ng-model="account.managerId" data-ng-change="loadManagerCommission()"></div>  
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group" data-ng-init="managerCommission=0.00">
+                            <label for="investmentManagerCommission">% Comisión</label>
+                            <input type="number" min="0.00" max="100" step="0.01" class="form-control" data-ng-model="account.managerAssignment">
+                        </div>
+                    </div>
+            </div>
+
+
+            <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="investmentTraderLookup">Trader</label>
+                            <div id="traderId" data-lookup="investmentTraderLookup" data-ng-model="account.traderId" data-ng-change="loadTraderCommission()"></div>  
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group" data-ng-init="traderCommission=0.00">
+                            <label for="investmentTraderCommission">% Comisión</label>
+                            <input type="number" min="0.00" max="100" step="0.01" class="form-control" data-ng-model="account.traderAssignment">
+                        </div>
+                    </div>
+            </div>
+
+            <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="investmentCustodianLookup">% Custodio</label>
+                            <div id="custodianId" data-lookup="investmentCustodianLookup" data-ng-model="account.custodianId" data-ng-change="loadCustodianCommission()"></div>  
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group" data-ng-init="custodianCommission=0.00">
+                            <label for="investmentCustodianCommission">% Comisión</label>
+                            <input type="number" min="0.00" max="100" step="0.01" class="form-control" data-ng-model="account.custodianAssignment">
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.person-name {
+    display: inline-block;
+    padding: 7px;
+    margin: 0 10px 0 0 !important;
+}
+    .person-name button {
+        margin-left: 10px;
+    }
+</style>

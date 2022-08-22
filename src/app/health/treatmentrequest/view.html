@@ -1,0 +1,344 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-6">
+        <h2>
+            {{ 'health.treatmentrequest' | translate }}
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-6">
+        <div class="title-action">
+            <a href="" target="_blank" class="btn btn-danger" data-ng-click="terminate()" data-ng-show="params.canApprove && !treatmentRequest.workflowInstance.isTerminated && !currentWorkflowActivity.isFinal"><i class="fa fa-cancel"></i> {{ 'command.terminate' | translate }}</a>
+            <div class="btn-group" data-ng-show="params.canApprove && (treatmentRequest.workflowInstance.canAssignToRoles.length > 0) && !currentWorkflowActivity.isFinal">
+                <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ 'command.assign' | translate }} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li data-ng-repeat="role in treatmentRequest.workflowInstance.canAssignToRoles"><a href="#" data-ng-click="assign(role.id)">{{role.name}}</a></li>
+                </ul>
+            </div>
+            <a href="" target="_blank" class="btn btn-default" data-ng-click="setPreviousState()" data-ng-show="params.canApprove && params.canGoBack"><i class="fa fa-undo"></i> {{ 'command.prevstate' | translate }}</a>
+            <a href="" target="_blank" class="btn btn-info" data-ng-click="approve()" data-ng-show="params.canApprove"><i class="fa fa-check-square-o"></i> {{ 'command.approve' | translate }}</a>
+            <a href="" target="_blank" class="btn btn-primary" data-ng-click="edit()" data-ng-show="params.canApprove && !currentWorkflowActivity.isFinal"><i class="fa fa-pencil-square-o"></i> {{ 'command.edit' | translate }}</a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-9">
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="m-b-md">
+                                <h2>{{treatmentRequest.workflowInstance.workflow.code}}-{{treatmentRequest.id}}: <a data-ui-sref="app.health.patient({ patientId: patient.id })">{{patient.person.name}}</a></h2>
+                            </div>
+                            <dl class="dl-horizontal">
+                                <dt>Estado:</dt>
+                                <dd data-ng-show="!treatmentRequest.workflowInstance.isTerminated"><span class="label label-primary" style="font-size: 12px;">{{currentWorkflowActivity.name}}</span></dd>
+                                <dd data-ng-show="treatmentRequest.workflowInstance.isTerminated"><span class="label label-danger" style="font-size: 12px;">Cancelado</span></dd>
+                            </dl>
+                            <dl class="dl-horizontal">
+                                <dt>Categorías:</dt>
+                                <dd><system-workflow-instance-tags data-tags="{{treatmentRequest.workflowInstance.tags}}"></system-workflow-instance-tags></dd>
+                            </dl>
+                            <dl class="dl-horizontal">
+                                <dt>Asignado a:</dt>
+                                <dd data-ng-repeat="assignedRole in treatmentRequest.workflowInstance.assignedRoles" data-ng-show="!claim.workflowInstance.isTerminated"><span class="label label-default" style="font-size: 12px;">{{assignedRole.roleName}}</span></dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <dl class="dl-horizontal">
+
+                                <dt>Creada por:</dt>
+                                <dd>{{treatmentRequest.workflowInstance.createdBy.name}}</dd>
+                                <dt>Mensajes:</dt>
+                                <dd> {{treatmentRequest.messages.length}}</dd>
+                            </dl>
+                        </div>
+                        <div class="col-lg-7" id="cluster_info">
+                            <dl class="dl-horizontal">
+
+                                <dt>Creada el:</dt>
+                                <dd>{{treatmentRequest.workflowInstance.createDate | amDateFormat: 'L LT' }}</dd>
+                                <!--
+                                <dt>Última actualización:</dt>
+                                <dd>16.08.2014 12:15:57</dd>
+                                <dt>Participantes:</dt>
+                                <dd class="project-people">
+                                    <a href=""><img alt="image" class="img-circle" src="Content/img/someone.jpg"></a>
+                                    <a href=""><img alt="image" class="img-circle" src="Content/img/someone.jpg"></a>
+                                </dd>
+                                    -->
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <dl class="dl-horizontal">
+                                <dt>Completada:</dt>
+                                <dd>
+                                    <div class="progress progress-striped active m-b-sm">
+                                        <div ng-attr-style="{{ 'width:' + (treatmentRequest.workflowInstance.progress | number : 0) + '%' }}" class="progress-bar"></div>
+                                    </div>
+                                    <small>Solicitud completa al <strong>{{ treatmentRequest.workflowInstance.progress | number : 0 }}%</strong>.</small>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-if="treatmentRequest.diagnostics.length>0">
+                        <div class="col-lg-12">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>Médico</th>
+                                        <th>Diagnóstico</th>
+                                        <th>Comentarios</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-ng-repeat="diagnostic in treatmentRequest.diagnostics">
+                                        <td>
+                                            {{diagnostic.date | amDateFormat: 'L LT' }}
+                                        </td>
+                                        <td>
+                                            <a data-ui-sref="app.health.doctoredit({ doctorId: diagnostic.doctorId })">{{diagnostic.doctorName}}</a>
+                                        </td>
+                                        <td>
+                                            {{diagnostic.disease.name}}
+                                        </td>
+                                        <td>
+                                            {{diagnostic.comments}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-if="treatmentRequest.products.length>0">
+                        <div class="col-lg-12">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Insumo</th>
+                                        <th style="width: 50px;">Cantidad</th>
+                                        <th>Comentarios</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-ng-repeat-start="product in treatmentRequest.products">
+                                        <td>
+                                            <button class="btn btn-default btn-xxs" data-ng-click="showingDetails=!showingDetails" ng-init="showingDetails=false">
+                                                <i class="fa fa-chevron-down" data-ng-show="!showingDetails"></i>
+                                                <i class="fa fa-chevron-up" data-ng-show="showingDetails"></i>
+                                            </button>
+                                            {{product.product.tags}} - {{product.product.name}}
+                                        </td>
+                                        <td>
+                                            {{product.quantity}}
+                                        </td>
+                                        <td>
+                                            {{product.comments}}
+                                        </td>
+                                    </tr>
+                                    <tr data-ng-show="showingDetails" data-ng-repeat-end="">
+                                        <td colspan="3">
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    Proveedor: <span data-ng-show="product.vendorId"><a data-ui-sref="app.procurement.vendoredit({ vendorId: product.vendor.id })">{{product.vendor.person.name}}</a></span>
+                                                    <span data-ng-show="!product.vendorId">No posee proveedor asignado</span>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    Precio autorizado
+                                                    <span data-ng-show="product.price">{{product.price | currency}}</span>
+                                                    <span data-ng-show="!product.price">No posee precio asignado</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-if="treatmentRequest.drugs.length>0">
+                        <div class="col-lg-12">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Medicamento</th>
+                                        <th>Cantidad</th>
+                                        <th>Frecuencia</th>
+                                        <th>Comentarios</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-ng-repeat="drug in treatmentRequest.drugs">
+                                        <td>
+                                            {{drug.commercialDrug.name}} ({{drug.commercialDrug.drugName}}) - {{drug.commercialDrug.drugPresentationName}} - {{drug.commercialDrug.personName}}
+                                        </td>
+                                        <td>
+                                            {{drug.quantity}}
+                                        </td>
+                                        <td>
+                                            {{drug.frequency}}
+                                        </td>
+                                        <td>
+                                            {{drug.comments}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-if="treatmentRequest.practices.length>0">
+                        <div class="col-lg-12">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Práctica</th>
+                                        <th style="width: 50px;">Cantidad</th>
+                                        <th>Frecuencia</th>
+                                        <th>Comentarios</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-ng-repeat-start="practice in treatmentRequest.practices">
+                                        <td>
+                                            <button class="btn btn-default btn-xxs" data-ng-click="showingDetails=!showingDetails" ng-init="showingDetails=false">
+                                                <i class="fa fa-chevron-down" data-ng-show="!showingDetails"></i>
+                                                <i class="fa fa-chevron-up" data-ng-show="showingDetails"></i>
+                                            </button>
+                                            ({{practice.medicalPractice.code}}) {{practice.medicalPractice.name}}
+                                        </td>
+                                        <td>
+                                            {{practice.quantity}}
+                                        </td>
+                                        <td>
+                                            {{practice.frequency}}
+                                        </td>
+                                        <td>
+                                            {{practice.comments}}
+                                        </td>
+                                    </tr>
+                                    <tr data-ng-show="showingDetails" data-ng-repeat-end="">
+                                        <td colspan="4">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    Proveedor: <span data-ng-show="practice.vendorId"><a data-ui-sref="app.procurement.vendoredit({ vendorId: practice.vendor.id })">{{practice.vendor.person.name}}</a></span>
+                                                    <span data-ng-show="!practice.vendorId">No posee proveedor asignado</span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    Fecha inicio:
+                                                    <span data-ng-show="practice.fromDate">{{practice.fromDate | amDateFormat: 'L' }}</span>
+                                                    <span data-ng-show="!practice.fromDate">Sin asignar</span>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    Fecha fin:
+                                                    <span data-ng-show="practice.toDate">{{practice.toDate | amDateFormat: 'L' }}</span>
+                                                    <span data-ng-show="!practice.toDate">Sin asignar</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row m-t-sm">
+                        <div class="col-lg-12">
+                            <div class="panel blank-panel ui-tab">
+
+                                <uib-tabset>
+                                    <uib-tab heading="Mensajes" active="tab.active" class="dsads">
+                                        <div data-message-thread="" data-messages="treatmentRequest.messages" data-service-url="serviceUrl"></div>
+                                    </uib-tab>
+
+                                    <uib-tab heading="Historial">
+                                        <system-workflow-instance-history data-ng-model="treatmentRequest.workflowInstance"></system-workflow-instance-history>
+                                    </uib-tab>
+                                </uib-tabset>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3">
+        <div class="wrapper wrapper-content project-manager">
+            <!--
+            <h4>Project description</h4>
+            <img src="img/zender_logo.png" class="img-responsive">
+
+            <p class="small">
+                There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look
+                even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing
+            </p>
+
+            <p class="small font-bold">
+                <span><i class="fa fa-circle text-warning"></i> High priority</span>
+            </p>
+            <h5>Project tag</h5>
+            <ul class="tag-list" style="padding: 0">
+                <li><a href=""><i class="fa fa-tag"></i> Zender</a></li>
+                <li><a href=""><i class="fa fa-tag"></i> Lorem ipsum</a></li>
+                <li><a href=""><i class="fa fa-tag"></i> Passages</a></li>
+                <li><a href=""><i class="fa fa-tag"></i> Variations</a></li>
+            </ul>
+            -->
+            <h5>Archivos asociados</h5>
+
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="file-manager">
+                        <!--
+                        <h5>Show:</h5>
+                        <a href="" class="file-control active">Todos</a>
+                        <a href="" class="file-control">Documentos</a>
+                        <a href="" class="file-control">Audio</a>
+                        <a href="" class="file-control">Imagenes</a>
+                        -->
+
+                        <div class="hr-line-dashed"></div>
+                        <div class="text-center">
+                            <span class="btn btn-primary btn-file btn-block" data-ng-class="{disabled: uploader.isUploading}">
+                                <span data-ng-switch="uploader.isUploading">
+                                    <i data-ng-switch-when="false" class="fa fa-upload"></i>
+                                    <i data-ng-switch-when="true" class="fa fa-spinner fa-pulse"></i>
+                                </span>
+                                <span style="margin-left: 3px;">Asociar archivos</span>
+                                <input type="file" multiple nv-file-select="" uploader="uploader" data-ng-disabled="uploader.isUploading" data-file-input="" accept="application/pdf" />
+                            </span>
+                            <span class="fileupload-process"></span>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <ul class="folder-list" style="padding: 0">
+                            <li data-ng-repeat="file in treatmentRequest.folders"><a href=""><i class="fa fa-folder"></i> {{folder.name}}</a></li>
+                            <li data-ng-repeat="file in treatmentRequest.files"><a href="" data-ng-click="openFile(file)"><i class="fa fa-file"></i> {{file.name}}</a></li>
+                        </ul>
+                        <!--
+                        <h5 class="tag-title">Tags</h5>
+                        <ul class="tag-list" style="padding: 0">
+                            <li data-ng-repeat="tag in treatmentRequest.tags"><a href="">Family</a></li>
+                        </ul>
+                        -->
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!--
+            <ul class="list-unstyled project-files">
+                <li data-ng-repeat="file in treatmentRequest.files"><a href=""><i class="fa fa-file"></i> {{file.name}}</a></li>
+            </ul>
+                -->
+        </div>
+
+    </div>
+</div>

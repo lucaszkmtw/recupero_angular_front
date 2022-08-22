@@ -1,0 +1,350 @@
+
+
+
+
+<div class="gray-bg" >
+
+    <div class="wrapper wrapper-content ">
+
+        <div class="row">
+
+            <div  class="col-lg-9">
+
+                <div class="ibox product-detail">
+                    <div class="ibox-content">
+                        <div class="row" style="margin-top: 20px">
+                            <div class="col-md-4">
+                                    <a ng-if="!isViewMode" style="float: right;z-index:999999;">
+                                            
+                                                  
+                                     <span data-ng-click="editImage(fieldByName('productAvatar'))" class="glyphicon glyphicon-edit" style="color:gray;"></span> 
+                                            
+                                       
+                                            </a>
+                                    <img data-ng-if="fieldByName('productAvatar').value" class="img img-responsive" data-ng-src="{{fieldByName('productAvatar').value}}" 
+                                    />
+                             
+
+                                    <img data-ng-if="!fieldByName('productAvatar').value"class="img img-responsive" src="Content/img/noimage.jpeg" 
+                                    />
+
+                         
+
+                            </div>
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <div id="productName" class="col-md-12">
+                                        <h2>{{vm.name}}</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5" style="margin-left:2%;">
+                                <small class="text-muted" data-ng-repeat=" tag in product.tags" style="margin-left:5px"><span class="badge badge-success">{{tag}}</span></small>
+                                <div class="small m-t-xs">
+                                
+                                        <div ng-if="!isViewMode" class="well" style="background-color: #FbFbFb ">
+                                                <a style="float: right"> <span data-ng-click="editHtml(fieldByName('productReview').value, 'productReview')" class="glyphicon glyphicon-edit" style="color:gray;height: 30px"></span></a>
+                                                <p ng-if="!(fieldByName('productReview').value === '')" ng-bind-html="fieldByName('productReview').value"></p>
+                                                <p ng-if="(fieldByName('productReview').value === '')" ng-bind-html="vm.review"></p>
+                                            </div>
+                                            <p ng-if="(isViewMode === true && !(fieldByName('productReview').value === ''))"   ng-bind-html="fieldByName('productReview').value"></p>
+                                            <p ng-if="(isViewMode === true && (fieldByName('productReview').value === ''))"  ng-bind-html="vm.review"></p>
+                                       
+                                    <!-- <p> {{product.review}} </p> -->
+                                </div>
+                            </div>
+                            <div class="col-md-4" id="calificationBox" style="width: 23%">
+                                <h4>Calificación</h4>
+                                <div class="star-contentDetail">
+                                    <rating value="product.ratingScore" max="5" size="20px" interactive="false"></rating>
+                                    <!-- <rating [float]="false" [max]="5" [readonly]="isSetrating" [(ngModel)]="ratingGet" (click)="setRating()"> </rating> -->
+                                    <span class="rating-count">{{product.ratingScore}}</span>
+                                    <span class="reviewers-small"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12" id="calificationBox" style="width: 23%;float:right;padding-top:50px;">
+                                <button class="btn btn-primary btn-sm"> <b> {{product.price | currency:'USD':true:'1.2-2'}} Solicitar</b></button>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="span9" data-ng-repeat="tab in vm.template.templateJSON.tabs " >
+                                <div class="row">
+                                        <div class="col-lg-12">
+                                                <h4>
+                                                        <i class="{{tab.cssIcon}}"></i> {{tab.name | htmlToPlaintext  }}
+                                                      <div ng-if="!isViewMode" id="actionLiks" style="float:right">
+                                                        <a  > <span data-ng-click="editHtmlTab(tabdById(tab.id),'name')" class="glyphicon glyphicon-edit" style="color:gray;height: 30px"></span></a>
+                                                        <a  ><span  data-ng-click="removeTab(tab)" class="fa fa-times-rectangle" style="color:gray;height: 30px;"></a>
+                                                        </div>
+                                                    </h4>
+                                                <div ng-if="isImageTab(tab)">
+                                                        <div   ng-if="!isViewMode" class="well" style="background-color: #FbFbFb ">
+                                                               <button  type="button" class="btn btn-primary" data-ng-click="openImageSelector(tabdById(tab.id))">
+                                                                       Agregar Imagen
+                                                                </button>
+                                                                       <br>
+                                                         
+                                                     </div>
+                                                               <ng-image-gallery images="tabdById(tab.id).images" on-delete="delete(img, cb)" thumbnails="true" methods="methods" on-open="opened();" on-close="closed();"></ng-image-gallery>
+                                                      
+                                                   </div>
+                                                   <div ng-if="isHtmlTab(tab)">
+                                                        <div ng-if="!isViewMode" class="well" style="background-color: #FbFbFb ">
+                                                                <a  style="float: right">
+                                                                         <span data-ng-click="editHtmlTab(tabdById(tab.id),'innerHtml')" class="glyphicon glyphicon-edit" style="color:gray;height: 30px">
+                                                                             </span>
+                                                                            </a>        
+                                                                            
+                                                                            <p ng-if="(tab.id===2 && !(tabdById(tab.id).innerHtml === ''))"  ng-bind-html="tabdById(tab.id).innerHtml"></p>
+                                                                            <p ng-if="(tab.id===2 && (tabdById(tab.id).innerHtml === ''))"  ng-bind-html="vm.description"></p>
+                                                        </div>
+                                                                     
+                                                                            <p  id="read-more"  align="justify" ng-if="(tab.id===2 &&  isViewMode && !(tabdById(tab.id).innerHtml === ''))"  ng-bind-html="tabdById(tab.id).innerHtml"></p>
+                                                                            <p id="read-more"  align="justify" ng-if="(tab.id===2 &&  isViewMode && (tabdById(tab.id).innerHtml === ''))"  ng-bind-html="vm.description"></p>
+
+                                                                    <!-- <p id="read-more" ng-if="isViewMode" align="justify"  ng-bind-html="tabdById(tab.id).innerHtml"></p> -->
+                                                                    <div class="read-more-link">
+                                                        
+                                                                        </div>
+                                                   </div>
+                                                   <div ng-if="isMapTab(tab)" >
+                                                        <div >
+                                                                <button  ng-if="!isViewMode" type="button" class="btn btn-primary" data-ng-click="openPlacesSelector(tabdById(tab.id))">
+                                                                        Agregar lugares
+                                                                 </button>
+                                                                        <br>
+                                                                <div  map-lazy-load="https://maps.google.com/maps/api/js"  map-lazy-load-params="{{googleMapsUrl}}"  style="display: block; height: 600px;">
+                                                                    
+                                                                <ng-map   id="placesMap{{tab.id}}"   map-type-id="ROADMAP" center="-34.61512,-58.414"  zoom="4"
+                                                                            pan-control="false" street-view-control="true" street-view-control-options="{position: 'RIGHT_BOTTOM'}"
+                                                                            map-type-control="false" zoom-control="true" 
+                                                                            default-style="false" zoom-to-include-markers="true"  style="display: block; height: 600px;">
+                                                                            <marker data-ng-repeat="place in tabdById(tab.id).places" position="{{place.geo.lat}},{{place.geo.lng}}" >  </marker>
+                                                                    </ng-map>
+                                                                </div>
+                                                        </div>
+                                                </div>
+                                                <div ng-if="isTagTab(tab)" >
+                                                        <div ng-if="!isViewMode" class="well" style="background-color: #FbFbFb ">
+                                                                <div  id="systemProjectTagsLookup" 
+                                                                data-lookup="systemProjectTagsLookup" 
+                                                                data-ng-model="tabdById(tab.id).tags" ></div>
+                                                        </div>
+                                                        <div ng-if="isViewMode">
+                                                                <span data-ng-repeat="tag in tabdById(tab.id).tags" class="badge badge ng-binding ng-scope">{{tag}}</span>
+                                                     
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
+                                <hr>
+                        </div>
+                        <div  ng-if="!isViewMode" class="btn-group dropup" uib-dropdown  style="float: right">
+                                <button type="button" class="btn btn-info dropup" uib-dropdown-toggle id="menu_Add">
+                                        + Nueva Seccion
+                                 </button>
+                                <!-- <a href uib-dropdown-toggle id="menu_Add">Nueva Seccion<i class="fa fa-ellipsis-v" ></i></a> -->
+                                <ul class="dropdown-menu pull-right dropup" uib-dropdown-menu role="menu" aria-labelledby="menu_Add" style="margin-right:10px">
+                                <li role="menuitem" ><a href ng-click="$event.preventDefault(); addTagByType('html')">HTML </a></li>
+                                <li role="menuitem" ><a href ng-click="$event.preventDefault(); addTagByType('images')">Imagenes </a></li>
+                                <li role="menuitem" ><a href ng-click="$event.preventDefault(); addTagByType('map')">Mapa </a></li>
+                                <li role="menuitem" ><a href ng-click="$event.preventDefault(); addTagByType('tags')">Tags </a></li>
+                             
+                              
+                                </ul>
+                     </div> 
+                       
+                        <div class="row">
+                            <div class="col-lg-12" style="margin-left:10%;margin-right: 10%">
+                                <h3>Opiniones</h3>
+                                <div class="row">
+                                    <div class="rating-box">
+                                        <div class="col-lg-4">
+                                            <h1>{{product.rating}}</h1>
+                                            <div class="star-contentDetail">
+                                                <rating value="product.rating" max="5" size="30px" interactive="false" style="text-align:left"></rating>
+                                                <!-- <rating [float]="true" [ngModel]="product.rating" [max]="5" [readonly]="true"> </rating> -->
+                                                <br>
+                                                <span class="rating-count">{{product.ratingScore}}</span>
+                                                <span class="reviewers-small"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-7">
+                                            <div class="rating-histogram">
+                                                <div class="rating-bar-container five">
+                                                    <span class="bar-label">
+                                <span class="star-tiny star-full"></span>5
+                                                    </span>
+                                                    <div ng-style="{ 'width' : (((product.ratingScoreDetail.fiveCount/product.ratingScore)*100).toFixed(2)) }" style="background: #88b131;"
+                                                        class="progress-bar"></div>
+                                                    <!-- <span class="bar"  [style.width]="(((product.ratingScoreDetail.fiveCount/product.ratingScore)*100).toFixed(2)) + '%'" ></span> -->
+                                                    <span class="bar-number" aria-label="33.769 valoraciones">{{product.ratingScoreDetail.fiveCount}}</span>
+                                                </div>
+                                                <div class="rating-bar-container four"> <span class="bar-label">
+                                 <span class="star-tiny star-full"></span>4 </span>
+                                                    <div ng-style="{ 'width' : (((product.ratingScoreDetail.fourCount/product.ratingScore)*100).toFixed(2)) }" style="background: #9c0"
+                                                        class="progress-bar"></div>
+                                                    <!-- <span class="bar" [style.width]="(((product.ratingScoreDetail.fourCount/product.ratingScore)*100).toFixed(2)) + '%'" ></span> -->
+                                                    <span class="bar-number" aria-label="5.014 valoraciones">{{product.ratingScoreDetail.fourCount}}</span>
+                                                </div>
+                                                <div class="rating-bar-container three">
+                                                    <span class="bar-label">
+                                    <span class="star-tiny star-full"></span>3
+                                                    </span>
+                                                    <div ng-style="{ 'width' : (((product.ratingScoreDetail.threeCount/product.ratingScore)*100).toFixed(2)) }" style="background: #ffcf02;"
+                                                        class="progress-bar"></div>
+                                                    <!-- <span class="bar" [style.width]="(((product.ratingScoreDetail.threeCount/product.ratingScore)*100).toFixed(2)) + '%'" ></span> -->
+                                                    <span class="bar-number" aria-label="1.225 valoraciones">{{product.ratingScoreDetail.threeCount}}</span>
+                                                </div>
+                                                <div class="rating-bar-container two">
+                                                    <span class="bar-label">
+                                     <span class="star-tiny star-full"></span>2
+                                                    </span>
+                                                    <div ng-style="{ 'width' : (((product.ratingScoreDetail.twoCount/product.ratingScore)*100).toFixed(2)) }" style="background: #ff9f02;"
+                                                        class="progress-bar"></div>
+                                                    <!-- <span class="bar" [style.width]="(((product.ratingScoreDetail.twoCount/product.ratingScore)*100).toFixed(2)) + '%'" ></span> -->
+                                                    <span class="bar-number" aria-label="371 valoraciones">{{product.ratingScoreDetail.twoCount}}</span>
+                                                </div>
+                                                <div class="rating-bar-container one"> <span class="bar-label">
+                                 <span class="star-tiny star-full"></span>1 </span>
+                                                    <div ng-style="{ 'width' : (((product.ratingScoreDetail.oneCount/product.ratingScore)*100).toFixed(2)) }" style="background: #ff6f31;"
+                                                        class="progress-bar"></div>
+                                                    <!-- <span class="bar" [style.width]="(((product.ratingScoreDetail.oneCount/product.ratingScore)*100).toFixed(2)) + '%'" ></span> -->
+                                                    <span class="bar-number" aria-label="937 valoraciones">{{product.ratingScoreDetail.oneCount}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div style="margin-top:10%;margin-left:20px;margin-right: 20px;">
+                                    <h3>Opiniones de los usuarios</h3>
+                                    <!-- <div id="slickComments" > -->
+                                    <slick infinite=true settings="slickConfig" dots="true">
+                                        <div data-ng-repeat="comment in product.comments">
+                                            <div class="ibox-content">
+                                                <div class="row">
+                                                    <div class="col-lg-2">
+                                                        <div class="sx-user-hdr-logo">
+                                                            <img data-ng-if="getPersonCommentImageAvatar(comment)" data-ng-src="{{getPersonCommentImageAvatar(comment).guid}}" class="sx-user-hdr-logo"
+                                                                width="40" height="40" alt="{{comment.person.name}}" title="{{comment.person.name}}"
+                                                            />
+                                                            <img data-ng-if="!getPersonCommentImageAvatar(comment)" src="/Content/img/someone.jpg" class="sx-user-hdr-logo" width="40"
+                                                                height="40" alt="{{comment.person.name}}" title="{{comment.person.name}}"
+                                                            />
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-8">
+                                                        <h4>{{comment.person.name}}<small style="margin-left:5px"> {{ comment.date | date:'mediumDate' }} </small></h4>
+                                                        <div class="star-contentDetail">
+                                                            <rating value="comment.rating" max="5" size="10px" interactive="false"></rating>
+                                                            <!-- <rating [float]="true" [ngModel]="comment.rating" [max]="5" [readonly]="true"> </rating> -->
+                                                        </div>
+                                                        <div class="comment-detail">
+                                                            {{comment.text}}
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </slick>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div id="productsList" class="">
+                    <h2>Relacionados <button class="btn btn-primary btn-sm"> <b>más</b></button></h2>
+                    <perfect-scrollbar infinite-scroll="loadMore()" infinite-scroll-distance="2"  class="scroller" wheel-propagation="true"
+                      wheel-speed="10" swipe-propagation="true" refresh-on-change="someArray" on-scroll="onScroll(scrollTop, scrollHeight)" always-visible="true"
+                        min-scrollbar-length="20">
+                        <div data-ng-repeat="item in scrollItems">
+                            <div class="product-container">
+                                <div class="ibox">
+                                    <div class="ibox-content product-box">
+
+                                        <div class="product-imitation">
+                                            <a src="#">  <img src="Content/img/Product_1470647972_3.jpg"  class="img img-responsive"/></a>
+                                        </div>
+                                        <div class="product-desc">
+
+                                            <small class="text-muted"><span class="badge badge-success">desarrollo Ciudadano</span></small>
+                                            <a src="#" class="product-name"> Inteligente de Parquímetros </a>
+
+                                            <div class="small m-t-xs">
+                                                <p> Herramienta tecnológica de gestión del estacionamientno medido
+
+                                                </p>
+                                            </div>
+
+                                            <div class="star-content">
+                                                <rating [float]="true" [max]="5" [readonly]="true"> </rating>
+                                            </div>
+
+                                            <div class="priceView">
+                                                <span class="price">$10,99</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </perfect-scrollbar>
+                    <!-- <virtual-scroll class="row" #scroll [items]="productsItems" (update)="scrollItems = $event" [parentScroll]="scroll.window">
+                  <app-product-card [IsVisibleShowMore]="false" [item]="item" *ngFor="let item of scrollItems" class="col-custom-xs-2" style="width:100!important;  padding-top: 10px;">
+                  </app-product-card>
+                </virtual-scroll> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    jQuery(document).ready(function () {
+      jQuery('.ng-image-gallery').slick({
+        infinite: true,
+        slidesToShow: 3,
+        slidesToScroll: 2,
+        centerMode: true,
+        variableWidth: true,
+        arrows: true,
+      prevArrow: '<div class="slick-prev"><i class="fa fa-angle-left" aria-hidden="true"></i></div>',
+        nextArrow: '<div class="slick-next"><i class="fa fa-angle-right" aria-hidden="true"></i></div>',
+        responsive: [
+          {
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 3,
+              infinite: true,
+              dots: true
+            }
+          },
+          {
+            breakpoint: 600,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2
+            }
+          },
+          {
+            breakpoint: 480,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1
+            }
+          }
+        ]
+      });
+    });
+</script>

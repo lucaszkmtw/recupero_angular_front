@@ -1,0 +1,32 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-6">
+        <h2 data-ng-show="document.id">
+            {{ document.documentType.name }} <small data-ng-show="document.id">{{document.number | documentNumber}}</small>
+        </h2>
+        <h2 data-ng-show="!document.id">
+            {{ 'command.new.f' | translate }} {{ document.documentType.name }}
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-6">
+        <div class="title-action">    
+            
+            
+            <button type="button" data-ng-show="document.id && !document.approvalWorkflowInstanceId && mode ===0" class="btn btn-primary" data-ng-click="submitForApproval()">Iniciar aprobación</button>
+            <a href="" target="_blank" class="btn btn-white" data-ng-show="!documentOptions.edit && documentOptions.canEdit() && mode ===0" data-ng-click="edit()"><i class="fa fa-pencil"></i> {{ 'command.edit' | translate }}</a>
+            <a href="" target="_blank" class="btn btn-white" data-ng-show="documentOptions.edit && mode ===0" data-ng-click="documentOptions.edit=false"><i class="fa fa-eye"></i> {{ 'command.view' | translate }}</a>
+            <a href="" target="_blank" class="btn btn-primary" data-ng-show="documentOptions.edit && documentOptions.canSave() && mode ===0" data-ng-click="save()"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="row">
+            <div class="col-md-12 bg-white">
+                <business-document-one data-document="document" data-options="documentOptions" data-module="2"></business-document-one>
+            </div>
+        </div>
+    </div>
+</div>

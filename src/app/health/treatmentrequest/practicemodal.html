@@ -1,0 +1,60 @@
+﻿<div class="modal-header dialog-header-confirm">
+    <h4 class="modal-title"><span class="fa fa-tasks">&nbsp;</span>Propiedades de la práctica profesional</h4>
+</div>
+<div class="modal-body" style="height: 450px;">
+    <div class="row">
+        <div class="col-md-12"><h3>({{practice.medicalPractice.code}}) - {{practice.medicalPractice.name}}</h3></div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="quantidy">Cantidad</label>
+                <input id="quantidy" name="quantity" tpye="text" class="form-control" data-ng-model="practice.quantity" required />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="quantidy">Frecuencia</label>
+                <input id="quantidy" name="frequency" tpye="text" class="form-control" data-ng-model="practice.frequency" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="procurementVendorLookup">Proveedor</label>
+                <div id="procurementVendorLookup" data-lookup="procurementVendorLookup" data-ng-model="practice.vendorId"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="fromDate">Desde</label>
+                <div id="fromDate" data-date-picker="" data-ng-model="practice.fromDate" required="false"></div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="toDate">Hasta</label>
+                <div id="toDate" data-date-picker="" data-ng-model="practice.toDate" required="false"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="comments">Comentarios</label>
+                <input tpye="text" class="form-control" data-ng-model="practice.comments" />
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-warn" data-ng-click="cancel()">Cancelar</button>
+        <button type="button" class="btn btn-success" data-ng-click="save()">Guardar</button>
+    </div>
+</div>

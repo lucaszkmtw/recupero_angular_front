@@ -1,0 +1,68 @@
+﻿<div>
+
+    <div class="container">
+       <ul class="timeline">
+            <li data-ng-repeat="historyItem in workflowInstance.history">
+                <div data-ng-if="1 == historyItem.type">
+                    <div class="timeline-badge info">
+                        <i class="glyphicon glyphicon-user"></i>
+                    </div>
+                    <div class="timeline-panel">
+                        <div class="social-avatar" style="padding-top:0px;">
+                            <a href="" class="pull-left">
+                                <img alt="image" class="img-circle" src="Content/img/someone.jpg">
+                            </a>
+                            <div class="pull-left" style="margin-right:10px;">
+                                <a href="#" class="ng-binding">
+                                    {{historyItem.personName}}
+                                </a>
+                                <br />
+                                <small class="text-muted ng-binding"><i class="glyphicon glyphicon-time"></i>{{historyItem.createDate | amDateFormat: 'L LTS' }}</small>
+                            </div>
+                            <div class="media-body" style="margin-left:10px">
+                                <p>
+                                    Asigno rol
+                                    <span class="label label-primary">{{historyItem.rol}}</span>
+                                </p>
+                            </div>
+                        </div>                       
+                    </div>
+                </div>
+                <div data-ng-if="0 == historyItem.type">
+
+                    <div class="timeline-badge success">
+                        <i class="glyphicon glyphicon-share-alt"></i>
+                    </div>
+                    <div class="timeline-panel">
+                        <div class="social-avatar" style="padding-top:0px;">
+                            <a href="" class="pull-left">
+                                <img alt="image" class="img-circle" src="Content/img/someone.jpg">
+                            </a>
+                            <div class="pull-left" style="margin-right:10px;">
+                                <a href="#" class="ng-binding">
+                                    {{historyItem.personName}}
+                                </a>
+                                <br />
+                                <small class="text-muted ng-binding"><i class="glyphicon glyphicon-time"></i>{{historyItem.createDate | amDateFormat: 'L LTS' }}</small>
+                            </div>
+                            <div class="media-body" style="margin-left:10px">
+                                <p>
+                                    Cambio de Actividad
+                                    <br />
+                                    <span data-ng-show="$first||!workflowInstance.history[$index-1].isTerminated" class="label label-primary">{{historyItem.fromWorkflowActivityName}}</span>
+                                    <span data-ng-show="!$first&&workflowInstance.history[$index-1].isTerminated" class="label label-danger">Cancelado</span>
+                                    <i class="fa fa-chevron-right"></i>
+                                    <span data-ng-show="!historyItem.isTerminated" class="label label-primary">{{historyItem.toWorkflowActivityName}}</span>
+                                    <span data-ng-show="historyItem.isTerminated" class="label label-danger">Cancelado</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                   
+                </div>
+            </li>
+        </ul>
+    </div>
+    
+</div>

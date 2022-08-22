@@ -1,0 +1,33 @@
+[{
+    "documentNumber": "461003",
+    "issueDate": "07/06/2017",
+    "voidDate": "01/02/2018",
+    "issuerName": "Big Bloom S.A.",
+    "amount": "137.107,43",
+    "status": "Emitido",
+    "financingStatus": "Disponible"
+}, {
+    "documentNumber": "461004",
+    "issueDate": "07/06/2017",
+    "voidDate": "01/03/2018",
+    "issuerName": "Big Bloom S.A.",
+    "amount": "137.107,43",
+    "status": "Emitido",
+    "financingStatus": "Disponible"
+}, {
+    "documentNumber": "461002",
+    "issueDate": "07/06/2017",
+    "voidDate": "01/04/2018",
+    "issuerName": "Big Bloom S.A.",
+    "amount": "137.107,43",
+    "status": "Emitido",
+    "financingStatus": "Disponible"
+}, {
+    "documentNumber": "461005",
+    "issueDate": "07/06/2017",
+    "voidDate": "01/05/2018",
+    "issuerName": "Big Bloom S.A.",
+    "amount": "137.107,43",
+    "status": "Emitido",
+    "financingStatus": "Disponible"
+}]

@@ -1,0 +1,47 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'polls.newpoll' | translate }}
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+            <a href="" target="_blank" class="btn btn-primary" data-ng-click="save()"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</a>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+            <form role="form" name="newPollForm" ng-submit="startPoll()">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="personLookup">Encuestado</label>
+                        <div id="personLookup" data-lookup="systemPersonLookup" data-ng-model="params.personId"></div>
+                    </div>
+                </div>
+
+                <div class="row m-t-md">
+                    <div class="col-md-8">
+                        <label>Formulario</label>
+                        <ul>
+                            <li ng-repeat="form in forms" style="list-style-type: none;">
+                                <label>
+                                    <input type="radio" name="selectedForm" ng-model="params.selectedForm" ng-value="form.id"/>{{form.name}}
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <button type="submit" class="btn btn-primary" data-ng-disabled="!params.selectedForm || !params.personId">Comenzar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

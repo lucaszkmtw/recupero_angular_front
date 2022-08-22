@@ -1,0 +1,41 @@
+<div>
+    <input type="text" class="form-control input-sm m-b-xs" id="filter" placeholder="Buscar">
+
+    <table class="footable table table-stripped" data-filter="#filter" data-page-size="8">
+        <thead>
+            <tr>
+                <th></th>
+                <th data-sort-initial="true" data-toggle="true">Tipo</th>
+                <th>Nombre/Razon Social</th>
+                <th>Telefono</th>
+                <th>Email</th>
+                <th>Originador</th>
+                <th>Ins</th>
+                <th>Total Cartera</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-repeat="businesspartner in clientInstance.businesspartners">
+                <td><a href="" target="_blank" data-ng-click="viewCheckingAccount(businesspartner.id)"> <i class="fa fa-search-plus fa-fw hand"></i></a>                    </td>
+                <td>{{businesspartner.type}}</td>
+                <td>{{businesspartner.personName}}</td>
+                <td>{{businesspartner.phone}}</td>
+                <td>{{businesspartner.email}}</td>
+                <td>{{businesspartner.originador}}</td>
+                <td>{{businesspartner.ins}}</td>
+                <td>{{businesspartner.balance | currency }}</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="7"> <b>Subtotal </b> </td>
+                <td class="pull-left" colspan="1"> <b>{{clientInstance.meta | currency }}</b> </td>
+            </tr>
+            <tr>
+                <td colspan="7" class="hide-if-no-paging">
+                    <ul class="pagination pull-right"></ul>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

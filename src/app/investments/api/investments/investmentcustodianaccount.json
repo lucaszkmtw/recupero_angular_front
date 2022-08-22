@@ -1,0 +1,43 @@
+﻿{
+  "offset": 0,
+  "total": 3,
+  "results": [
+    {
+      "id": 152,
+      "typeId": 1,
+      "specie": "bonos nacionales",
+      "count": "5",
+      "price": 1254.54,
+      "valuation": 635.54,
+      "cost": 87452.36,
+      "profitability": 547.56,
+      "duration": "3 meses"
+     
+    },
+    {
+      "id": 153,
+      "typeId": 1,
+      "specie": "bonos del tesoro",
+      "count": "12",
+      "price": 2145.21,
+      "valuation": 6341.23,
+      "cost": 87452.36,
+       "profitability": 547.56,
+      "duration": "3 meses"
+    },
+    {
+      "id": 153,
+      "typeId": 1,
+      "specie": "bonos provinciales",
+      "count": "30",
+      "price": 3254.65,
+      "valuation": 3214.3,
+      "cost": 5659.65,
+      "profitability": 547.56,
+     "duration": "3 meses"
+    }
+
+  ],
+  "meta": "$51.140,72",
+  "responseStatus": null
+}

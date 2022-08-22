@@ -1,0 +1,42 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'findm.credittype' | translate }} <small data-ng-show="credit-type.id">{{creditType.code}} {{creditType.name}}</small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+                <button type="button" class="btn btn-danger" data-ng-click="delete()" data-ng-show="creditType.id"><i class="fa fa-trash"></i> {{ 'command.delete' | translate }}</button>                          
+                <button type="button" class="btn btn-primary" data-ng-click="save()"data-ng-disabled="creditTypeForm.$invalid || !creditTypeForm.$dirty"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</button>
+                <!--<a href="" target="_blank" class="btn btn-primary" data-ng-click="save()"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</a>-->
+        </div>
+    </div>
+ </div>
+ <div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+            <form role="form" name="creditTypeForm">
+                <div class="row margin-bottom-20">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="code">Código</label>
+                            <input type="text" class="form-control" id="code" name="code" data-ng-model="creditType.code"required>
+                            <span  style="color:red" data-ng-show="creditTypeForm.code.$touched && creditTypeForm.code.$invalid">El Código es requerido.</span>                              
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-bottom-20">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="name">Nombre</label>
+                            <input type="text" class="form-control" id="name" name="name"  data-ng-model="creditType.name"required>
+                            <span  style="color:red" data-ng-show="creditTypeForm.name.$touched && creditTypeForm.name.$invalid">El Nombre es requerido.</span>                              
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+ </div>
+ 

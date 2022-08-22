@@ -1,0 +1,26 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'investments.traders' | translate }} <small>Listado de Operadores</small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+            <a href="" target="_blank" class="btn btn-primary" data-ng-click="new()"><i class="fa fa-file-o"></i> {{ 'command.new' | translate }}</a>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content np">
+            <div class="row">
+                <div class="col-md-12">
+                     <div data-investments-traders-grid="" data-type-id="1"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

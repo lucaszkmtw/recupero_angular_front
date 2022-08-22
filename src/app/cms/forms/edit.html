@@ -1,0 +1,301 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-5">
+        <h2>
+            {{ 'cms.form' | translate }} <small>{{item.name}}</small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-7">
+        <div class="title-action">
+            <button class="btn btn-info" type="button" data-ng-click="preview()" data-ng-show="!previewMode">
+                <span class="glyphicon glyphicon-eye-open"></span>&nbsp;Previsualizar
+            </button>
+            <button class="btn btn-info" type="button" data-ng-click="edit()" data-ng-show="previewMode">
+                <span class="glyphicon glyphicon-edit"></span>&nbsp;Editar
+            </button>
+            <button type="button" class="btn btn-default" data-ng-click="save()"
+                    data-ng-disabled="!form.$dirty">
+                <i class="fa fa-floppy-o"></i>&nbsp;Guardar
+            </button>
+            <button class="btn btn-success" data-ng-show="!item.isPublished" data-ng-click="publish(true)" type="button">
+                <span class="glyphicon glyphicon-book"></span>&nbsp;Publicar
+            </button>
+            <button class="btn btn-warning" data-ng-show="item.isPublished" data-ng-click="publish(false)" type="button">
+                <span class="glyphicon glyphicon-book"></span>&nbsp;Despublicar
+            </button>
+            <div class="btn-group">
+                <button type="button" class="btn btn-default" data-ng-show="item.responses>0" data-ng-click="exportResponses()">
+                    <span class="glyphicon glyphicon-export"></span>&nbsp;Exportar ({{item.responses}})
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+            <form name="form" novalidate>
+                <uib-tabset data-ng-hide="previewMode">
+                    <uib-tab heading="Info">
+                        <ng-form name="inforForm">
+                            <div class="row m-t-sm">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="name">Nombre*: </label>
+                                        <input id="name" name="name" type="text" data-ng-model="item.name" data-required="" class="form-control" required />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="remarks">Aclaraciones</label>
+                                        <textarea id="remarks" name="remarks" data-ng-model="item.remarks" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="remarks">Mensaje final *:</label>
+                                        <textarea ckeditor="" id="finalMessage" name="finalMessage" data-ng-model="item.finalMessage" class="form-control" required></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <input type="checkbox" id="allowDrafts" icheck data-ng-model="item.allowDrafts">
+                                        <label for="allowDrafts">
+                                            Permite guardar borradores
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <input type="checkbox" icheck data-ng-model="item.allowUpdates">
+                                        <label for="remarks">
+                                            Permite reabrir
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="formType">Tipo de formulario *:</label>
+                                        <select id="formType" data-ng-model="item.typeId" class="form-control" required ng-options="option.value as option.name for option in formService.types"></select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="url">Url:</label>
+                                        <input id="url" data-ng-model="url" type="text" class="form-control" readonly />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="url">Color de fondo:</label>
+                                        <input data-ng-model="colors.url" type="color" ng-change="setUrl(colors)" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="embedCode">Código Embebido:</label>
+                                        <input id="embedCode" data-ng-model="embedCode" type="text" class="form-control" readonly />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="embedCode">Color de fondo:</label>
+                                        <input data-ng-model="colors.embedCode" type="color" ng-change="setEmbedCode(colors)" />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </ng-form>
+                    </uib-tab>
+
+                    <uib-tab heading="Campos" select="selectTab(1)">
+                        <div class="well m-t-sm" ng-if="selectedTab==1">
+                            <div class="form-fields">
+                                <div class="add-field">
+                                    <select data-ng-model="addField.new" data-ng-options="type.name as type.value group by type.optgroup for type in addField.types" class="form-control" style="display: inline-block; width: 200px;"></select>
+                                    <button type="submit" class="btn btn-default" data-ng-click="addNewField()">
+                                        <i class="icon-plus"></i>
+                                        Agregar Campo
+                                    </button>
+                                </div>
+                                <hr>
+                                <p data-ng-show="item.fields.length == 0">No se han agregado campos.</p>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <uib-accordion close-others="accordion.oneAtATime">
+                                            <div data-uib-accordion-group="" heading="{{field.name}}" ng-repeat="field in item.fields">
+                                                <uib-accordion-heading>
+                                                    <div class="row">
+                                                        <div class="col-md-11">
+                                                            <button class="btn btn-default btn-xs" type="button" data-ng-click="moveFieldDown(field.id, $event)" data-ng-disabled="$last"><span class="glyphicon glyphicon-arrow-down"></span></button>
+                                                            <button class="btn btn-default btn-xs" type="button" data-ng-click="moveFieldUp(field.id, $event)" data-ng-disabled="$first"><span class="glyphicon glyphicon-arrow-up"></span></button>
+                                                            {{field.name}}
+                                                        </div>
+                                                        <div class="col-md-1" style="text-align: right;">
+                                                            <button class="btn btn-danger btn-xs" type="button" data-ng-click="deleteField(field.id, $event)" data-ng-disabled="item.responses>0"><span class="glyphicon glyphicon-trash"></span></button>
+                                                        </div>
+                                                    </div>
+                                                </uib-accordion-heading>
+                                                <div class="accordion-edit">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <div class="form-group">
+                                                                <label>Tipo</label>
+                                                                <select class="form-control" ng-model="field.type" ng-options="item.name as item.value group by item.optgroup for item in formService.fields"></select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2" data-ng-show="field.type==='personPhone'">
+                                                            <label></label>
+                                                            <select class="form-control" ng-model="field.typeId" ng-options="item.id as item.name group by item.optgroup for item in formService.phoneFieldTypes"></select>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <div class="form-group">
+                                                                <label>Id</label>
+                                                                <input type="text" class="form-control" ng-model="field.id">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <div class="form-group">
+                                                                <label>Definición</label>
+                                                                <div>{{ field | json }}</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label data-ng-show="field.type!=='iframe'">Título</label>
+                                                                <label data-ng-show="field.type==='iframe'">Inserte url</label>
+                                                                <input type="text" data-ng-model="field.name" value="{{field.name}}" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" data-ng-show="field.type==='lookup'">
+                                                        <div class="col-md-12">
+                                                            <label>Nombre</label>
+                                                            <input type="text" data-ng-model="field.lookup" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" data-ng-show="showRequired(field)">
+                                                        <div class="col-md-12">
+                                                            <label class="headersmalltext">
+                                                                <input type="checkbox" icheck data-ng-model="field.required">Requerido
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Visibilidad</label>
+                                                                <input type="text" class="form-control" data-ng-model="field.visibility">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Patrón de validación</label>
+                                                                <input type="text" class="form-control" data-ng-model="field.pattern">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" data-ng-show="showDefaultValue(field)">
+                                                        <div class="col-md-2">Valor predeterminado:</div>
+                                                        <div class="col-md-4">
+                                                            <input type="text" data-ng-model="field.value" value="{{field.value}}" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" data-ng-show="showAddOptions(field)">
+                                                        <div class="col-md-2">Opciones:</div>
+                                                        <div class="col-md-6">
+                                                            <div data-ng-repeat="option in field.options">
+                                                                <button class="btn btn-default btn-xs" type="button" data-ng-click="moveOptionDown(option.id, field); $event.stopPropagation();" data-ng-disabled="$last"><span class="glyphicon glyphicon-arrow-down"></span></button>
+                                                                <button class="btn btn-default btn-xs" type="button" data-ng-click="moveOptionUp(option.id, field); $event.stopPropagation();" data-ng-disabled="$first"><span class="glyphicon glyphicon-arrow-up"></span></button>
+                                                                <input type="text" data-ng-model="option.text" value="{{option.text}}" class="form-control" style="display: inline-block; width: 200px;">
+                                                                <a class="btn btn-danger btn-sm" data-ng-click="deleteOption(field, option); $event.stopPropagation();"><span class="glyphicon glyphicon-minus"></span></a>
+                                                                <label class="btn btn-primary" data-ng-model="option.allowComments" uib-btn-checkbox="" btn-checkbox-true="'true'" btn-checkbox-false="'false'"><span class="glyphicon glyphicon-comment" title="Permitir comentarios"></span></label>
+                                                                <span class="label label-inverse">Value: {{ option.value }}</span>
+                                                            </div>
+                                                            <button class="btn btn-primary btn-sm" type="button" data-ng-click="addOption(field)"><span class="glyphicon glyphicon-plus"></span> Agregar Opción</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" data-ng-show="field.type==='html'">
+                                                        <div class="col-md-12">
+                                                            <textarea data-ng-model="field.value" ckeditor="editorOptions" class="form-control" id="{{field.id}}" data-ng-ckeditor=""></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </uib-accordion>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </uib-tab>
+                    
+                    <uib-tab heading="Diseño" select="selectTab(2)">
+                        <ng-form name="designForm" ng-if="selectedTab==2">
+                            <div class="row m-t-sm">
+                                <div class="col-md-12">
+                                    <div data-form-builder data-item="item"></div>
+                                </div>
+                            </div>
+                        </ng-form>
+                    </uib-tab>
+                    
+
+                    <uib-tab heading="Notificaciones">
+
+                    </uib-tab>
+                    
+                    <uib-tab heading="Inscriptos" select="selectResponses()">
+                        <div class="row m-t-sm">
+                            <div class="col-md-12">
+                                <div form-responses-grid="" data-form="item" data-ng-if="params.loadResponses"></div>
+                            </div>
+                        </div>
+                    </uib-tab>
+
+                    <uib-tab heading="JSON" ng-if="session.isAdmin()" select="selectTab(6)">
+                        <textarea json-text data-ng-model="item.fields" ng-if="selectedTab==6" style="width: 100%; height: 400px;"></textarea>
+                    </uib-tab>
+                </uib-tabset>
+            </form>
+
+            <div class="form-fields-preview" data-ng-show="previewMode">
+                <div class="sectioncontent" id="print_content">
+                    <!--
+                    <div gridstack class="grid-stack grid1" options="previewOptions">
+                        <div gridstack-item ng-repeat="w in item.fields" class="grid-stack-item" data-gs-item-x="w.x" data-gs-item-y="w.y"
+                             data-gs-item-width="w.width" data-gs-item-height="w.height" data-gs-item-autopos="0">
+                            <div class="grid-stack-item-content white-bg">
+                                <div data-form-field="" data-field="w" style=""></div>
+                            </div>
+                        </div>
+                    </div>
+                        -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

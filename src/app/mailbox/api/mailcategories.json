@@ -1,0 +1,26 @@
+[{
+        "categoryid": "1",
+        "categoryname": "Trabajo",
+        "categorycolor": "text-primary"
+    },
+    {
+        "categoryid": "2",
+        "categoryname": "Documentos",
+        "categorycolor": "text-danger"
+    },
+    {
+        "categoryid": "3",
+        "categoryname": "Social",
+        "categorycolor": "text-warning"
+    },
+    {
+        "categoryid": "4",
+        "categoryname": "Publicidad",
+        "categorycolor": "text-info"
+    },
+    {
+        "categoryid": "5",
+        "categoryname": "Clientes",
+        "categorycolor": "text-navy"
+    }
+]

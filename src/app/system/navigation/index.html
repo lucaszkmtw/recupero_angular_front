@@ -1,0 +1,99 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'system.navigation' | translate }} <small>Menú de navegación</small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="wrapper wrapper-content">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <button type="button" class="btn btn-outline btn-default m-b-sm" data-ng-click="newNavigation()" title="Nuevo"><i class="fa fa-file-o"></i>&nbsp;Nuevo</button>
+                    <div data-system-navigation-tree="" data-selected-item="selectedItem"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="wrapper wrapper-content">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <form name="navigationItemForm">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="name">Nombre</label>
+                                    <input type="text" class="form-control" id="name" data-ng-model="selectedItem.name" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="iconClass">Icon</label>
+                                    <input type="text" class="form-control" id="iconClass" data-ng-model="selectedItem.iconClass">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="state">State</label>
+                                    <input type="text" class="form-control" id="state" data-ng-model="selectedItem.state">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="systemPermissionLookup">Permiso</label>
+                                    <div id="systemPermissionLookup" data-lookup="systemPermissionLookup" data-ng-model="selectedItem.permissionId" required></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="title-action" style="text-align: left;">
+                                    <button type="button" class="btn btn-primary" data-ng-click="save()" data-ng-disabled="navigationItemForm.$invalid || ! navigationItemForm.$dirty"><i class="fa fa-file-o"></i> {{ 'command.save' | translate }}</button>
+                                    <button type="button" class="btn btn-danger" data-ng-click="remove()" data-ng-show="canRemove()"><i class="fa fa-trash"></i>&nbsp;Eliminar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="navigationTreeViewTemplate" type="text/kendo-ui-template">
+    # if (item.iconClass) { #
+    <i class='fa #=item.iconClass#'></i>&nbsp;
+    # } #
+    #: item.name #
+</script>
+
+<!-- Nested list template -->
+<script type="text/ng-template" id="items_renderer.html">
+    <a data-nodrag ng-click="toggle(this)"><span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span></a>
+    <span ui-tree-handle>
+        <i class="fa fa-arrows"></i>
+    </span>
+    <span data-ng-click="editNode(this)">{{item.text}}</span>
+    <!--
+        <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="remove(this)"><span class="glyphicon glyphicon-remove"></span></a>
+        <a class="pull-right btn btn-info btn-xs" data-nodrag ng-click="editNode(this)" style="margin-right: 8px;"><span class="glyphicon glyphicon-edit"></span></a>
+        <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="newNode(this)" style="margin-right: 8px;"><span class="glyphicon glyphicon-plus"></span></a>
+        -->
+    <ol ui-tree-nodes="options" ng-model="item.items" ng-class="{hidden: collapsed}">
+        <li ng-repeat="item in item.items" ui-tree-node ng-include="'items_renderer.html'">
+        </li>
+    </ol>
+</script>

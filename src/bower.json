@@ -1,0 +1,23 @@
+{
+  "name": "centraloperativa",
+  "version": "0.1.0",
+  "authors": [],
+  "dependencies": {
+    "TableDnD": "^0.9.1",
+    "bpmn-js": "*",
+    "ng-ckeditor": "*",
+    "ng-thumb":"*"
+  },
+  "description": "CentralOperativa",
+  "license": "Internal",
+  "homepage": "http://app.centraloperativa.com",
+  "private": true,
+  "ignore": [
+    "**/ .*",
+    "node_modules",
+    "bower_components"
+  ],
+  "resolutions": {
+    "angular": ">=1.3"
+  }
+}

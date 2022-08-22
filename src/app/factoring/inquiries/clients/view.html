@@ -1,0 +1,105 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-6">
+        <h2>
+            {{ 'inquiries.client' | translate }}
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-6">
+        <div class="title-action">
+            <button type="button"  ng-click="viewlistclients()"
+              class="btn btn-primary">
+              Volver al listado
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="wrapper wrapper-content animated fadeInRight" style="padding-bottom:0;margin: 0;">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                            <h1>{{ client.personName }}</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <div class="row m-t-sm">
+                        <div class="col-lg-12">
+                            <div class="panel blank-panel ui-tab">
+
+                                <uib-tabset>
+
+                                    <uib-tab heading="Posición Actual" active="tab.active" class="">
+                                        <div data-actual-position="" data-ng-model="client.actualposition" ></div>
+                                    </uib-tab>
+
+                                    <uib-tab heading="Exposición por Obligado al Pago">
+                                      <div data-exp-ob-pay="" data-ng-model="client.expobpay" ></div>
+                                    </uib-tab>
+
+                                    <uib-tab heading="Cartera">
+                                          <div data-porfolios-decline="" data-ng-model="client.porfolio" ></div>
+                                    </uib-tab>
+
+                                    <uib-tab heading="Exposición Histórica">
+                                        <div data-historical-exposition=""></div>
+                                    </uib-tab>
+
+                                    <uib-tab heading="Límites">
+                                        <div data-check-limits="" data-ng-model="client.limits"></div>
+                                    </uib-tab>  
+
+                                    <uib-tab heading="Rentabilidad">
+                                        <div data-check-profitability="" data-ng-model="client.profitability"></div>
+                                    </uib-tab>
+
+                                </uib-tabset>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-fluor-green {
+        background-color: #84FE77;
+    }
+    .bg-red {
+        background-color: #FC5137;
+        color: #fff;
+    }
+    .text-left {
+        text-align: left !important;
+    }
+    .text-center {
+        text-align: center !important;
+    }
+    .text-right {
+        text-align: right !important;
+    }
+    .table-title {
+      background-color: #e9e9e9;
+      margin: 0 !important;
+      padding: 10px;
+    }
+    table {
+      border: solid 1px #e9e9e9;
+    }
+
+</style>

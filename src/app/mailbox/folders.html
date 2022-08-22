@@ -1,0 +1,28 @@
+﻿<div class="ibox-content mailbox-content">
+    <div class="file-manager">
+        <!-- Lista de Cuentas de Correo -->
+        <h5>Cuenta de Correo</h5>
+        <!-- <select class="form-control m-b" ng-options="mailaccount as mailaccount.displayname for mailaccount in vm.mailAccounts track by mailaccount.idaddress" ng-model="MailAccount" ng-change="vm.listFoldersByAccount(MailAccount)"></select> -->
+        <select class="form-control m-b" ng-options="mailaccount.displayname for mailaccount in vm.mailAccounts track by mailaccount.idaddress" ng-model="vm.MailAccount" ng-change="vm.listFoldersByAccount(vm.MailAccount)"></select>
+        <a class="btn btn-block btn-primary compose-mail" ui-sref="app.mailbox.compose({idaddress: vm.idaddress})">Nuevo Correo {{folder.newmail | translate}}</a>
+
+        <div class="space-25"></div>
+        <!--<h5>{{ 'mailbox.folders' | translate }}</h5>-->
+
+        <ul class="folder-list m-b-md" style="padding: 0">
+            <li ng-repeat="folder in vm.folders">
+                <a ng-click="vm.listMails({idaddress: vm.idaddress, foldername:folder.foldername})">
+                    <i class="{{folder.iconfolder}}"></i><span class="nav-label">{{folder.foldername | translate}}</span>
+                </a>
+            </li>
+        </ul>
+        <h5>Categorias {{folder.categories | translate}}</h5>
+        <ul class="category-list" style="padding: 0">
+            <li ng-repeat="category in vm.categories">
+                <a ng-click="vm.listMailsByCategory({idaddress: vm.idaddress, categoryname: category.categoryname})">
+                    <i class="fa fa-circle {{category.categorycolor}}"></i> {{category.categoryname}} {{folder.category.work | translate}}</a>
+            </li>
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+</div>

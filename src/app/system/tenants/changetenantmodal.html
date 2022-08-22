@@ -1,0 +1,21 @@
+﻿<div class="modal-header dialog-header-confirm">
+    <h4 class="modal-title"><span class="fa fa-tasks">&nbsp;</span>Cambiar Propietario</h4>
+</div>
+<div class="modal-body" style="height: 250px;">
+    <form role="form" name="changeTenantForm" ng-submit="onSubmit()">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label for="tenant">Propietario</label>
+                    <div id="tenantId" data-lookup="systemTenantLookup" data-ng-model="selectedItem"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-ng-click="cancel()">Cancelar</button>
+                <button type="submit" class="btn btn-success" data-ng-disabled="selectedItem==null">Aceptar</button>
+            </div>
+        </div>
+    </form>
+</div>

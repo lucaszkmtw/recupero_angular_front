@@ -1,0 +1,55 @@
+<div class="col-lg-6">
+    <div class="panel-body" ng-repeat="creditcard in creditCardUsers">
+        <div class="row">
+            <div class="col-lg-8">
+                <img src="../../Content/img/{{creditcard.creditCardIcon}}" /> <a data-ng-click="editConfiguration(creditcard)"><strong>{{creditcard.creditCardTypeName}} {{creditcard.creditCardShortNumber}}</strong></a>
+            </div>
+            <div class="col-lg-2">
+                <a class="btn btn-default btn-sm" ng-click="deleteCreditCardUser(creditcard)"><i class="fa fa-trash"></i></a>
+            </div>
+        </div>
+        <div class="hr-line-dashed"></div>
+    </div>
+</div>
+<div ng-show="accountType=='2'">
+    <div class="col-lg-6">
+        <div class="white-bg">
+            <div class="panel panel-default">
+                <div class="panel-heading">{{configurationTitle}}</div>
+            </div>
+            <div class="panel-body">
+                <form name="creditcard" class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-lg-4"><label class="control-label">Nombres <!--{{'wallet.balance.creditcard_firstname | translate'}}--></label></div>
+                        <div class="col-lg-8">
+                            <input class="form-control" ng-model="vm.firstName" ng-required="true" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-4"><label class="control-label">Apellidos <!--{{'wallet.balance.creditcard_lastname | translate'}}--></label></div>
+                        <div class="col-lg-8">
+                            <input class="form-control" ng-model="vm.lastName" ng-required="true" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-4"><label class="control-label">Tipo Tarjeta <!--{{'wallet.balance.creditcard_cardtype | translate'}}--></label></div>
+                        <div class="col-lg-8">
+                            <select class="form-control" ng-options="cardType.cardTypeName for cardType in cardTypes track by cardType.cardTypeId" ng-model="cardType"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-4"><label class="control-label">Número Tarjeta <!--{{'wallet.balance.creditcard_cardnumber | translate'}}--></label></div>
+                        <div class="col-lg-8">
+                            <input class="form-control" ng-model="vm.routingNumber" ng-required="true" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-3">
+                            <button class="btn btn-success" ng-disabled="creditcard.$invalid"><i class="fa fa-plus-circle"></i> Agregar <!--{{'wallet.balance.creditcard_add | translate'}}--></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

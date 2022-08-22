@@ -1,0 +1,61 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'financials.paymentmethod' | translate }} <small data-ng-show="paymentmethod.id">{{paymentmethod.code}} {{paymentmethod.description}}</small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+            <a href="" target="_blank" class="btn btn-primary" data-ng-click="save()"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</a>
+        </div>
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+            <form role="form" name="pharmacyForm">
+                <div class="row margin-bottom-20">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="name">Nombre</label>
+                            <input type="text" class="form-control" id="name" ng-model="paymentMethod.name">
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-bottom-20">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="typeId">Tipo de Metodo de Pago</label>
+                            <select id="typeId" name="typeId" ng-model="paymentMethod.typeId" class="form-control">
+                                <option value="0">Efectivo</option>
+                                <option value="1">Transferencia bancaria</option>
+                                <option value="2">Cheque</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="allowPayments">
+                                <input type="checkbox" icheck class="form-control" id="allowPayments" ng-model="paymentMethod.allowPayments">
+                                Permite Pagos
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-bottom-20">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="allowReceipts">
+                                <input type="checkbox" icheck class="form-control" id="allowReceipts" ng-model="paymentMethod.allowReceipts">
+                                Permite Recibos
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

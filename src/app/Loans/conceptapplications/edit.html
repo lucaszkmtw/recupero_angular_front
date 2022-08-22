@@ -1,0 +1,193 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-6">
+        <h2>
+            {{ 'lns.loanconceptapplication' | translate }}
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-6">
+        <div class="title-action">
+            <a href="" target="_blank" class="btn btn-danger" data-ng-click="terminate()" data-ng-show="params.canApprove && !loan.workflowInstance.isTerminated && !currentWorkflowActivity.isFinal"><i class="fa fa-cancel"></i> {{ 'command.terminate' | translate }}</a>
+            <div class="btn-group" data-ng-show="params.canApprove && (loan.workflowInstance.canAssignToRoles.length > 0) && !currentWorkflowActivity.isFinal">
+                <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ 'command.assign' | translate }} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li data-ng-repeat="role in loan.workflowInstance.canAssignToRoles"><a href="#" data-ng-click="assign(role.id)">{{role.name}}</a></li>
+                </ul>
+            </div>
+            <button type="button" data-ng-show="loan.id && !loan.authorizationWorkflowInstanceId" class="btn btn-primary" data-ng-click="submitForAuthorization()">Iniciar aprobación</button>
+            <a href="" target="_blank" class="btn btn-default" data-ng-click="setPreviousState()" data-ng-show="params.canApprove && params.canGoBack"><i class="fa fa-undo"></i> {{ 'command.prevstate' | translate }}</a>
+            <a href="" target="_blank" class="btn btn-info" data-ng-click="approve()" data-ng-show="params.canApprove"><i class="fa fa-check-square-o"></i> {{ 'command.approve' | translate }}</a>
+            <a href="" target="_blank" class="btn btn-primary" data-ng-click="edit()" data-ng-show="params.canApprove && !currentWorkflowActivity.isFinal"><i class="fa fa-pencil-square-o"></i> {{ 'command.edit' | translate }}</a>
+            <button type="button" class="btn btn-primary" data-ng-click="save()" data-ng-disabled="!loan.installmentFirstVoidDate">Guardar Cambios</button>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-9">
+        <div class="wrapper wrapper-content animated fadeInRight" style="padding-bottom:0;">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <dl class="dl-horizontal">
+                                <dt>Producto:</dt>
+                                <dd>{{loan.productName}}</dd>
+                            </dl>
+                            <dl class="dl-horizontal">
+                                <dt>Nro prestamo:</dt>
+                                <dd># {{loan.number}}</dd>
+                            </dl>
+                            <dl class="dl-horizontal">
+                                <dt>Fecha Solicitud:</dt>
+                                <dd>{{loan.date | amDateFormat: 'L LT' }}</dd>
+                            </dl>
+                            <dl class="dl-horizontal">
+                                <dt style="padding-top: 7px;">Fecha Primer Vencimiento:</dt>
+                                <dd>
+                                    <div data-date-picker="" data-ng-model="loan.installmentFirstVoidDate"></div>
+                                </dd>
+                            </dl>
+                            <dl class="dl-horizontal">
+                                <dt>Vendedor:</dt>
+                                <dd>{{loan.sellerName}}</dd>
+                            </dl>
+                            <dl class="dl-horizontal">
+                                <dt>Cliente:</dt>
+                                <dd>{{loan.personName}}</dd>
+                            </dl>
+                            <dl class="dl-horizontal">
+                                <dt>Capital Solicitado:</dt>
+                                <dd>{{loan.amount | currency}}</dd>
+                            </dl>
+                            <dl class="dl-horizontal">
+                                <dt>Neto a Liquidar:</dt>
+                                <dd>{{loan.netAmount | currency}}</dd>
+                            </dl>
+                            <dl class="dl-horizontal">
+                                <dt>Cantidad de cuotas:</dt>
+                                <dd>{{loan.term}}</dd>
+                            </dl>
+                            <dl class="dl-horizontal">
+                                <dt>Monto Cuota:</dt>
+                                <dd>
+                                    {{loan.installmentBaseAmount | currency}}
+                                </dd>
+                            </dl>
+                            <dl class="dl-horizontal">
+                                <dt>Estado: </dt>
+                                <dd>{{('lns.' + loan.status) | translate}}</dd>
+                            </dl>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <dl class="dl-horizontal">
+                                <dt>Completada:</dt>
+                                <dd>
+                                    <div class="progress progress-striped active m-b-sm">
+                                        <div ng-attr-style="{{ 'width:' + (loan.workflowInstanceProgress | number : 0) + '%' }}" class="progress-bar"></div>
+                                    </div>
+                                    <small>Solicitud completa al <strong>{{ loan.workflowInstanceProgress | number : 0 }}%</strong>.</small>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>    
+
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3">
+        <div class="wrapper wrapper-content project-manager">
+            <h5>Archivos asociados</h5>
+
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="file-manager">
+
+                        <div class="hr-line-dashed"></div>
+                        <div class="text-center">
+                            <span class="btn btn-primary btn-file btn-block" data-ng-class="{disabled: uploader.isUploading}">
+                                <span data-ng-switch="uploader.isUploading">
+                                    <i data-ng-switch-when="false" class="fa fa-upload"></i>
+                                    <i data-ng-switch-when="true" class="fa fa-spinner fa-pulse"></i>
+                                </span>
+                                <span style="margin-left: 3px;">Asociar archivos</span>
+                                <input type="file" multiple nv-file-select="" uploader="uploader" data-ng-disabled="uploader.isUploading" data-file-input="" accept="application/pdf" />
+                            </span>
+                            <span class="fileupload-process"></span>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <ul class="folder-list" style="padding: 0">
+                            <li data-ng-repeat="file in loan.folders"><a href=""><i class="fa fa-folder"></i> {{folder.name}}</a></li>
+                            <li data-ng-repeat="file in loan.files"><a href="" data-ng-click="openFile(file)"><i class="fa fa-file"></i> {{file.name}}</a></li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<div class="row">
+
+    <div class="col-lg-12">
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="ibox">
+                <div class="ibox-content">
+
+                    <div class="row m-t-sm">
+                        <div class="col-lg-12">
+                            <div class="panel blank-panel ui-tab">
+                                <uib-tabset>
+                                    <uib-tab heading="Mensajes" active="tab.active" class="">
+                                        <div data-message-thread="" data-messages="loan.messages" data-service-url="serviceUrl"></div>
+                                    </uib-tab>
+                                    <uib-tab heading="Historial">
+                                        <system-workflow-instance-history data-ng-model="loan.workflowInstance"></system-workflow-instance-history>
+                                    </uib-tab>
+
+                                    <uib-tab heading="Marcha">
+                                        <div data-loans-loan-installments-grid="" data-loan-id="loan.id"></div>
+                                    </uib-tab>
+                                    
+                                    <uib-tab heading="Cuotas">
+                                        <table class="table table-stripped">
+                                            <tr>
+                                                <th>N°</th>
+                                                <th>Fecha vencimiento</th>
+                                                <th>Cuota préstamo</th>
+                                                <th ng-repeat="itemCuota in itemsCuota">{{itemCuota.concept.name}}</th>
+                                                <th>Total</th>
+                                            </tr>
+                                            <tr ng-repeat="installment in installments">
+                                                <td>{{ installment.number }}</td>
+                                                <td>{{ installment.voidDate | amDateFormat: 'L LT' }}</td>
+                                                <td>{{ installment.amount | currency }}</td>
+                                                <td ng-repeat="itemCuota in itemsCuota">{{ installment['c'+itemCuota.id]}}</td>
+                                                <td>{{ installment.total | currency }}</td>
+                                            </tr>
+                                        </table>
+                                    </uib-tab>
+                                    
+                                    <uib-tab heading="Liquidación">
+                                        
+                                    </uib-tab>
+                                </uib-tabset>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

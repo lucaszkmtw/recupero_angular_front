@@ -1,0 +1,44 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <fieldset>
+            <legend style="margin-bottom: 0;">Categorias {{label}}</legend>
+            <div class="row">
+                <div class="col-md-12">
+                    <label></label>
+                    <div class="input-group select2-bootstrap-append">
+                        <system-workflows-tags-tree data-model="model" data-workflow-Id="workflowId">
+                        </system-workflows-tags-tree>
+
+                        <span class="input-group-btn">
+                            <button type="button" data-ng-disabled="!model.$selected.id" data-ng-click="addTag()" class="btn btn-default" style="margin-left: 5px;"><i class="fa fa-plus"></i>&nbsp;Agregar</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="width: 300px;">Categorias</th>
+                                <th style="width: 30px;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="item in items">
+                                <td>{{getPath(item)}}</td>
+                                <td>
+                                    <button data-ng-click="removeTag(item)" type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                                </td>
+                            </tr>
+                            <tr data-ng-if="items.length==0">
+                                <td colspan="2">No posee categorias asignadas.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+﻿<div class="modal-header dialog-header-confirm">
+    <h4 class="modal-title"><span class="fa fa-tasks">&nbsp;</span>{{data.title}}</h4>
+</div>
+<div class="modal-body" ng-style="{height: data.height}">
+    <form name="modalForm">
+        <div ng-include="data.template" onload="item = data.item"></div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" data-ng-click="cancel()">Cancelar</button>
+            <button type="button" class="btn btn-success" data-ng-click="ok()">Aceptar</button>
+        </div>
+    </form>
+</div>

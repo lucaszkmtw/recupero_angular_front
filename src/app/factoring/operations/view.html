@@ -1,0 +1,462 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-6">
+        <h2>
+            {{ 'factoring.operation' | translate }}
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-6">
+        <div class="title-action">
+            <system-workflow-instance-commands data-workflow-instance="operation.authorizationWorkflowInstance" data-on-change="reload()"></system-workflow-instance-commands>
+            <button type="button" data-ng-show="operation.id && !operation.authorizationWorkflowInstanceId" class="btn btn-primary" data-ng-click="submitForAuthorization()">Iniciar aprobación</button>
+            <button type="button" class="btn btn-primary" data-ng-click="save()" data-ng-disabled="!operation.installmentFirstVoidDate">Guardar Cambios</button>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="wrapper wrapper-content animated fadeInRight" style="padding-bottom:0;">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <dl class="dl-horizontal">
+                                <dt>Producto:</dt>
+                                <dd>{{ operation.product }}</dd>
+                            </dl>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <dl class="dl-horizontal">
+                                <dt>Estado: </dt>
+                                <dd>
+                                    <span class="label label-primary" style="font-size: 12px;">{{('lns.status.' + operation.status) | translate}}</span>
+                                    <span class="label label-danger" style="font-size: 12px; margin-left: 5px;" data-ng-show="operation.authorizationWorkflowInstance.isTerminated">Cancelado</span>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <dl class="dl-horizontal">
+                                <dt>Fecha de Creación:</dt>
+                                <dd>{{ operation.creationDate | amDateFormat: 'L LT' }}</dd>
+                            </dl>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <dl class="dl-horizontal">
+                                <dt style="padding-top: 7px;">Fecha de Liquidación:</dt>
+                                <dd>
+                                    <div data-date-picker="" style="width: 200px;" data-ng-model="operation.liquidationDate"></div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <dl class="dl-horizontal">
+                                <dt>Cliente:</dt>
+                                <dd>
+                                    <a data-ui-sref="app.crm.person.info({ personId: person.id })">
+                                        {{ operation.client }}
+                                    </a>
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <dl class="dl-horizontal">
+                                <dt>Gestor:</dt>
+                                <dd>
+                                    <a data-ui-sref="app.crm.person.info({ personId: person.id })">
+                                        {{ operation.manager }}
+                                    </a>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <dl class="dl-horizontal">
+                                <dt>Monto de la operación:</dt>
+                                <dd>{{ operation.operationAmount | currency }}</dd>
+                            </dl>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <dl class="dl-horizontal">
+                                <dt>Operador:</dt>
+                                <dd>
+                                    <a data-ui-sref="app.crm.person.info({ personId: person.id })">
+                                        {{ operation.operator }}
+                                    </a>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <dl class="dl-horizontal">
+                                <dt>Neto a Liquidar:</dt>
+                                <dd>{{ operation.operationAmount | currency }}</dd>
+                            </dl>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <dl class="dl-horizontal">
+                                <dt>Custodio:</dt>
+                                <dd>
+                                    <a data-ui-sref="app.crm.person.info({ personId: person.id })">
+                                        {{ operation.custodian }}
+                                    </a>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <dl class="dl-horizontal">
+                                <dt>Cantidad de instrumentos:</dt>
+                                <dd>{{ operation.instruments }}</dd>
+                            </dl>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <dl class="dl-horizontal">
+                                <dt>Inversor:</dt>
+                                <dd>
+                                    <a data-ui-sref="app.crm.person.info({ personId: person.id })">
+                                        {{ operation.responsible }}
+                                    </a>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <dl class="dl-horizontal">
+                                <dt>Completada:</dt>
+                                <dd>
+                                    <div class="progress progress-striped active m-b-sm">
+                                        <div ng-attr-style="{{ 'width:' + (operation.authorizationWorkflowInstance.progress | number : 0) + '%' }}" class="progress-bar"></div>
+                                    </div>
+                                    <small>Solicitud completa al <strong>{{ operation.authorizationWorkflowInstance.progress | number : 0 }}%</strong>.</small>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <div class="row m-t-sm">
+                        <div class="col-lg-12">
+                            <div class="panel blank-panel ui-tab">
+                                <uib-tabset>
+
+                                    <uib-tab heading="Mensajes" active="tab.active" class="">
+                                        <div data-message-thread="" data-messages="operartion.messages" data-service-url="serviceUrl"></div>
+                                    </uib-tab>
+
+                                    <uib-tab heading="Historial">
+                                        <system-workflow-instance-history data-ng-model="operation.workflowInstance"></system-workflow-instance-history>
+                                    </uib-tab>
+
+                                    <uib-tab heading="Detalle de operación">
+                                        <h2>Detalle de los instrumentos</h2>
+                                        <div class="table-responsive">
+                                            <table class="table instruments-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th>Tipo</th>
+                                                        <th>Número</th>
+                                                        <th>Valor</th>
+                                                        <th>Banco</th>
+                                                        <th>Obligación al pago</th>
+                                                        <th>Emisión</th>
+                                                        <th>Vencimiento</th>
+                                                        <th>Plazo</th>
+                                                        <th>Clearing</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <div ng-if="$index==0">
+                                                                <a class="black" ng-click="editItem(item)"><i class="fa fa-pencil-square-o"></i>&nbsp;{{item.concept.name}}</a>
+                                                            </div>
+                                                        </td>
+                                                        <td>CH</td>
+                                                        <td>23</td>
+                                                        <td>$90.000,00</td>
+                                                        <td>Banco Hipotecario</td>
+                                                        <td class="bg-fluor-green">
+                                                            Fernando
+                                                        </td>
+                                                        <td>04/01/2017</td>
+                                                        <td>10/10/2017</td>
+                                                        <td>19</td>
+                                                        <td>48</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </uib-tab>
+
+                                    <uib-tab heading="Verificación">
+                                        <div class="table-responsive">
+                                            <table class="table factoring-operation-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th colspan="2" class="text-center">Titular</th>
+                                                        <th colspan="10" class="text-center">Consulta</th>
+                                                        <th></th>
+                                                        <th colspan="4" class="text-center" style="text-align: center;">
+                                                            Cheque
+                                                        </th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Razón social</th>
+                                                        <th>Document</th>
+
+                                                        <th>CI</th>
+                                                        <th>OJ</th>
+                                                        <th>CH <small>CO</small></th>
+                                                        <th>CH <small>N</small></th>
+                                                        <th>CQ</th>
+                                                        <th>PQ</th>
+                                                        <th>JD</th>
+                                                        <th>JA</th>
+                                                        <th>SRT</th>
+                                                        <th>L. Prop.</th>
+                                                        <th>
+                                                            <input type="checkbox">
+                                                        </th>
+
+                                                        <th>Banco</th>
+                                                        <th>Importe</th>
+                                                        <th>Fecha Pago</th>
+                                                        <th>Nro. Instrumento</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="bg-fluor-green">Fernando</td>
+                                                        <td>20-39435366-5</td>
+
+                                                        <td>?</td>
+                                                        <td>?</td>
+                                                        <td>?</td>
+                                                        <td>?</td>
+                                                        <td>?</td>
+                                                        <td>?</td>
+                                                        <td>?</td>
+                                                        <td>?</td>
+                                                        <td>?</td>
+                                                        <td class="bg-red">
+                                                            LV4
+                                                        </td>
+
+                                                        <td>
+                                                            <input type="checkbox">
+                                                        </td>
+
+                                                        <td>Banco Hipotecario</td>
+                                                        <td>$90.000,00</td>
+                                                        <td>10/10/2017</td>
+                                                        <td>24</td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </uib-tab>
+
+                                    <uib-tab heading="Liquidación">
+                                        <div class="table-responsive">
+                                            <table class="table factoring-operation-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Firmante</th>
+                                                        <th>Depósito</th>
+                                                        <th>Clearing</th>
+                                                        <th>Acreditación</th>
+                                                        <th>Plazo</th>
+                                                        <th>Importe</th>
+                                                        <th>Aforo</th>
+                                                        <th>Imp. Neto Aforo</th>
+                                                        <th>Tasa Equiv.</th>
+                                                        <th>Intereses</th>
+                                                        <th>Gastos</th>
+                                                        <th>Comisión</th>
+                                                        <th>Neto</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Fernando</td>
+                                                        <td>10/10/2017</td>
+                                                        <td>48</td>
+                                                        <td>10/10/2017</td>
+                                                        <td>19</td>
+                                                        <td>90.000,00</td>
+                                                        <td>%</td>
+                                                        <td>90.000,00</td>
+                                                        <td>12%</td>
+                                                        <td>563,19</td>
+                                                        <td>563,19</td>
+                                                        <td>10.800,00</td>
+                                                        <td>67.816,81</td>
+                                                    </tr>
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <td class="text-left">
+                                                            <b>Totales</b>
+                                                        </td>
+                                                        <td colspan="4"></td>
+                                                        <td class="text-left">
+                                                            <b>90.000,00</b>
+                                                        </td>
+                                                        <td></td>
+                                                        <td class="text-left">
+                                                            <b>90.000,00</b>
+                                                        </td>
+                                                        <td></td>
+                                                        <td class="text-left">
+                                                            <b>563,19</b>
+                                                        </td>                                           
+                                                        <td class="text-left">
+                                                            <b>563,19</b>
+                                                        </td>
+                                                        <td class="text-left">
+                                                            <b>10.800,00</b>
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <b>67.816,81</b>
+                                                        </td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                        <br>
+                                        <table class="table invoice-total">
+                                            <tbody>
+                                                <tr>
+                                                    <td><strong>Adicional Gasto Mínimo:</strong></td>
+                                                    <td>{{ operation.amount | currency }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>IVA Inscripto:</strong></td>
+                                                    <td>{{ operation.expenses | currency }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>IVA No Inscripto:</strong></td>
+                                                    <td>{{ operation.netAmount | currency }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <br>                                        
+                                        <div class="row text-align-right">
+                                            <div class="col-sm-12 col-md-6 col-md-offset-6">
+                                                <button ng-click="saveSettlement()" ng-disabled="!canSaveSettlement()" class="btn btn-primary">Actualizar</button>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12"><span class="has-error" ng-repeat="error in settlementValidation.errors">{{ error }}</span></div>
+                                        </div>
+
+                                        <!--
+                                        <div class="row">
+                                            <div class="col-sm-12"> {{ itemsCapital | json }} </div>
+                                        </div>
+                                        -->
+                                    </uib-tab>  
+
+                                    <uib-tab heading="Documentos">
+
+                                        <div class="file-manager">
+                                            <div class="text-center">
+                                                <span class="btn btn-primary btn-file btn-block" data-ng-class="{disabled: uploader.isUploading}">
+                                                    <span data-ng-switch="uploader.isUploading">
+                                                        <i data-ng-switch-when="false" class="fa fa-upload"></i>
+                                                        <i data-ng-switch-when="true" class="fa fa-spinner fa-pulse"></i>
+                                                    </span>
+                                                    <span style="margin-left: 3px;">Asociar archivos</span>
+                                                    <input type="file" multiple nv-file-select="" uploader="uploader" data-ng-disabled="uploader.isUploading" data-file-input="" accept="application/pdf" />
+                                                </span>
+                                                <span class="fileupload-process"></span>
+                                            </div>
+                                            <div class="hr-line-dashed"></div>
+                                            <ul class="folder-list" style="padding: 0">
+                                                <li data-ng-repeat="file in operation.folders"><a href=""><i class="fa fa-folder"></i> {{folder.name}}</a></li>
+                                                <li data-ng-repeat="file in operation.files"><a href="" data-ng-click="openFile(file)"><i class="fa fa-file"></i> {{file.name}}</a></li>
+                                            </ul>
+                                            <div class="clearfix"></div>
+                                        </div>
+
+                                    </uib-tab>
+
+                                    <uib-tab heading="Verificación" data-ng-show="operation.id" data-select="loadScoring()">
+                                        <table class="table">
+                                            <tr>
+                                                <th>Entidad</th>
+                                                <th>Estado</th>
+                                                <th>Score</th>
+                                                <th>RCI</th>
+                                                <th>Monto aprobado</th>
+                                                <th>Cuota</th>
+                                                <th>Plazo</th>
+                                                <th>Comentarios</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                            <tr ng-repeat="score in scores">
+                                                <td>{{ score.loanLenderName }}</td>
+                                                <td>{{ score.status }}</td>
+                                                <td>{{ score.score }}</td>
+                                                <td>{{ score.rci }}</td>
+                                                <td>{{ score.approvedAmount }}</td>
+                                                <td>{{ score.installment }}</td>
+                                                <td>{{ score.dueDate | date }}</td>
+                                                <td>{{ score.comments }}</td>
+                                                <td><button class="btn btn-sm btn-primary" ng-click="requestScore(score)">Solicitar</button></td>
+                                            </tr>
+                                        </table>
+                                    </uib-tab>
+
+                                </uib-tabset>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-fluor-green {
+        background-color: #84FE77;
+    }
+    .bg-red {
+        background-color: #FC5137;
+        color: #fff;
+    }
+    .text-left {
+        text-align: left !important;
+    }
+    .text-center {
+        text-align: center !important;
+    }
+    .text-right {
+        text-align: right !important;
+    }
+
+</style>

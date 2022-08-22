@@ -1,0 +1,31 @@
+
+<div class=" wrapper-content fadeInRight">
+        <h1>Comentarios y Rating</h1>
+        <hr>
+    <div class="row">
+        <div class="col-lg-2">
+               <label>Ingrese el Rating</label> <rating value="rating" max="5" size="20px" interactive="true"></rating>
+        </div>
+    </div>
+      <div class="row" >
+          <div class="col-lg-12" style="float:left">
+           <h3>Ingrese un comentario</h3>
+                  <textarea id="comments" 
+                      data-ng-model="textToEdit" 
+                      class="form-control" 
+                      style="height: 120px; width: 100%;" 
+                      ></textarea> 
+          <hr>
+          </div>
+  
+   
+  </div>
+  </div>
+   <br>
+   <br>
+      <div class="contact-box-footer" style="text-align: center">
+          <div class="m-t-xs btn-group">
+              <button type="button"
+                      class="btn btn-lg btn-primary" data-ng-click="save(textToEdit)">Guardar</button>
+          </div>
+   </div>

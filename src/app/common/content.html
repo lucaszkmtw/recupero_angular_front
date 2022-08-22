@@ -1,0 +1,20 @@
+<div id="wrapper">
+    <div ng-include="'app/common/navigation.html'"></div>
+    <div id="page-wrapper" class="gray-bg {{$state.current.name}}">
+        <!-- Page wrapper -->
+        <div ng-include="'app/common/topnavbar.html'"></div>
+
+        <!-- Main view  -->
+        <div ui-view></div>
+        <div data-help-window=""></div>
+        <angular-feedback options="app.feedbackOptions"></angular-feedback>
+        <!--
+        <div ng-include="'app/common/footer.html'"></div>
+        -->
+
+    </div>
+    <!--
+    <div ng-include="'app/common/right_sidebar.html'"></div>
+    -->
+    <div id="helpWindow"></div>
+</div>

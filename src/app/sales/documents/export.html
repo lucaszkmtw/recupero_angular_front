@@ -1,0 +1,43 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'sales.documents' | translate }}
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+            <div class="btn-group">
+                <a href="" target="_blank" class="btn btn-white" data-ng-click="export(2)"><i class="fa fa-file-excel-o"></i> Exportar</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content np">
+            <ng-form role="form" name="exportModalForm">
+                <div class="row">
+                    <div class="col-md-12 bg-white">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="fromDate">Fecha desde</label>
+                                    <div id="fromDate" data-date-picker="" data-ng-model="item.fromDate"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="toDate">Fecha hasta</label>
+                                    <div id="toDate" data-date-picker="" data-ng-model="item.toDate"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-form>
+        </div>
+    </div>
+</div>

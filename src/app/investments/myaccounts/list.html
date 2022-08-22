@@ -1,0 +1,301 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+
+
+
+    <div class="col-lg-8">
+        <h2>
+            {{ 'investmentmyaccounts.accounts' | translate }}
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-7">
+
+            <!-- Banner -->
+            <!-- <div id="banner1" class="widget navy-bg no-padding">
+                <div class="p-m">
+                    <h2 class="font-bold no-margins">
+                        Banner
+                    </h2>
+                </div>
+            </div> -->
+
+
+
+
+
+            <div id="voy-a-small">
+                <div class="input-group-btn  pull-left">
+                    <button data-toggle="dropdown" class="btn btn-white draggable-toggle" type="button" aria-expanded="false">
+                        Accesos
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu pull-right">
+                        <li>
+                            <a href="#">
+                                <span class="m-l-xs">Mis Comprobantes</span>
+                                <span style="float:right"><i class="fa fa-chevron-right"></i></span>
+                            </a>
+                        </li>
+                        <li>
+
+                            <a href="#">
+                                <span class="m-l-xs">Tenencias</span>
+                                <span style="float:right"><i class="fa fa-chevron-right"></i></span>
+                            </a>
+
+                        </li>
+                        <li>
+
+                            <a href="#">
+                                <span class="m-l-xs">Suscripciones</span>
+                                <span style="float:right"><i class="fa fa-chevron-right"></i></span>
+                            </a>
+
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="input-group-btn pull-right">
+                    <button data-toggle="dropdown" class="btn btn-white draggable-toggle" type="button" aria-expanded="false">
+                        Voy a..
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu pull-right">
+                        <li>
+                            <a href="" target="_blank" data-ng-click="view()">
+                                <span class="m-l-xs">Mis resumenes</span>
+                                <span style="float:right"><i class="fa fa-chevron-right"></i></span>
+                            </a>
+                        </li>
+                        <li>
+
+                            <a href="" target="_blank" data-ng-click="view()">
+                                <span class="m-l-xs">Transferencias</span>
+                                <span style="float:right"><i class="fa fa-chevron-right"></i></span>
+                            </a>
+
+                        </li>
+                        <li>
+
+                            <a href="#">
+                                <span class="m-l-xs">Operar con cuentas</span>
+                                <span style="float:right"><i class="fa fa-chevron-right"></i></span>
+                            </a>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Cuentas</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+
+
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <h3 class="m-t-none m-b">Tipo</h3>
+
+                            <form role="form"></form>
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <h4>Saldo</h4>
+
+
+                        </div>
+                    </div>
+
+                    <div data-ng-repeat="account in myaccounts.accounts.items">
+                        <div class="row vertical-center">
+                            <div class="col-xs-6 b-r">
+                                <h5> <a href="" target="_blank" data-ng-click="view(account.id, account.typeId)">{{account.name}}</a></h5>
+                                <h6>{{account.tags}}</h6>
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <h3><a href="" target="_blank" data-ng-click="view(account.id, account.typeId)">{{account.balance | currency }}</a></h3>
+                            </div>
+                        </div>
+                        <hr />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4" style="float:right">
+
+            <div id="voy-a" class="ibox-content">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h3>Voy a...</h3>
+                        <ul class="todo-list m-t">
+                            <li>
+                                <a href="#">
+                            <span class="m-l-xs">Pagos</span>
+                            <span style="float:right"><i class="fa fa-chevron-right"></i></span>
+                        </a>
+                            </li>
+                            <li>
+
+                                <a href="#">
+                            <span class="m-l-xs">Mis resumenes</span>
+                            <span style="float:right"><i class="fa fa-chevron-right"></i></span>
+                        </a>
+
+                            </li>
+                            <li>
+
+                                <a href="#">
+                            <span class="m-l-xs">Transferencias</span>
+                            <span style="float:right"><i class="fa fa-chevron-right"></i></span>
+                        </a>
+
+                            </li>
+                            <li>
+
+                                <a href="#">
+                            <span class="m-l-xs">Operar con cuentas</span>
+                            <span style="float:right"><i class="fa fa-chevron-right"></i></span>
+                        </a>
+
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Banner -->
+            <!-- <div id="banner2" class="widget navy-bg no-padding">
+                <div class="p-m">
+                    <h2 class="font-bold no-margins">
+                        Banner
+                    </h2>
+                </div>
+            </div> -->
+
+
+
+
+
+        </div>
+    </div>
+    <div class="col-lg-4" style="float:right">
+        <div id="voy-a" class="ibox-content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3>Accesos </h3>
+
+                    <ul class="todo-list m-t">
+                        <li>
+
+                            <a h href='#' data-ng-click="view()">
+                            <span class="m-l-xs">Mis comprobantes</span>
+                            <span style="float:right"><i class="fa fa-chevron-right"></i></span>
+                        </a>
+
+                        </li>
+
+                        <li>
+
+                            <a href="#">
+                            <span class="m-l-xs">Tenencias</span>
+                            <span style="float:right"><i class="fa fa-chevron-right"></i></span>
+                        </a>
+
+                        </li>
+                        <li>
+
+                            <a href="#">
+                            <span class="m-l-xs">Suscripciones</span>
+                            <span style="float:right"><i class="fa fa-chevron-right"></i></span>
+                        </a>
+
+                        </li>
+                        <li>
+
+                            <a href="#">
+                            <span class="m-l-xs">Comercio Exterior</span>
+                            <span style="float:right"><i class="fa fa-chevron-right"></i></span>
+                        </a>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+        });
+    });
+</script>
+<style>
+    .vertical-center {
+        display: flex;
+        align-items: center;
+    }
+
+    .dropdown-menu {
+        width: 220px !important;
+    }
+
+    #banner1 {
+        height: 250px !important;
+    }
+
+    #banner2 {
+        height: 250px !important;
+    }
+
+    #voy-a-small {
+        display: none;
+        margin-right: 75px;
+    }
+
+
+    @media screen and (min-width: 0px) and (max-width: 1200px) {
+        #voy-a {
+            display: block;
+        }
+
+        #voy-a-small {
+            display: block;
+        }
+
+        #banner2 {
+            display: block;
+        }
+    }
+
+
+    @media screen and (min-width: 200px) and (max-width: 1200px) {
+        #voy-a {
+            display: none;
+        }
+
+        #banner2 {
+            display: none;
+        }
+    }
+</style>

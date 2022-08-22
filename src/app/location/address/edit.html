@@ -1,0 +1,52 @@
+﻿<h3 class="page-title">
+    {{ 'info.address' | translate }} 
+</h3>
+<div class="page-bar">
+    <div ncy-breadcrumb class="page-breadcrumb"></div>
+    <div class="page-toolbar">
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary" data-ng-click="save()">{{ 'command.save' | translate }}</button>
+            <button type="button" class="btn btn-primary" data-ng-click="delete()">{{ 'command.delete' | translate }}</button>
+        </div>
+    </div>
+</div>
+<form role="form" name="tenantForm">
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group form-md-line-input">
+                <input type="text" class="form-control" id="street" data-ng-model="address.street">
+                <label for="street">{{'info.street' | translate }}</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group form-md-line-input">
+                <input type="text" class="form-control" id="streetNumber" data-ng-model="address.streetNumber">
+                <label for="streetNumber">{{'info.streetnumber' | translate}}</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group form-md-line-input">
+                <input type="text" class="form-control" id="floor" data-ng-model="address.floor">
+                <label for="floor">{{'info.floor' | translate }}</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group form-md-line-input">
+                <input type="text" class="form-control" id="appartment" data-ng-model="address.appartment">
+                <label for="appartment">{{'info.appartment' | translate }}</label>
+            </div>
+        </div>
+    </div>
+
+</form>

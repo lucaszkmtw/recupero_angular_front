@@ -1,0 +1,54 @@
+﻿<div class="modal-header dialog-header-confirm">
+    <h4 class="modal-title"><span class="fa fa-tasks">&nbsp;</span>Nuevo medicamento</h4>
+</div>
+<div class="modal-body">
+    <form role="form" name="commercialDrugForm">
+        <div class="row margin-bottom-20">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label for="name">{{ 'label.name' | translate }}</label>
+                    <input type="text" class="form-control" id="name" data-ng-model="commercialdrug.name">
+                </div>
+            </div>
+        </div>
+        <div class="row margin-bottom-20">
+            <div class="col-md-12">
+                <div class="form-group form-md-lookup">
+                    <label for="drugLookup">Principio activo</label>
+                    <div class="input-group select2-bootstrap-append">
+                        <select id="drugLookup" data-health-drug-lookup="" data-ng-model="commercialdrug.drugId" style="width: 100%;"></select>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" data-ng-click="newDrug()"><i class="fa fa-file-o"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row margin-bottom-20">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="drugPresentation">Presentación</label>
+                    <select data-health-drug-presentation-lookup="" id="drugPresentation" data-ng-model="commercialdrug.presentationId" style="width: 100%;"></select>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-bottom-20">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="drugPresentation">Fabricante</label>
+                    <select data-system-person-lookup="" id="manufacturer" data-ng-model="commercialdrug.manufacturerId" style="width: 100%;"></select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row margin-bottom-20">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <a href="" target="_blank" class="btn btn-default" data-ng-click="cancel()"> {{ 'command.close' | translate }}</a>
+                    <a href="" target="_blank" class="btn btn-primary" data-ng-click="save()" data-ng-disabled="drugForm.$invalid || !drugForm.$dirty"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,33 @@
+﻿
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+            <form name="groupItemForm">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="name">Nombre</label>
+                            <input type="text" class="form-control" id="name" data-ng-model="selectedItem.name" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="name">Descripción</label>
+                            <input type="text" class="form-control" id="name" data-ng-model="selectedItem.description" >
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="title-action" style="text-align: left;">
+                            <button type="button" class="btn btn-primary" data-ng-click="save()" data-ng-disabled="groupItemForm.$invalid || ! groupItemForm.$dirty"><i class="fa fa-file-o"></i> {{ 'command.save' | translate }}</button>
+                            <button type="button" class="btn btn-danger" data-ng-click="remove()" data-ng-show="canRemove()"><i class="fa fa-trash"></i>&nbsp;Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

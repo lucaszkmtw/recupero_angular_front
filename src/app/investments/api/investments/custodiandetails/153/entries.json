@@ -1,0 +1,53 @@
+﻿{
+  "offset": 0,
+  "total": 3,
+  "results": [
+    {
+      "id": 1,
+      "typeId": 1,
+      "cedente": "BUSTOS FABIANA ETHEL",
+      "nroCh": "15328741",
+      "firmante": "BLOOM SA",
+      "fechaOperacion": "20/02/2017",
+      "fechaAcreditacion": "01/04/2017",
+      "capitalesColocados": 5426.45,
+      "ints": 233.12,
+      "acobrar": 5659.57,
+      "diasDeposito":40
+     
+    },
+    {
+      
+      "id": 2,
+      "typeId": 1,
+      "cedente": "BUSTOS FABIANA ETHEL",
+      "nroCh": "80865452",
+      "firmante": "KLM SA",
+      "fechaOperacion": "20/02/2017",
+      "fechaAcreditacion": "01/04/2017",
+      "capitalesColocados": 5426.45,
+      "ints": 233.12,
+      "acobrar": 5659.57,
+      "diasDeposito":40
+     
+    },
+       {
+      
+      "id": 3,
+      "typeId": 1,
+      "cedente": "Molyagro SA",
+      "nroCh": "56122254",
+      "firmante": "KLM SA",
+      "fechaOperacion": "20/02/2017",
+      "fechaAcreditacion": "01/04/2017",
+      "capitalesColocados": 8005.45,
+      "ints": 233.12,
+      "acobrar": 5659.57,
+      "diasDeposito":40
+     
+    }
+
+  ],
+  "meta": "$51.140,72",
+  "responseStatus": null
+}

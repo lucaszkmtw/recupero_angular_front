@@ -1,0 +1,70 @@
+<div class="col-lg-6">
+    <div class="panel-body" data-ng-repeat="bankaccount in bankAccountUsers">
+        <div class="row">
+            <div class="col-lg-9">
+                <img src="../../Content/img/bank-icon.png" /> <a data-ng-click="editConfiguration(bankaccount)"><strong>{{bankaccount.accountShortDescription}}</strong></a>
+            </div>
+            <div class="col-lg-2">
+                <a class="btn btn-default btn-sm" data-ng-click="deleteBankAccountUser(bankaccount)"><i class="fa fa-trash"></i></a>
+            </div>
+        </div>
+        <div class="hr-line-dashed"></div>
+    </div>
+</div>
+<div ng-show="accountType=='1'">
+    <div class="col-lg-6">
+        <div class="white-bg">
+            <div class="panel panel-default">
+                <div class="panel-heading">{{configurationTitle}}</div>
+            </div>
+            <div class="panel-body">
+                <form name="bankaccount" class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-lg-4"><label class="control-label">País <!--{{'wallet.balance.country | translate'}}--></label></div>
+                        <div class="col-lg-8">
+                            <select class="form-control" ng-options="country.countryName for country in countries track by country.countryId" ng-model="countryId"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-4"><label class="control-label">Nombre Banco <!--{{'wallet.balance.bankname | translate'}}--></label></div>
+                        <div class="col-lg-8">
+                            <input class="form-control" ng-model="bankName" ng-required="true" />
+                        </div>
+                        <div role="alert">
+                            <span class="error" ng-show="bankaccount.bankName.$error.required">(Nombre Banco) es requerido <!--{{'wallet.balance.bankname_required | translate'}}--></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-4"><label class="control-label">Tipo Cuenta <!--{{'wallet.balance.accountype | translate'}}--></label></div>
+                        <div class="col-lg-8">
+                            <select class="form-control" ng-options="accountType.accountTypeName for accountType in accounttypes track by accountType.accountTypeId" ng-model="accountType"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-4"><label class="control-label">Número de Ruta <!--{{'wallet.balance.routenumber | translate'}}--></label></div>
+                        <div class="col-lg-8">
+                            <input class="form-control" ng-model="vm.routingNumber" ng-required="true" />
+                        </div>
+                        <div role="alert">
+                            <span class="error" ng-show="bankaccount.vm.routingNumber.$error.required">(Número de Ruta) es requerido<!--{{'wallet.balance.routenumber_required | translate'}}--></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-4"><label class="control-label">N° de Cuenta <!--{{'wallet.balance.accountnumber | translate'}}--></label></div>
+                        <div class="col-lg-8">
+                            <input class="form-control" ng-model="vm.accountNumber" ng-required="true" />
+                        </div>
+                        <div role="alert">
+                            <span class="error" ng-show="bankaccount.vm.accountNumber.$error.required">(Número de Cuenta) es requerido<!--{{'wallet.balance.accountnumber_required | translate'}}--></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-3">
+                            <button class="btn btn-success" ng-disabled="bankaccount.$invalid"><i class="fa fa-plus-circle"></i> Agregar <!--{{'wallet.balance.add | translate'}}--></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

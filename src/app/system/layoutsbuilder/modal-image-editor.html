@@ -1,0 +1,28 @@
+<div class="modal-header">
+        <h4 class="modal-title"><span class="glyphicon glyphicon-edit"></span> Editor de Imagenes</h4>
+    </div>
+    <div class="modal-body">
+        <div class="file-manager" ng-if="folderGuid">
+                
+            <div class="row" >
+                    <div class="col-md-2" style="padding-top: 1%" >
+                            <label >Desde URL Externa</label>
+                    </div>
+                <div class="col-md-7">
+                        <div class="form-group">
+                              
+                                <input id="imageURL" name="imageURL" data-ng-model="externUrl"  class="form-control" type="text" >
+                                
+                            </div>
+                </div>
+                <div class="col-md-3" >
+                        <button class="btn btn-primary"  ng-click="saveExternal(externUrl)">Asociar</button>
+                </div>
+            </div>
+                  <system-document-management-file-manager  data-folderguid="{{folderGuid}}" data-resoure-type="image" data-ng-model="selectedFile" ></system-document-management-file-manager>
+      
+    </div>
+    <div class="modal-footer"><button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button><button type="button" class="btn btn-primary"
+            ng-click="save()"
+            >Guardar</button>
+        </div>

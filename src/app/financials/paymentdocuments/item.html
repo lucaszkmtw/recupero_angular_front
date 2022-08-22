@@ -1,0 +1,125 @@
+﻿<ng-form role="form" name="paymentDocumentItemForm" ng-controller="PaymentDocumentItemController" ng-init="init(data.document.receiverId, data.paymentAvailableAmount)">
+    <div class="row">
+        <div class="col-md-12">
+            <input type="radio" id="collection" name="itemType" value="debt" ng-model="item.businessDocumentType">
+            <label for="collection">
+                    Expediente
+            </label>
+            <input type="radio" id="paymentcoupon" name="itemType" value="payment" ng-model="item.businessDocumentType">
+            <label for="paymentcoupon">
+                Medio de cobro
+            </label>            
+        </div>      
+    </div>
+
+    <div class="row" ng-show="item.businessDocumentType === 'debt'">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="receiverId">Expediente</label>
+                <div id="receiverId" data-lookup="businessDocumentsDocumentLookup" data-types-id="{{businessDocumentTypesCollection}}" data-debtor-id="{{receiverId}}" data-ng-model="item.businessDocumentId" required></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" ng-show="item.businessDocumentId && item.businessDocumentType === 'debt'">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="receiverId">Credito</label>
+                <div id="receiverId" data-lookup="businessDocumentsDocumentLookup" data-ng-model="item.businessDocumentItemId" required></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" ng-show="item.businessDocumentType === 'payment'">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="receiverId">Identificador</label>
+                <div id="receiverId" data-lookup="businessDocumentsDocumentLookup" data-types-id="{{businessDocumentTypesPayment}}" data-debtor-id="{{receiverId}}" data-ng-model="item.businessDocumentId" data-ng-change="getPaymentDetails()" required></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" ng-show="false">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="description">Descripción</label>
+                <input type="text" class="form-control" id="description" data-ng-model="item.description" ng-maxlength="500" required>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="originalAmount">Monto Recibo</label>
+                <input type="text" class="form-control" id="receiptAmount" money data-ng-model="receiptAmount" required ng-disabled="true">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="originalAmount">Monto Disponible</label>
+                <input type="text" class="form-control" id="paymentAvailableAmount" money data-ng-model="paymentAvailableAmount" required ng-disabled="true">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="originalAmount">Monto deuda original</label>
+                <input type="text" class="form-control" id="originalAmount" money data-ng-model="item.originalAmount" required data-ng-change="originalAmountChanged()" ng-disabled="true">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="amountToPay">Monto deuda con intereses</label>
+                <input type="text" class="form-control" id="amountToPay" money data-ng-model="item.amountToPay" required data-ng-change="amountToPayChanged()" ng-disabled="true">
+            </div>
+        </div>
+    </div>
+
+    <div class="row m-t-sm" ng-show="item.parentItems">
+        <h4  ng-click="changedisplay();" ng-show="!displaySettlement">&nbsp;&nbsp;&nbsp;&nbsp;&#x25BC; Detalle de Deuda</h4>
+        <h4  ng-click="changedisplay();" ng-show="displaySettlement">&nbsp;&nbsp;&nbsp;&nbsp;&#x25B2; Detalle de Deuda</h4>
+        <div id="settlmentdetail" class="col-lg-12" style="display: none;">
+            <table class="table table-stripped">
+                <thead>
+                    <tr>
+                        <th>Credito</th>
+                        <th>Desde</th>
+                        <th>Hasta</th>
+                        <th>Importe</th>
+                        <th>Intereses</th>
+                        <th>Aplicar a capital</th>
+                        <th>Aplicar a interes</th>
+                        <th>Saldo</th>
+                        <!--<th></th>-->
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="settlement in item.parentItems">
+                        <td>{{settlement.productName}}</td>
+                        <td>{{settlement.fromDate |  date:'dd/MM/yyyy' }}</td>
+                        <td>{{settlement.toDate |  date:'dd/MM/yyyy' }}</td>
+                        <td>{{settlement.amount - settlement.appliedAmount | currency }}</td>
+                        <td>{{settlement.amountInterest | currency }}</td>
+                        <td><input type="text" style="width: 130px;" id="capitalApplication" money data-ng-model="settlement.capitalApplication" data-ng-change="updatePaymentAvailableAmount(settlement)"></td>
+                        <td><input type="text" style="width: 130px;"  id="interestApplication" money data-ng-model="settlement.interestApplication" data-ng-change="updatePaymentAvailableAmount(settlement)"></td>
+                        <td>{{settlement.amount - settlement.appliedAmount + settlement.amountInterest - settlement.capitalApplication - settlement.interestApplication | currency }}</td>
+                        <!--<td><a href="" data-ng-click="viewCheckingAccount(account.id)"><i class="fa fa-eye"></i></a></td>-->
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><b>{{ getAmountTotal() | currency }}</b></td>
+                        <td><b>{{ getInterestTotal() | currency }}</b></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>    
+    
+</ng-form>

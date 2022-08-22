@@ -1,0 +1,48 @@
+﻿<div class="mail-box-header">
+    <form ng-submit="search()" class="pull-right mail-search">
+        <div class="input-group">
+            <input type="text" class="form-control input-sm" name="search" ng-model="vm.search" placeholder="Buscar correo">
+
+            <!--<div class="input-group-btn">
+                    <button type="submit" class="btn btn-sm btn-primary">
+                        Buscar
+                    </button>
+                </div>-->
+        </div>
+    </form>
+    <h2>
+        {{vm.FolderName}} ({{vm.UnreadMessages}})
+    </h2>
+
+    <div class="mail-tools tooltip-demo m-t-md">
+        <div class="btn-group pull-right">
+            <button class="btn btn-white btn-sm" ng-click=""><i class="fa fa-arrow-left"></i></button>
+            <button class="btn btn-white btn-sm" ng-click=""><i class="fa fa-arrow-right"></i></button>
+        </div>
+        <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="left" title="Refrescar" ng-click="vm.refresh()"><i class="fa fa-refresh"></i> Refrescar</button>
+        <button class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Marcar como leído" ng-click="vm.markUnread()" data-ng-disabled="!vm.hasSelection()"><i class="fa fa-eye"></i> <!--Marcar Leído--></button>
+        <button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Marcar como Importante" ng-click="vm.markImportant()" data-ng-disabled="!vm.hasSelection()"><i class="fa fa-exclamation"></i> <!--Marcar Importante--></button>
+        <button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Mover a Papelera" ng-click="vm.moveTrash()" data-ng-disabled="!vm.hasSelection()"><i class="fa fa-trash-o"></i> <!--Mover a Papelera--></button>
+    </div>
+</div>
+
+<div class="mail-box">
+
+    <table class="table table-hover table-mail">
+        <tbody ng-repeat="mail in vm.Email | filter:vm.search | filter: {categoryname:vm.categoryfilter}" ng-class="{'true':'unread', 'false':'read'}[mail.isunread]">
+            <tr ui-sref="app.mailbox.viewcompose({idaddress:vm.idaddress, id:mail.id})" style="cursor: pointer;">
+                <td class="check-mail">
+                    <input icheck type="checkbox" ng-model="mail.checked" ng-checked="mail.checked" ng-true-value="true" ng-false-value="false" ng-value="0" ng-change="vm.toggleSelection(mail)" id="mail.checked" name="mail.checked" />
+                </td>
+                <td class="mail-contact"><i ng-class="{'true':'fa fa-certificate','false':''}[mail.isimportant]"></i> {{mail.contact}} </td>
+                <td><span class="{{mail.categorylabel}}">{{mail.categoryname}}</span></td>
+                <td class="mail-subject"><a ui-sref="email_view">{{mail.subject}}</a></td>
+                <td class=""><i ng-class="{'true':'fa fa-paperclip', 'false':''}[mail.isattachment]"></i></td>
+                <td class="text-right mail-date">{{mail.sentdate}}</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+
+</div>

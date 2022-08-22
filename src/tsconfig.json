@@ -1,0 +1,21 @@
+﻿{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "target": "es5",
+    "module": "system",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "noImplicitAny": false,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "outFile": "./Scripts/app.js",
+    "sourceMap": true
+  },
+  "include": [
+    "app/**/*.ts"
+  ],
+  "typeRoots": [
+    "node_modules/@types"
+  ]
+}

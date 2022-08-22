@@ -1,0 +1,76 @@
+[{
+        "idaddress": "1",
+        "default": "true",
+        "friendlyname": "Pedro Cardenas",
+        "username": "cardenat",
+        "password": "prueba",
+        "domainname": "gmail.com",
+        "displayname": "cardenat@gmail.com",
+        "configuration": [{
+            "incomingserver": [{
+                "servername": "mail.google.com",
+                "servertype": "imap",
+                "port": "567",
+                "securityconnection": "Ninguna",
+                "authenticationmethod": "6"
+            }],
+            "outgoingserver": [{
+                "servername": "mail.google.com",
+                "servertype": "pop3",
+                "port": "993",
+                "securityconnection": "Ninguna",
+                "authenticationmethod": "3"
+            }]
+        }]
+    },
+    {
+        "idaddress": "2",
+        "default": "false",
+        "friendlyname": "Tonny Cardenas",
+        "username": "tonny.cardenas",
+        "password": "prueba",
+        "domainname": "hotmail.com",
+        "displayname": "tonny.cardenas@hotmail.com",
+        "configuration": [{
+            "incomingserver": [{
+                "servername": "mail.microsoft.com",
+                "servertype": "imap",
+                "port": "567",
+                "securityconnection": "Ninguna",
+                "authenticationmethod": "6"
+            }],
+            "outgoingserver": [{
+                "servername": "mail.microsoft.com",
+                "servertype": "pop3",
+                "port": "567",
+                "securityconnection": "Ninguna",
+                "authenticationmethod": "4"
+            }]
+        }]
+    },
+    {
+        "idaddress": "3",
+        "default": "false",
+        "friendlyname": "Luis Cardenas",
+        "username": "tonny.cardenas",
+        "password": "prueba",
+        "domainname": "outlook.com",
+        "displayname": "tonny.cardenas@outlook.com",
+        "configuration": [{
+            "incomingserver": [{
+                "servername": "mail.outlook.com",
+                "servertype": "imap",
+                "port": "567",
+                "securityconnection": "Ninguna",
+                "authenticationmethod": "6"
+            }],
+            "outgoingserver": [{
+                "servername": "mail.outlook.com",
+                "servertype": "pop3",
+                "port": "567",
+                "securityconnection": "Ninguna",
+                "authenticationmethod": "5"
+            }]
+        }]
+    }
+]

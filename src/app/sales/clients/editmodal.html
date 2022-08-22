@@ -1,0 +1,22 @@
+﻿<div class="modal-header dialog-header-confirm">
+    <h4 class="modal-title"><span class="fa fa-tasks">&nbsp;</span>Nuevo Cliente</h4>
+</div>
+<ng-form role="form" name="newPerson1Form" data-ng-show="params.step==1">
+    <div class="modal-body" style="height: 450px;">
+        <ng-include src="'/app/system/persons/personaldataedit.html'"></ng-include>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" data-ng-click="cancel()">Cancelar</button>
+        <button type="button" class="btn btn-default" data-ng-click="params.step=2">Siguiente</button>
+    </div>
+</ng-form>
+<ng-form role="form" name="newPersonForm" data-ng-show="params.step==2">
+    <div class="modal-body" style="height: 450px;">
+        <ng-include src="'/app/system/persons/personaldataedit1.html'"></ng-include>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" data-ng-click="cancel()">Cancelar</button>
+        <button type="button" class="btn btn-default" data-ng-click="params.step=1">Anterior</button>
+        <button type="button" class="btn btn-success" data-ng-click="save()">Crear</button>
+    </div>
+</ng-form>

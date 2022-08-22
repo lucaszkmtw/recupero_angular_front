@@ -1,0 +1,34 @@
+[{
+    "creditCardId": "1",
+    "creditCardTypeId": "1",
+    "creditCardTypeName": "Visa",
+    "creditCardShortNumber": "x-5656",
+    "creditCardNumber": "5895243336685656",
+    "creditCardFirstName": "Tonny",
+    "creditCardLastName": "Cardenas",
+    "creditCardIcon": "Visa-icon.png",
+    "creditCardDescription": "Visa - 5895243336685656",
+    "creditCardStatus": "Active"
+}, {
+    "creditCardId": "2",
+    "creditCardTypeId": "2",
+    "creditCardTypeName": "Master",
+    "creditCardShortNumber": "x-5657",
+    "creditCardNumber": "4256545632145657",
+    "creditCardFirstName": "Yelys",
+    "creditCardLastName": "Salinas",
+    "creditCardIcon": "Master-Card-icon.png",
+    "creditCardDescription": "Master Card - 4256545632145657",
+    "creditCardStatus": "Active"
+}, {
+    "creditCardId": "3",
+    "creditCardTypeId": "3",
+    "creditCardTypeName": "American Express",
+    "creditCardShortNumber": "x-3665",
+    "creditCardNumber": "5654231425893665",
+    "creditCardFirstName": "Tonny",
+    "creditCardLastName": "Cardenas",
+    "creditCardIcon": "American-Express-icon.png",
+    "creditCardDescription": "American Express - 4256545632145657",
+    "creditCardStatus": "Active"
+}]

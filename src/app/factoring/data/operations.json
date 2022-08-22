@@ -1,0 +1,23 @@
+{
+  "offset": 0,
+  "total": 12,
+  "results": [
+    {
+      "id": 152,
+      "product": "some product",
+      "client": "Cliente name",
+      "operationAmount": 35706,
+      "instruments": "3",
+      "creationDate": "2017-10-10",
+      "liquidationDate": "2017-10-10",
+      "originator": "Originator name",
+      "operator": "Operator name",
+      "manager": "Manager name",
+      "custodian": "Custodian name",
+      "status": "some status",
+      "responsible": "Some responsible name"
+    }
+  ],
+  "meta": null,
+  "responseStatus": null
+}

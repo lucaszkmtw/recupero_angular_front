@@ -1,0 +1,198 @@
+<form name="newItemForm" ng-submit="save()" novalidate>
+        <div class="modal-header">
+            <h4 class="modal-title">
+                <span class="glyphicon glyphicon-edit"></span> Liquidaciones</h4>
+        </div>
+        <div class="modal-body">
+                <div class="file-manager">
+                    <div class="row">
+                        <div class="col-md-2" >
+                            <label>Tipo</label>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="form-group">
+                  
+                               <!-- <input data-ng-if="typeId === 27" value="Apremio" class="form-control" type="text"  readonly > -->
+                               <select data-ng-if="typeId == 27 || typeId == 29"  name="Select" id="Select" ng-model="typeId" data-ng-change="onSettlementTypeSelect(typeId)" class="form-control" data-placeholder="Seleccione un tipo de liquidacion">
+                                <option value="" disabled selected>Seleccione el tipo de liquidacion</option>
+                                <option value="27" >DGJ</option>
+                                <option value="29" >IGB</option>
+                            </select></br>
+
+                                <select data-ng-if="typeId != 27 && typeId != 29"  name="Select" id="Select" ng-model="typeId" data-ng-change="onSettlementTypeSelect(typeId)" class="form-control" data-placeholder="Seleccione un tipo de liquidacion">
+                                    <option value="" disabled selected>Seleccione el tipo de liquidacion</option>
+                                    <option value="24" >Administrativa</option>
+                                    <option value="26" >Judicial</option>
+                                </select></br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2" >
+                            <label>Fecha desde liquidación</label>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                <div >
+                                    <input data-ng-model="settlementDocument.toServiceDate" class="form-control" type="text"  readonly>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2" >
+                            <label>Fecha hasta liquidación</label>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                <div >
+                                    <div data-date-picker="" data-ng-model="endDate" data-ng-change="calcTotals()" required></div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label>Fecha de vencimiento</label>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                <div >
+                                    <input name="voidDate"
+                                        data-ng-model="voidDate"
+                                        class="form-control "
+                                        placeholder=""
+                                        ng-readonly="true"
+                                        ></br>
+                                    <!-- <div data-date-picker=""  data-ng-model="voidDate" data-ng-disabled="true" required></div> -->
+                                </div>
+                            </div>
+                        </div>    
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2" style="padding-top: 1%">
+                            <label>Monto Deuda</label>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                    <input data-ng-model="totalCredits" class="form-control" type="text"  readonly money>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2" style="padding-top: 1%">
+                            <label>Monto Interes</label>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                <div >
+                                    <input data-ng-model="interesAmount" class="form-control" type="text"  readonly money>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2" style="padding-top: 1%">
+                            <label>Total General</label>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                <input data-ng-model="totalNet" class="form-control" type="text"  readonly money>
+                            </div>
+                        </div>
+                    </div>  
+
+                    <div class="row">
+                        <div class="col-md-2" style="padding-top: 1%">
+                            <label>Agregar conceptos</label>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="form-group">                    
+                                <div >
+                                    <div data-lookup="productLookup"  ng-disabled="!typeIdCategory" data-category-id="{{typeIdCategory}}"  required  data-ng-model="currentProductId" data-on-select ="onProductSelect(value,text)"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                                <button type="button"  class="btn btn-primary" data-ng-disabled="!currentProduct" ng-click="addProd()" ><i class="fa fa-plus"></i> Agregar</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="panel-compact">
+                                <div class="row form-group hidden-xs m-t-sm">
+                                    <div class="col-md-7">Producto</div>                      
+                                    <div class="col-md-2">Precio unitario</div>
+                                    <div class="col-md-1"></div>
+                                    <hr>
+                                </div>
+                                    <div class="row" data-ng-repeat="item in productsList track by $index">
+                                            <div class="col-md-7">
+                                                <div style="margin-top: 0px;">
+                                                    {{item.productText}}
+                                                </div>
+                                            </div> 
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <div class="form-group">
+                                                        <input name="itemPrice"
+                                                                data-ng-change="unitPriceChanged(item.unitPrice)" 
+                                                                data-ng-model="item.unitPrice"
+                                                                class="form-control cantidad"
+                                                                placeholder=""
+                                                                required
+                                                                money>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <div class="form-group">
+                                                    <a><span  data-ng-click="removeSelectedItem($index)" class="fa fa-times-rectangle" style="color:gray;height: 30px;margin-top: 10px;"></a>  
+                                                </div>
+                                            </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>                   
+            </div>  
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
+            <button type="button" class="btn btn-primary"  ng-click="save()">Guardar</button>
+        </div>
+
+        <div class="row m-t-sm">
+            <h4  ng-click="changedisplay();" ng-show="!displaySettlement">&nbsp;&nbsp;&nbsp;&nbsp;&#x25BC; Detalle de Deuda</h4>
+            <h4  ng-click="changedisplay();" ng-show="displaySettlement">&nbsp;&nbsp;&nbsp;&nbsp;&#x25B2; Detalle de Deuda</h4>
+            <div id="settlmentdetail" class="col-lg-12" style="display: none;">
+                <table class="table table-stripped">
+                    <thead>
+                        <tr>
+                            <th>Credito</th>
+                            <th>Desde</th>
+                            <th>Hasta</th>
+                            <th>Plazo</th>
+                            <th>Importe</th>
+                            <th>Intereses</th>
+                            <!--<th></th>-->
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-ng-repeat="settlement in settlementDocument.parentItems">
+                            <td>{{settlement.productName}}</td>
+                            <td>{{settlement.fromDate |  date:'dd/MM/yyyy' }}</td>
+                            <td>{{settlement.toDate |  date:'dd/MM/yyyy' }}</td>
+                            <td>{{settlement.debtTermDays}}</td>
+                            <td>{{settlement.amount | currency }}</td>
+                            <td>{{settlement.amountInterest | currency }}</td>
+                            <!--<td><a href="" data-ng-click="viewCheckingAccount(account.id)"><i class="fa fa-eye"></i></a></td>-->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>      
+    </form>

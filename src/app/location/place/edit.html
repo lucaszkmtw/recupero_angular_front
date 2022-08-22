@@ -1,0 +1,47 @@
+﻿<h3 class="page-title">
+    {{ 'info.address' | translate }} 
+</h3>
+<div class="page-bar">
+    <div ncy-breadcrumb class="page-breadcrumb"></div>
+    <div class="page-toolbar">
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary" data-ng-click="save()">{{ 'command.save' | translate }}</button>
+            <button type="button" class="btn btn-primary" data-ng-click="delete()">{{ 'command.delete' | translate }}</button>
+        </div>
+    </div>
+</div>
+<form role="form" name="tenantForm">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group form-md-line-input">
+                <input type="text" class="form-control" id="name" data-ng-model="place.name">
+                <label for="name">{{'info.name' | translate }}</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group form-md-line-input">
+                <!-- To change type later-->
+                <select class="form-control" id="parentId" data-ng-model="place.parentId">
+                    <option ng-repeat="parent in placeParents" value="{{parent.id}}" ng-selected="place.parentId">{{parent.text}}</option>
+                </select>
+               <!-- <input type="number" class="form-control" id="parentId" data-ng-model="place.parentId">-->
+                <label for="parent">Parent</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group form-md-line-input">
+                
+                <!-- To change type later-->
+                <input type="number" class="form-control" id="typeId" data-ng-model="place.typeId">
+                <label for="type">{{'info.type' | translate }}</label>
+                
+            </div>
+        </div>
+    </div>
+</form>

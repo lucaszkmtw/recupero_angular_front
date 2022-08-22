@@ -1,0 +1,43 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            Wallet
+            <!-- {{ 'wallet.summary' | translate }} -->
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+
+    <div class="navbar-wrapper white-bg">
+        <div class="container-fluid">
+            <nav class="navbar navbar-nav">
+                <div class="container">
+                    <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="#" class="">Resumen</a></li>
+                            <li class=""><a href="#" class="">Balance</a></li>
+                            <li class=""><a href="#" class="">Actividad</a></li>
+                            <li class=""><a href="#" class="">Reportes</a></li>
+                            <li class=" dropdown">
+                                <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Herramientas <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Solicitar Pagos</a></li>
+                                    <li><a href="#">Centro de Soluciones</a></li>
+                                    <li><a href="#">Enviar Pagos</a></li>
+                                </ul>
+                            </li>
+                            <li class=" dropdown"><a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Más <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Clientes</a></li>
+                                    <li><a href="#">Mapa de Sitio</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <div class="hr-line-dashed"></div>
+    <ui-view="menuwallet"></ui-view>
+</div>

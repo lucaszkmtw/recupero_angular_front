@@ -1,0 +1,71 @@
+{
+    "data": [
+      {
+        "id": 1,
+        "name": "Agua",
+        "parentId": null,
+        "parentDescription": null
+      },
+       {
+        "id": 2,
+        "name": "Energia",
+        "parentId": null,
+        "parentDescription": null
+      },
+      {
+        "id": 3,
+        "name": "Medio Ambiente",
+        "parentId": null,
+        "parentDescription": null
+      },
+      {
+        "id": 4,
+        "name": "Desarrollo empresario",
+        "parentId": null,
+        "parentDescription": null
+      },
+      {
+        "id": 4,
+        "name": "Desarrollo Ciudadano",
+        "parentId": null,
+        "parentDescription": null
+      },
+      {
+        "id": 5,
+        "name": "Empleo",
+        "parentId": null,
+        "parentDescription": null
+      },
+      {
+        "id": 6,
+        "name": "Salud",
+        "parentId": null,
+        "parentDescription": null
+      },
+      {
+        "id": 7,
+        "name": "Solar",
+        "parentId": 2,
+        "parentDescription": "Energia"
+      },
+      {
+        "id": 8,
+        "name": "Eolica",
+        "parentId": 2,
+        "parentDescription": "Energia"
+      },
+      {
+        "id": 8,
+        "name": "Sustentable",
+        "parentId": 3,
+        "parentDescription": "Medio Ambiente"
+      },
+      {
+        "id": 9,
+        "name": "Recursos Humanos",
+        "parentId": 5,
+        "parentDescription": "Empleo"
+      }
+    ],
+    "total": 9
+  }

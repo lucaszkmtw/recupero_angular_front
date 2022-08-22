@@ -1,0 +1,656 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-6">
+        <h2 data-ng-show="document.id">
+         <b> <h3> Expediente {{document.number}}</h3></b>
+        </h2>
+        <h2 data-ng-show="!document.id">
+            {{ 'command.new.f' | translate }} {{ document.documentType.name }}
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-6">
+            <div class="title-action" ng-show=" mode ===1">      
+                    <a href=""  class="btn btn-primary"  data-ng-disabled="!document.editPermissions"  data-ng-click="edit()"><i class="fa fa-pencil"></i> {{ 'command.edit' | translate }}</a> 
+            </div>
+             
+        <div class="title-action" ng-show=" mode ===0">           
+                <system-workflow-instance-commands data-workflow-instance="document.collectWorkflowInstance" data-can-approve="canApprove()"
+                data-can-go-back="canGoBack()" data-on-change="reload()"></system-workflow-instance-commands>       
+            <!-- <button type="button" data-ng-show="document.id && !document.approvalWorkflowInstanceId" class="btn btn-primary" data-ng-click="submitForApproval()">Iniciar aprobación</button>
+            <a href="" target="_blank" class="btn btn-white" data-ng-show="!documentOptions.edit && documentOptions.canEdit()" data-ng-click="edit()"><i class="fa fa-pencil"></i> {{ 'command.edit' | translate }}</a>
+            <a href="" target="_blank" class="btn btn-white" data-ng-show="documentOptions.edit" data-ng-click="documentOptions.edit=false"><i class="fa fa-eye"></i> {{ 'command.view' | translate }}</a> -->
+            <a href="" target="_blank" class="btn btn-primary" data-ng-disabled="false" data-ng-show="documentOptions.edit && documentOptions.canSave()" data-ng-click="save()"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="row">
+            <div class="col-md-12 bg-white">
+                <form role="form" name="businessDocumentForm"> 
+                <!-- <ng-form role="form" name="businessDocumentForm" data-ng-if="options.edit===true"> -->
+                    <div class="row m-t-sm">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label for="typeId">Tipo</label>
+                                        <select class="form-control" id="typeId" data-ng-readonly="mode ===1" data-ng-model="document.typeId" data-ng-options="documentType.id as documentType.name for documentType in documentTypes" ng-change="documentChanged()"></select>
+                                    </div>
+
+                                
+                                    <div class="col-md-8">
+                                        <label for="documentNumber">Numero expediente</label>
+                                        <input required data-ng-model="document.number" id="number" data-ng-readonly="mode ===1"
+                                               name="documentNumber"
+                                               type="text" class="form-control"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+
+                        <div class="col-md-2">
+                                <label for="Rol">Rol</label>
+                                <input required data-ng-model="document.collectWorkflowInstance.assignedRoles[0].roleName" id="rol" data-ng-readonly="true"
+                                name="rol"
+                                type="text" class="form-control" style="width: 150px;" />
+                            </div>
+
+                        <div class="col-md-2">
+                            <label for="voidDate">Actividad</label>
+                            <input required data-ng-model="document.collectWorkflowInstance.currentWorkflowActivity.name" id="rol" data-ng-readonly="true"
+                            name="rol"
+                            type="text" class="form-control" style="width: 150px;" />
+                            <!-- {{document.collectWorkflowInstance.currentWorkflowActivity.name}} -->
+                        </div>
+
+                    </div>
+                    <div class="row">
+                            <div class="col-md-2">
+                                    <label for="documentDate">Fecha Ingreso DPGRCF</label>
+                                    <div id="documentDate" data-date-picker="" data-ng-readonly="mode ===1" data-ng-model="document.documentDate" required></div>
+                                </div>
+
+                        <div class="col-md-3">
+                                <label for="notificationDate">Fecha Acto Administrativo</label>
+                                <input required value="{{document.notificationDate | date}}" id="notificationDate" data-ng-readonly="true" name="notificationDate" type="text" class="form-control"/>
+                        </div>
+                        
+                        <div class="col-md-2">
+                                <label for="voidDate">Fecha Prescripción</label>
+                                <input required value="{{document.voidDate | date}}" id="voidDate" data-ng-readonly="true" name="voidDate" type="text" class="form-control"/>
+                        </div>
+
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group form-md-lookup">
+                                <label >Organismo Generador del Crédito Fiscal</label>
+                                <div id="issuerId" data-ng-disabled="document.items.length > 0 && mode ===1" data-lookup="organismLookup" name="issuerId" data-ng-model="document.issuerId" data-business-partner-type-name="{{businessPartnerTypeName}}"  required></div> 
+                                <span  style="color:red" data-ng-show="businessDocumentForm.issuerId.$touched && businessDocumentForm.issuerId.$invalid">El Organismo es requerida.</span>                                           
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row"  data-ng-show="document.issuerId">
+                        <div class="col-md-6">
+                            <div class="form-group form-md-lookup">
+                                <label >Tipo de Crédito</label>
+                                <div id="categoryLookup" data-ng-disabled="document.items.length > 0 && mode ===1"  data-lookup="categoryLookup" name="categoryLookup" data-ng-model="document.categoryId" data-organism-id="{{document.issuerId}}"  required></div> 
+                                <!-- <span  style="color:red" data-ng-show="businessDocumentForm.issuerId.$touched && businessDocumentForm.issuerId.$invalid">El Tipo es requerido.</span>                                            -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group form-md-lookup">
+                                <label for="receiverId">Deudor</label>
+                                <div id="receiverId" data-lookup="debtorLookup" name="receiverId" data-ng-model="document.receiverId" data-business-partner-type-name="{{businessPartnerTypeName}}"  required></div>               
+                            </div>
+                        </div>
+                    </div> -->
+                
+              
+                
+                    <div class="row m-t-sm" data-ng-if="document.approvalWorkflowInstance">
+                        <div class="col-md-9">
+                            <system-workflows-tags-lookup data-items="document.approvalWorkflowInstance.tags" workflow-id="document.approvalWorkflowInstance.workflowId" />
+                        </div>
+                    </div>
+                
+                    <uib-tabset style="margin-top: 20px;">
+                        <uib-tab heading="Creditos">
+                             <div class="row">
+                                <div class="col-lg-12">
+                                    <br>
+                                    <div style="float: left;" ng-show="mode===0">
+                                        <form>
+                                        <input type="checkbox" icheck data-ng-model="selectedAll" id="selectedAll" data-ng-change="addAllSettlementItem()"/>
+                                        <label  style="margin-right: 20px;"><b>Seleccionar Todos</b></label>
+                                        
+                                        <input type="checkbox" icheck data-ng-model="selectedExpired"  id="selectedExpired" data-ng-change="addExpiredSettlementItem()"/>
+                                        <label  style="margin-right: 20px;"><b>Seleccionar Prescripto</b></label>
+
+                                        <input type="checkbox"  style="margin-left: 20px;" icheck data-ng-model="selectedCurrent"  id="selectedCurrent" data-ng-change="addCurrentSettlementItem()"/>
+                                        <label><b>Seleccionar no Prescripto</b></label>
+                                    </form>
+                                    </div> 
+                                    <div style="float: right ;" ng-show="mode===0">
+                                        <button type="button"  class="btn btn-primary" data-ng-disabled="!document.categoryId && mode ===1" data-ng-click="openCreditSelector()"><i class="fa fa-plus"></i> Agregar</button>
+                                        <button type="button"  class="btn btn-primary" data-ng-disabled="!document.categoryId && mode ===1 || settlementItems.length < 1 ||!document.id" data-ng-click="openSettlementDialog()"><i class="fa fa-file-text-o"></i> Liquidar</button>
+                                    </div>
+                                        <br>
+                                </div>
+                             </div>
+                            <div class="panel-compact">
+                                    <div class="row form-group hidden-xs m-t-sm">
+                                            <div class="col-sm-2">
+                                                <div class="col-sm-3"></div>
+                                                <div class="col-sm-9">Credito</div>
+                                            </div>
+
+                                            <!--<div class="col-sm-2">Deudores</div>
+                                            <div class="col-sm-2">Acreedores</div> -->
+                                            <div class="col-sm-1">Vencimiento</div> 
+                                            <div class="col-sm-1">Prescripcion</div> 
+                                            <div class="col-sm-2">Interes Anteriores</div> 
+                                            <div class="col-sm-2">Monto</div>
+                                            <div class="col-sm-2">Saldo</div>
+                                            <div class="col-sm-1">Estado</div>
+                                            <div class="col-sm-1"></div>
+                                            <hr>
+                                        </div>
+                                        <div in-view-container>   
+                                            <div class="row" data-ng-repeat="item in document.items | limitTo: limit">
+                                                <div class="col-sm-2">
+                                                    <div class="col-sm-3">
+                                                        <div style="margin-top: 0px;">
+                                                            <input type="checkbox" icheck data-ng-model="item.selected"  name="settlement" class="form-control" data-ng-change="addSettlementItem(item)" data-ng-if="((!item.appliedAmount || (item.appliedAmount < item.unitPrice)) || item.pendingInterest > 0)" />
+                                                        </div>
+                                                    </div> 
+                                                    <div class="col-sm-9">
+                                                        <div class="form-group">
+                                                                <input name="itemProd"
+                                                                data-ng-model="item.productDescription"
+                                                                class="form-control"
+                                                                type="text"
+                                                                ng-readonly="true"
+                                                                autocomplete="off">
+                                                        </div>
+                                                    </div>
+                                                </div> 
+                                          
+
+                                                <!--
+                                                <div class="col-sm-2">
+                                                    <div class="form-group">
+                                                        <div  data-lookup="debtorLookup"  data-ng-disabled=" mode ===1" name="receiverId" data-ng-model="document.items[$index].debtors"  ng-readonly="true" ></div>  
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="form-group">
+                                                        <div  data-lookup="acredLookup" name="acredLookup"  data-ng-disabled=" mode ===1" data-ng-model="document.items[$index].creditors"  ng-readonly="true" ></div>
+                                                    </div>
+                                                </div>
+                                                -->
+                                                <div class="col-sm-1">
+                                                    <div class="form-group">
+                                                        <input name="voidDate"
+                                                                data-ng-disabled="mode ===1"
+                                                                data-ng-model="item.voidDate|date:'dd/MM/yy'"
+                                                                class="form-control"
+                                                                ng-readonly="true"
+                                                                required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <div class="form-group">
+                                                        <input name="terminateDate"
+                                                                data-ng-disabled="mode ===1"
+                                                                data-ng-model="item.prescriptionDate|date:'dd/MM/yy'"
+                                                                class="form-control"
+                                                                ng-readonly="true"
+                                                                required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                        <div class="form-group">
+                                                            <input name="pendingInterest"
+                                                                    data-ng-model="item.pendingInterest"
+                                                                    class="form-control cantidad"
+                                                                    placeholder=""
+                                                                    ng-readonly="true"
+                                                                    money>
+                                                        </div>
+                                                </div>
+
+                                                <div class="col-sm-2">
+                                                    <div class="form-group">
+                                                        <input name="unitPrice"
+                                                                data-ng-model="item.unitPrice - item.appliedAmount"
+                                                                class="form-control cantidad"
+                                                                placeholder=""
+                                                                ng-readonly="true"
+                                                                money>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="form-group">
+                                                        <input name="total"
+                                                                data-ng-model="item.unitPrice - item.appliedAmount + item.pendingInterest"
+                                                                class="form-control cantidad"
+                                                                placeholder=""
+                                                                ng-readonly="true"
+                                                                money>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <div class="form-group">
+                                                        <div class="label label-primary"  style="display: block;" ng-if="item.status === 0 && ((!item.appliedAmount || (item.appliedAmount < item.unitPrice)) || item.pendingInterest > 0)">Vigente</div>
+                                                        <div class="label label-warning"  style="display: block;" ng-if="item.status === 1 && !item.appliedAmount">Proximo</div>
+                                                        <div class="label label-danger"   style="display: block;" ng-if="item.status === 2 && !item.appliedAmount">Prescripto</div>
+                                                        <div class="label label-info"     style="display: block;" ng-if="(item.appliedAmount > 0 && item.appliedAmount < item.unitPrice) || (item.pendingInterest > 0)">Parcial</div>
+                                                        <div class="label label-success"  style="display: block;" ng-if="item.appliedAmount >= item.unitPrice && (!item.pendingInterest || item.pendingInterest === 0)">Recuperado</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-1">
+                                                    <div class="form-group" ng-show="  mode ===0">
+                                                            <a><span data-ng-disabled=" mode ===1" data-ng-click="editSelectedItem(item,$index)" class="fa fa-pencil-square-o" style="color:gray;height: 30px;margin-top: 10px;"></a>
+                                                            <a><span data-ng-disabled=" mode ===1"  data-ng-click="removeSelectedItem($index)" class="fa fa-times-rectangle" style="color:gray;height: 30px;margin-top: 10px;"></a>
+                                                            <a><span  data-ng-disabled=" mode ===1" data-ng-show="false" data-ng-click="addLaws(item,$index)" class="fa fa-search-plus fa-fw hand" style="color:gray;height: 30px;margin-top: 10px;"></a>
+                                                            
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12" style="width: 100%;text-align: center;">
+                                                    <button class="btn btn-primary" data-ng-disabled="limit >= document.items.length" ng-click='loadMore()'>Proximos ({{limit}} - {{document.items.length}}) &#9660;</button>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>                                
+
+                                        <div class="row m-t-sm">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="comments">Observaciones</label>
+                                                        <textarea id="comments"  data-ng-disabled=" mode ===1" data-ng-model="document.comments" class="form-control" style="height: 120px; width: 100%;"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 form-horizontal" data-ng-hide="module==3">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-sm-7" for="netAmount">Importe Seleccionado</label>
+                                                        <div class="input-group col-sm-3">
+                                                            <span class="input-group-addon">$</span>
+                                                            <input type="text" class="form-control" id="selectedAmount" name="selectedAmount" data-ng-model="document.selectedAmount" money ng-readonly="module!=3">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-sm-7" for="netAmount">Importe Neto</label>
+                                                        <div class="input-group col-sm-3">
+                                                            <span class="input-group-addon">$</span>
+                                                            <input type="text" class="form-control" id="netAmount" name="netAmount" data-ng-model="document.netAmount" money ng-readonly="module!=3">
+                                                        </div>
+                                                    </div>
+                             
+                                                    <div class="form-group">
+                                                        <label class="control-label col-sm-7" for="totalAmount">Importe Total</label>
+                                                        <div class="input-group col-sm-3">
+                                                            <span class="input-group-addon">$</span>
+                                                            <input type="text" class="form-control" style="text-align: right;" id="totalAmount" name="totalAmount" data-ng-model="document.totalAmount" money ng-readonly="module!=3">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-sm-7" for="totalAmount">Importe Recuperado</label>
+                                                        <div class="input-group col-sm-3">
+                                                            <span class="input-group-addon">$</span>
+                                                            <input type="text" class="form-control" style="text-align: right;" id="totalAmount" name="totalAmount" data-ng-model="document.applieadAmount" money ng-readonly="module!=3">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="control-label col-sm-7" for="totalAmount">Saldo</label>
+                                                        <div class="input-group col-sm-3">
+                                                            <span class="input-group-addon">$</span>
+                                                            <input type="text" class="form-control" style="text-align: right;" id="totalAmount" name="totalAmount" data-ng-model="document.notAppliedAmount" money ng-readonly="module!=3">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        
+                            </div>
+                        </uib-tab>
+
+                        <uib-tab heading="Liquidaciones"  data-ng-if="document.id">
+                            <div class="panel-compact">
+                                <div class="row form-group hidden-xs m-t-sm">
+                                    <div class="col-sm-1">Tipo</div> 
+                                    <div class="col-sm-2">Numero</div> 
+                                    <div class="col-sm-1">Base</div>
+                                    <div class="col-sm-1">Interes</div>
+                                    <div class="col-sm-1">Total</div>
+                                    <div class="col-sm-1">Vencimiento</div>
+                                    <div class="col-sm-2">Nad/T.E</div>
+                                    <div class="col-sm-2"></div>
+                                    <hr>
+                                </div>
+                                <div class="row" data-ng-repeat="item in document.reckonings track by $index">
+                                    <div class="col-sm-1"> 
+                                        <div class="form-group">
+                                            <input name="total"
+                                                data-ng-model="item.typeName"
+                                                class="form-control "
+                                                placeholder=""
+                                                ng-readonly="true"
+                                                >
+                                        </div>
+                                    </div> 
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <input name="total"
+                                                data-ng-model="item.number"
+                                                class="form-control "
+                                                placeholder=""
+                                                ng-readonly="true"
+                                                >
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="form-group">
+                                            <input name="total"
+                                                    data-ng-model="item.base"
+                                                    class="form-control cantidad"
+                                                    placeholder=""
+                                                    ng-readonly="true"
+                                                    money>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                            <div class="form-group">
+                                                <input name="total"
+                                                        data-ng-model="item.interest"
+                                                        class="form-control cantidad"
+                                                        placeholder=""
+                                                        ng-readonly="true"
+                                                        money>
+                                            </div>
+                                        </div>
+                                    <div class="col-sm-1">
+                                        <div class="form-group">
+                                            <input name="total"
+                                                    data-ng-model="item.total"
+                                                    class="form-control "
+                                                    placeholder=""
+                                                    ng-readonly="true"
+                                                    money>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                            <input name="total"
+                                            data-ng-model="item.voidDate|date:'dd/MM/yy'"
+                                            class="form-control "
+                                            placeholder=""
+                                            ng-readonly="true"
+                                            >
+                                    </div>
+                                    <div class="col-sm-2">
+                                            <input name="nad"
+                                            data-ng-model="item.linkedNumber"
+                                            class="form-control "
+                                            placeholder=""
+                                            ng-readonly="true"
+                                            >
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group" >
+                                            <button type="button"  class="btn btn-primary" data-ng-click="showSettlement(item)"><i class="fa fa-search-plus fa-fw hand"></i></button>
+                                            <button style="width: 85px;"  data-ng-if="item.typeName === 'Administrativa'" type="button"   class="btn btn-primary"  data-ng-click="addNad(item)"> Nad &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+                                            <button style="width: 85px;"  data-ng-if="item.typeName === 'Judicial' && !item.linkedNumber" type="button"   class="btn btn-primary"  data-ng-click="addTe(item)">T.E</button>
+                                            <button style="width: 85px;"  data-ng-if="item.typeName === 'Judicial' && item.linkedNumber" type="button"   class="btn btn-primary"  data-ng-click="addApremio(item)">Reliquidar</button>
+                                            <button style="width: 85px;"  data-ng-if="item.typeName === 'Cobranza IGB' && !item.linkedNumber" type="button"   class="btn btn-primary"  data-ng-click="addLiqIGB(item)">Liq IGB</button>
+                                            <button style="width: 85px;"  data-ng-if="item.typeName === 'Cobranza DGJ' && !item.linkedNumber" type="button"   class="btn btn-primary"  data-ng-click="addLiqDGJ(item)">Liq DGJ</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                        </uib-tab>
+
+                        <uib-tab heading="Instrumentos"  data-ng-if="document.id">
+                                <div class="panel-compact">
+
+                                        <div class="row form-group hidden-xs m-t-sm">
+                                                <div class="col-sm-1"></div> 
+                                            <div class="col-sm-2">Numero</div> 
+                                            <div class="col-sm-1">Base</div>
+                                            <div class="col-sm-1">Interes</div>
+                                            <div class="col-sm-1">Total</div>
+                                            <div class="col-sm-1">F. Creación</div>
+                                            <!--<div class="col-sm-1">Creado por</div>-->
+                                            <div class="col-sm-1">F. Vencimiento</div>
+                                            <div class="col-sm-1">Actividad</div>
+                                            <div class="col-sm-1"></div>
+                                            <hr>
+                                        </div>
+                                        <div class="row" data-ng-repeat="item in document.paymentCoupons track by $index">
+                                                <div class="col-sm-1"></div> 
+                                                <div class="col-sm-2">
+                                                        <div class="form-group">
+                                                            <input name="total"
+                                                                   data-ng-model="item.number"
+                                                                   class="form-control "
+                                                                   placeholder=""
+                                                                   ng-readonly="true"
+                                                                   >
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-1">
+                                                            <div class="form-group">
+                                                                <input name="total"
+                                                                       data-ng-model="item.base"
+                                                                       class="form-control cantidad"
+                                                                       placeholder=""
+                                                                       ng-readonly="true"
+                                                                       money>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                                <div class="form-group">
+                                                                    <input name="total"
+                                                                           data-ng-model="item.interest"
+                                                                           class="form-control cantidad"
+                                                                           placeholder=""
+                                                                           ng-readonly="true"
+                                                                           money>
+                                                                </div>
+                                                            </div>
+                                                    <div class="col-sm-1">
+                                                            <div class="form-group">
+                                                                <input name="total"
+                                                                       data-ng-model="item.total"
+                                                                       class="form-control "
+                                                                       placeholder=""
+                                                                       ng-readonly="true"
+                                                                       money>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                                <input name="total"
+                                                                class="form-control cantidad"
+                                                                data-ng-model="item.createDate|date:'dd/MM/yy'" 
+                                                               data-ng-readonly="true"
+                                                               ng-readonly="true"
+                                                              
+                                                                >
+                                                              <!--   {{item.createDate | amDateFormat: 'L'}}  -->
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                                <input name="voidDate"
+                                                                data-ng-model="item.voidDate|date:'dd/MM/yy'"
+                                                                class="form-control "
+                                                                placeholder=""
+                                                                ng-readonly="true"
+                                                                >
+                                                            <!-- {{item.createUser}} -->
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <input name="currentWorkflowActivityName"
+                                                            data-ng-model="item.currentWorkflowActivityName"
+                                                            class="form-control "
+                                                            placeholder=""
+                                                            ng-readonly="true"
+                                                            >
+                                                        <!-- {{item.createUser}} -->
+                                                    </div>
+                                                        <div class="col-sm-1">
+                                                            <div class="form-group" >
+                                                                    <button type="button"  class="btn btn-primary" data-ng-click="showSettlement(item)"><i class="fa fa-search-plus fa-fw hand"></i></button>
+                                                                    
+                                                            </div>
+                                                        </div>
+                                        </div>
+                                        <div class="row" data-ng-repeat="item in document.executionDocuments track by $index">
+                                            <div class="col-sm-1"></div> 
+                                            <div class="col-sm-2">
+                                                    <div class="form-group">
+                                                        <input name="total"
+                                                               data-ng-model="item.number"
+                                                               class="form-control "
+                                                               placeholder=""
+                                                               ng-readonly="true"
+                                                               >
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                        <div class="form-group">
+                                                            <input name="total"
+                                                                   data-ng-model="item.base"
+                                                                   class="form-control cantidad"
+                                                                   placeholder=""
+                                                                   ng-readonly="true"
+                                                                   money>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-1">
+                                                            <div class="form-group">
+                                                                <input name="total"
+                                                                       data-ng-model="item.interest"
+                                                                       class="form-control cantidad"
+                                                                       placeholder=""
+                                                                       ng-readonly="true"
+                                                                       money>
+                                                            </div>
+                                                        </div>
+                                                <div class="col-sm-1">
+                                                        <div class="form-group">
+                                                            <input name="total"
+                                                                   data-ng-model="item.total"
+                                                                   class="form-control "
+                                                                   placeholder=""
+                                                                   ng-readonly="true"
+                                                                   money>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-1">
+                                                            <input name="total"
+                                                            class="form-control cantidad"
+                                                            data-ng-model="item.createDate|date:'dd/MM/yy'" 
+                                                           data-ng-readonly="true"
+                                                           ng-readonly="true"
+                                                          
+                                                            >
+                                                          <!--   {{item.createDate | amDateFormat: 'L'}}  -->
+                                                    </div>
+                                                    <div class="col-sm-1">
+                                                            <input name="voidDate"
+                                                            data-ng-model="item.voidDate|date:'dd/MM/yy'"
+                                                            class="form-control "
+                                                            placeholder=""
+                                                            ng-readonly="true"
+                                                            >
+                                                        <!-- {{item.createUser}} -->
+                                                    </div>
+                                                    <div class="col-sm-1">
+                                                        <input name="currentWorkflowActivityName"
+                                                        data-ng-model="item.currentWorkflowActivityName"
+                                                        class="form-control "
+                                                        placeholder=""
+                                                        ng-readonly="true"
+                                                        >
+                                                    <!-- {{item.createUser}} -->
+                                                </div>
+                                                    <div class="col-sm-1">
+                                                            <div class="form-group" >
+                                                                    <button type="button"  class="btn btn-primary" data-ng-click="showSettlement(item)"><i class="fa fa-search-plus fa-fw hand"></i></button>
+                                                                  
+                                                            </div>
+                                                        </div>
+                                        </div>
+                                    </div>           
+                        </uib-tab>
+                        
+                        <uib-tab heading="Documentos relacionados" select="selectLinkedDocuments()" data-ng-show="false">
+                            <div class="m-t-sm alert alert-info" data-ng-show="!document.id">Debe guardar el documento primero para poder relacionar documentos.</div>
+                            <div data-ng-show="document.id">
+                                <div class="row m-t-sm">
+                                    <div class="col-sm-10">
+                                        <div id="linkedDocumentId" data-lookup="businessDocumentsDocumentLookup" data-ng-model="options.linkedDocumentId"></div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button type="button" class="btn btn-primary" data-ng-click="linkDocument()"
+                                                data-ng-disabled="!(options.linkedDocumentId)">
+                                            Asociar
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12" style="padding-top: 10px;">
+                                        <div data-ng-if="options.loadLinkedDocuments" data-linked-documents-grid=""
+                                             data-document-type-id="<?= DocumentTypes::InvoiceTypeId ?>"
+                                             data-document-id="{{invoice.id}}" data-height="200"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </uib-tab>
+                        <uib-tab heading="Archivos" select="selectLinkedFiles()">
+                            <div data-ng-show="!document.id" class="m-t-sm alert alert-info">Debe guardar el documento primero para poder asociar archivos.</div>
+                            <div class="row m-t-sm" data-ng-show="document.id">
+                                <div class="col-md-12">
+                                    <div class="file-manager">
+                                        <div class="text-center">
+                                            <span class="btn btn-primary btn-file btn-block" data-ng-class="{disabled: uploader.isUploading}">
+                                                <span data-ng-switch="uploader.isUploading">
+                                                    <i data-ng-switch-when="false" class="fa fa-upload"></i>
+                                                    <i data-ng-switch-when="true" class="fa fa-spinner fa-pulse"></i>
+                                                </span>
+                                                <span style="margin-left: 3px;">Asociar archivos</span>
+                                                <input type="file" multiple nv-file-select="" uploader="uploader" data-ng-disabled="uploader.isUploading" data-file-input="" />
+                                            </span>
+                                            <span class="fileupload-process"></span>
+                                        </div>
+                                        <div class="hr-line-dashed"></div>
+                                        <ul class="folder-list" style="padding: 0">
+                                            <li data-ng-repeat="folder in document.folders"><a href=""><i class="fa fa-folder"></i> {{folder.name}}</a></li>
+                                            <li data-ng-repeat="file in document.files"><a href="" data-ng-click="openFile(file)"><i class="fa fa-file"></i> {{file.name}}</a></li>
+                                        </ul>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </uib-tab>
+                        <uib-tab heading="Mensajes" active="tab.active" class="" data-ng-if="document.id">
+                                <div data-message-thread="" data-message-thread-id="document.messageThreadId" data-messages="document.messages" data-service-url="serviceUrl"></div>
+                        </uib-tab>
+                        <uib-tab heading="Historial" data-ng-if="document.id">
+                            <system-workflow-instance-history data-ng-model="document.collectWorkflowInstance"></system-workflow-instance-history>
+                        </uib-tab>
+                    </uib-tabset>
+                <!-- </ng-form> -->
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2 ng-show="!site.id">
+            {{ 'inv.site.new' | translate }}
+        </h2>
+        <h2 ng-show="site.id">
+            {{ 'inv.site' | translate }} <small>{{site.name}}</small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+            <button type="button" data-ng-click="save()" class="btn btn-primary" data-ng-disabled="siteForm.$invalid || !siteForm.$dirty"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</button>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+            <form role="form" name="siteForm">
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="form-group">
+                            <label for="name">Nombre</label>
+                            <input type="text" class="form-control" id="name" data-ng-model="site.name" required data-ng-maxlength="200">
+                        </div>
+                    </div>
+                </div>                
+            </form>
+        </div>
+    </div>
+</div>

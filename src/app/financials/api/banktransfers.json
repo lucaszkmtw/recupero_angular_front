@@ -1,0 +1,25 @@
+[{
+    "paymentDocumentId": "1",
+    "paymentDocumentNumber": "1234561",
+    "issueDate": "01/12/2017",
+    "personName": "Tonny Cardenas",
+    "amount": "150.000,00",
+    "status": "0",
+    "financingStatus": "Disponible"
+}, {
+    "paymentDocumentId": "2",
+    "paymentDocumentNumber": "5645263",
+    "issueDate": "01/12/2017",
+    "personName": "Tonny Cardenas",
+    "amount": "300.000,00",
+    "status": "0",
+    "financingStatus": "No disponible"
+}, {
+    "paymentDocumentId": "3",
+    "paymentDocumentNumber": "123456",
+    "issueDate": "15/12/2017",
+    "personName": "Tonny Cardenas",
+    "amount": "50.000,00",
+    "status": "1",
+    "financingStatus": "No disponible"
+}]

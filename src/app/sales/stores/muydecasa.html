@@ -1,0 +1,78 @@
+<div class="wrapper wrapper-content ng-scope">
+        <div class="ibox">
+            <div class="ibox-content"> 
+
+                <div class="row">
+                    <input type="checkbox" required ng-model="paneles" ng-checked="true" />
+                    <label>Mostrar paneles en la home</label>
+                </div>
+
+                <div class="buttons-grid-home">
+                <input type="submit" name="" value="Guardar" class="button primary"></div>
+                </div>
+
+                <section id="products_grid_home" class="products_grid_home">
+                        <div class="bloque bloque1">
+                            <article class="item w_doble">
+                                <input type="hidden" name="home_grid[bloques][1][0][double]" value="1"><input type="hidden" name="home_grid[bloques][1][0][img]" value=""><input type="hidden" name="home_grid[bloques][1][0][deleted_imgs]" value="" class="deleted-imgs">     
+                                     <div class="row type_radios">
+                                Tipo de contenido:
+                                <label class="checkbox">
+                                <input type="radio" name="home_grid[bloques][1][0][type]" value="text" checked="checked"> 
+                                Texto
+                                </label>
+                                <label class="checkbox">
+                                <input type="radio" name="home_grid[bloques][1][0][type]" value="link"> 
+                                Link
+                                </label>
+                                            </div>
+                                            <div class="row options_link" style="display:none;">
+                                              <label for="link_0">Url</label>        <input type="text" name="home_grid[bloques][1][0][link]" value="" placeholder="http://www.example.com">     
+                                             </div>
+                                            <div class="row">
+                                              <label for="title_0">Título</label>        <input type="text" name="home_grid[bloques][1][0][title]" value="">        <small><i>(opcional)</i></small>
+                                            </div>
+                                            <div class="row">
+                                              <label for="description_0">Descripción</label>        <textarea name="home_grid[bloques][1][0][description]" cols="50" rows="10"></textarea>        <small><i>(opcional)</i></small>
+                                            </div>
+                                            
+                                            <div class="row bgtype_radios">
+                                              Fondo:        <label class="checkbox">
+                                                <input type="radio" name="home_grid[bloques][1][0][bg_type]" value="img"> Imagenes
+                                              </label>
+                                              <label class="checkbox">
+                                                <input type="radio" name="home_grid[bloques][1][0][bg_type]" value="color" checked="checked"> Color plano
+                                              </label>
+                                            </div>
+                                            
+                                            <div class="row options_img" style="display:none;">
+                                                     
+                                                Subir fotos:  
+                                                <input type="file" name="bgs[1][0][]" multiple="1">  
+                                                 
+                                              <p>
+                                                Rotar imagenes:<br>
+                                                <label><input type="radio" name="home_grid[bloques][1][0][bg_slide_type]" value="1"> Cada <input type="text" name="home_grid[bloques][1][0][bg_slide_time]" value="" class="input-small"> segundos</label>
+                                                <br>
+                                                <label><input type="radio" name="home_grid[bloques][1][0][bg_slide_type]" value="2"> Cada vez que se ingresa a la página principal</label>
+                                                <br>
+                                                <label><input type="radio" name="home_grid[bloques][1][0][bg_slide_type]" value="3"> Cada nueva sesión</label>
+                                              </p>
+                                            </div>
+                                            <div class="row options_color">
+                                              Color de fondo: <input type="text" name="home_grid[bloques][1][0][bg_color]" value="" class="colorpicker">      </div>
+                                            
+                                            <div class="row">
+                                              <label>
+                                                <input type="checkbox" name="home_grid[bloques][1][0][show_hover]" value="1" class="show_hover">          Habilitar efecto al pasar el mouse por encima.
+                                              </label>
+                                            </div>
+                                            <div class="row options_hcolor" style="display:none;">
+                                              Color de superposición <input type="text" name="home_grid[bloques][1][0][hover_color]" value="" class="colorpicker2">      </div>
+                                          </article>
+                            </article>
+                          </div>
+                    </section>
+        </div>
+</div>
+

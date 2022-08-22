@@ -1,0 +1,55 @@
+<form name="newItemForm" ng-submit="save()" novalidate>
+        <div class="modal-header">
+            <h4 class="modal-title">
+                <span class="glyphicon glyphicon-edit"></span> Agregar Campos adicionales</h4>
+        </div>
+        <div class="modal-body">
+            <div class="file-manager">
+    
+                <div class="row">
+                    <div class="col-md-2" style="padding-top: 1%">
+                        <label>Seleccione el tipo</label>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="form-group">
+                                <select name="Select" id="Select" ng-model="item.type" class="form-control">
+                                        <option ng-repeat="option in availableOptions" value="{{option.id}}" >{{option.name}}</option>
+                          </select>
+    
+                        </div>
+                    </div>
+                </div>
+                <div class="row" >
+                    <div class="col-md-2">
+                            <label>Ingrese el Nombre</label>
+                     </div>
+                     <div class="col-md-7">
+                            <div class="form-group">
+        
+                                    <input data-ng-model="item.name" class="form-control" type="text" required>
+        
+                            </div>
+                        </div>
+              </div>
+              <div class="row" data-ng-show="item.type === 'array'">
+                <div class="col-md-2">
+                        <label>Ingrese los valores de la lista</label>
+                 </div>
+                 <div class="col-md-7">
+                        <div class="form-group">
+    
+                            <div id="systemProjectTagsLookup" 
+                            data-lookup="systemProjectTagsLookup" 
+                            data-ng-model="item.list" ></div>
+    
+                        </div>
+                    </div>
+          </div>           
+    
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
+            <button type="button" class="btn btn-primary" ng-disabled="newItemForm.$invalid" ng-click="save()">Guardar</button>
+        </div>
+    </form>

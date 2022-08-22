@@ -1,0 +1,89 @@
+﻿<div class="modal-header dialog-header-confirm">
+    <h4 class="modal-title"><span class="fa fa-tasks">&nbsp;</span>Solicitud de scoring para {{ item.nombre }}</h4>
+</div>
+<div class="modal-body">
+    <ng-form name="scoringForm">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" data-ng-model="item.nombre" required />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="tipoDocumento">Tipo de documento</label>
+                    <select class="form-control" id="tipoDocumento" name="tipoDocumento" data-ng-model="item.tipoDocumento" required>
+                        <option value="1">LC</option>
+                        <option value="2">LE</option>
+                        <option value="3">DNI</option>
+                        <option value="9">CUIT</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="nroDoc">Numero de documento</label>
+                    <input type="text" class="form-control" id="nroDoc" name="nroDoc" data-ng-model="item.nroDoc" required />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="fechaNacimiento">Fecha de nacimiento</label>
+                    <input type="text" class="form-control" id="fechaNacimiento" name="fechaNacimiento" data-ng-model="item.fechaNacimiento" required />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="codigoPostal">Código postal</label>
+                    <input type="text" class="form-control" id="codigoPostal" name="codigoPostal" data-ng-model="item.codigoPostal" required />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="localidad">Localidad</label>
+                    <input type="text" class="form-control" id="localidad" name="localidad" data-ng-model="item.localidad" required />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="importeIngresos">Importe ingresos</label>
+                    <input type="text" class="form-control" id="importeIngresos" name="importeIngresos" ng-change="calculateInstallment()" data-ng-model="item.importeIngresos" required />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="importeCuota">Importe cuota</label>
+                    <input type="text" class="form-control" id="importeCuota" name="importeCuota" data-ng-model="item.importeCuota" required />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="antiguedadLaboral">Antiguedad laboral</label>
+                    <input type="text" class="form-control" id="antiguedadLaboral" name="antiguedadLaboral" data-ng-model="item.antiguedadLaboral" required />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="sexo">Sexo</label>
+                    <select class="form-control" id="sexo" name="sexo" data-ng-model="item.sexo" required>
+                        <option value="M">Masculino</option>
+                        <option value="F">Femenino</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </ng-form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancelar</button>
+    <button class="btn btn-primary" type="button" data-ng-disabled="scoringForm.$invalid || !scoringForm.$dirty" ng-click="ok()">Aceptar</button>
+</div>

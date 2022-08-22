@@ -1,0 +1,11 @@
+<div class="text-center">
+    <span class="btn btn-primary btn-file btn-block" data-ng-class="{disabled: uploader.isUploading}">
+        <span data-ng-switch="uploader.isUploading">
+            <i data-ng-switch-when="false" class="fa fa-upload"></i>
+            <i data-ng-switch-when="true" class="fa fa-spinner fa-pulse"></i>
+        </span>
+        <span style="margin-left: 3px;">Asociar imagen</span>
+        <input type="file" accept="image/*"  nv-file-select="" uploader="uploader" data-ng-disabled="uploader.isUploading" data-file-input="" />
+    </span>
+    <span class="fileupload-process"></span>
+</div>

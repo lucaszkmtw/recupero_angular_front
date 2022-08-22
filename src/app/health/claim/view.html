@@ -1,0 +1,199 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-6">
+        <h2>
+            {{ 'health.claim' | translate }}
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-6">
+        <div class="title-action">
+            <system-workflow-instance-commands data-workflow-instance="claim.workflowInstance" data-can-approve="true"></system-workflow-instance-commands>
+            <button type="button" class="btn btn-primary" data-ng-click="edit()" data-ng-show="canApprove && !claim.workflowInstance.currentWorkflowActivity.isFinal"><i class="fa fa-pencil-square-o"></i> {{ 'command.edit' | translate }}</button>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-9">
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="m-b-md">
+                                <h2>{{claim.workflowInstance.workflow.code}}-{{claim.id}}: {{person.name}}</h2>
+                            </div>
+                            <dl class="dl-horizontal">
+                                <dt>Estado:</dt>
+                                <dd data-ng-show="!claim.workflowInstance.isTerminated"><span class="label label-primary" style="font-size: 12px;">{{claim.workflowInstance.currentWorkflowActivity.name}}</span></dd>
+                                <dd data-ng-show="claim.workflowInstance.isTerminated"><span class="label label-danger" style="font-size: 12px;">Cancelado</span></dd>
+                            </dl>
+                            <dl class="dl-horizontal">
+                                <dt>Categorías:</dt>
+                                <dd><system-workflow-instance-tags data-tags="{{claim.workflowInstance.tags}}"></system-workflow-instance-tags></dd>
+                            </dl>
+                            <dl class="dl-horizontal">
+                                <dt>Asignado a:</dt>
+                                <dd data-ng-repeat="assignedRole in claim.workflowInstance.assignedRoles" data-ng-show="!claim.workflowInstance.isTerminated"><span class="label label-default" style="font-size: 12px;">{{assignedRole.roleName}}</span></dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <dl class="dl-horizontal">
+
+                                <dt>Reclamante:</dt>
+                                <dd><a data-ui-sref="app.system.person({ personId: person.id })">{{person.name}}</a></dd>
+                                <dt></dt>
+                                <dd data-ng-show="person.phones.length>0"><div data-ng-repeat="phone in person.phones"><a href="tel:{{phone.number}}"><i class="fa fa-phone"></i>&nbsp;<span>{{getPhoneTypeName(phone.typeId)}}</span> <span>{{phone.number}}</span></a></div></dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <dl class="dl-horizontal">
+
+                                <dt>Creada por:</dt>
+                                <dd>{{claim.workflowInstance.createdBy.name}}</dd>
+                                <dt>Mensajes:</dt>
+                                <dd> {{claim.messages.length}}</dd>
+                            </dl>
+                        </div>
+                        <div class="col-lg-7" id="cluster_info">
+                            <dl class="dl-horizontal">
+
+                                <dt>Creada el:</dt>
+                                <dd>{{claim.workflowInstance.createDate | amDateFormat: 'L' }} {{claim.workflowInstance.createDate | amDateFormat: 'LT' }}</dd>
+                                <!--
+                                <dt>Última actualización:</dt>
+                                <dd>16.08.2014 12:15:57</dd>
+                                <dt>Participantes:</dt>
+                                <dd class="project-people">
+                                    <a href=""><img alt="image" class="img-circle" src="Content/img/someone.jpg"></a>
+                                    <a href=""><img alt="image" class="img-circle" src="Content/img/someone.jpg"></a>
+                                </dd>
+                                    -->
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <dl class="dl-horizontal">
+                                <dt>Completada:</dt>
+                                <dd>
+                                    <div class="progress progress-striped active m-b-sm">
+                                        <div ng-attr-style="{{ 'width:' + (claim.workflowInstance.progress | number : 0) + '%' }}" class="progress-bar"></div>
+                                    </div>
+                                    <small>Solicitud completa al <strong>{{ claim.workflowInstance.progress | number : 0 }}%</strong>.</small>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+
+                    <div class="row" data-ng-if="claim.linkedPersons.length>0">
+                        <div class="col-lg-12">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Personas relacionados</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-ng-repeat="linkedPerson in claim.linkedPersons">
+                                        <td>
+                                            <a data-ui-sref="app.system.person({ personId: linkedPerson.person.id })"><span data-ng-show="linkedPerson.person.code">({{linkedPerson.person.code}})</span> {{linkedPerson.person.name}}</a>
+                                        </td>
+                                        <td>
+                                            {{linkedPerson.person.emails.jsoin(', ')}}
+                                        </td>
+                                        <td>
+                                            {{linkedPerson.person.telephone}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="row" data-ng-if="claim.linkedProcesses.length>0">
+                        <div class="col-lg-12">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Procesos relacionados</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Persona</th>
+                                        <th>Fecha alta</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-ng-repeat="linkedProcess in claim.linkedProcesses">
+                                        <td>
+                                            <a title="Ver proceso" href="" ng-click="showProcess($event, linkedProcess)">{{linkedProcess.workflowCode}} - {{linkedProcess.id}}</a>
+                                        </td>
+                                        <td>
+                                            {{linkedProcess.personName }}
+                                        </td>
+                                        <td>
+                                            {{linkedProcess.createDate | 
+                                            amDateFormat: 'L LTS'}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="row m-t-sm">
+                        <div class="col-lg-12">
+                            <div class="panel blank-panel ui-tab tabs-container">
+
+                                <uib-tabset>
+                                    <uib-tab heading="Mensajes" active="tab.active" class="dsads">
+                                        <div data-message-thread="" data-messages="claim.messages" data-service-url="serviceUrl"></div>
+                                    </uib-tab>
+
+                                    <uib-tab heading="Historial">
+                                        <system-workflow-instance-history data-ng-model="claim.workflowInstance"></system-workflow-instance-history>
+                                    </uib-tab>
+                                </uib-tabset>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3">
+        <div class="wrapper wrapper-content project-manager">
+            <h5>Archivos asociados</h5>
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="file-manager">
+                        <div class="hr-line-dashed"></div>
+                        <div class="text-center">
+                            <span class="btn btn-primary btn-file btn-block" data-ng-class="{disabled: uploader.isUploading}">
+                                <span data-ng-switch="uploader.isUploading">
+                                    <i data-ng-switch-when="false" class="fa fa-upload"></i>
+                                    <i data-ng-switch-when="true" class="fa fa-spinner fa-pulse"></i>
+                                </span>
+                                <span style="margin-left: 3px;">Asociar archivos</span>
+                                <input type="file" multiple nv-file-select="" uploader="uploader" data-ng-disabled="uploader.isUploading" data-file-input="" accept="application/pdf" />
+                            </span>
+                            <span class="fileupload-process"></span>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <ul class="folder-list" style="padding: 0">
+                            <li data-ng-repeat="folder in claim.folders"><a href=""><i class="fa fa-folder"></i> {{folder.name}}</a></li>
+                            <li data-ng-repeat="file in claim.files"><a href="" data-ng-click="openFile(file)"><i class="fa fa-file"></i> {{file.name}}</a></li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

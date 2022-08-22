@@ -1,0 +1,30 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-6">
+        <h2 data-ng-show="vm.businessDocument.id">
+            {{ vm.businessDocument.documentType.name }} <small data-ng-show="vm.businessDocument.id">{{vm.businessDocument.number | documentNumber}}</small>
+        </h2>
+        <h2 data-ng-show="!vm.businessDocument.id">
+            {{ 'command.new.f' | translate }} {{ vm.businessDocument.documentType.name }}
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-6">
+        <div class="title-action">
+            <button type="button" class="btn btn-primary" data-ng-show="vm.businessDocument.id && !vm.businessDocument.approvalWorkflowInstanceId" data-ng-click="vm.submitForApproval()">Iniciar aprobación</button>
+            <button type="button" class="btn btn-white" data-ng-show="!vm.documentOptions.edit && vm.documentOptions.canEdit()" data-ng-click="vm.edit()"><i class="fa fa-pencil"></i> {{ 'command.edit' | translate }}</button>
+            <button type="button" class="btn btn-white" data-ng-show="vm.businessDocument.id && vm.documentOptions.edit" data-ng-click="vm.view()"><i class="fa fa-eye"></i> {{ 'command.view' | translate }}</button>
+            <button type="button" class="btn btn-primary" data-ng-show="vm.documentOptions.edit && vm.documentOptions.canSave()" data-ng-click="vm.save()"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</button>
+        </div>
+    </div>
+</div>
+
+
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="row">
+            <div class="col-md-12 bg-white">
+                <business-document data-document="vm.businessDocument" data-options="vm.documentOptions" data-module="1"></business-document>
+            </div>
+        </div>
+    </div>
+</div>

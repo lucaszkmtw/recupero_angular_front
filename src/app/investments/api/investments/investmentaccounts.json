@@ -1,0 +1,48 @@
+﻿{
+  "offset": 0,
+  "total": 3,
+  "results": [
+    {
+      "id": 152,
+      "typeId": 1,
+      "typeAccount": "Inversor",
+      "owner": "Sebastian C. Vigliola",
+      "accountNumber": "316-406428/1",
+      "alias": "Alias #inv",
+      "antiquity": "1 año, 2 meses , 24 días",
+      "currencies": "AR$",
+      "balance": "$19.512,12",
+      "manager": "Fernandez, Federico",
+      "status": "activa"
+    },
+    {
+      "id": 153,
+      "typeId": 1,
+      "typeAccount": "Inversor",
+      "owner": "Fernandez, Federico",
+      "accountNumber": "316-545548/1",
+      "alias": "Alias #inv",
+      "antiquity": "2 año, 4 meses , 5 días",
+      "currencies": "AR$",
+      "balance": "$11.114,10",
+      "manager": "Italiani, Leandra",
+      "status": "activa"
+    },
+    {
+      "id": 153,
+      "typeId": 1,
+      "typeAccount": "Inversor",
+      "owner": "Alexander Titarenko",
+      "accountNumber": "616-545656/2",
+      "alias": "Alias #inv",
+      "antiquity": "1 año, 1 meses , 15 días",
+      "currencies": "AR$",
+      "balance": "$20.514,50",
+      "manager": "Sebastian C. Vigliola",
+      "status": "activa"
+    }
+
+  ],
+  "meta": "$51.140,72",
+  "responseStatus": null
+}

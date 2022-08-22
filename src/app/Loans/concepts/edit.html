@@ -1,0 +1,255 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-6">
+        <h2>
+            {{ 'lns.loanconcept' | translate }}
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-6">
+        <div class="title-action">
+            <button type="button" class="btn btn-primary" data-ng-click="save()" data-ng-disabled="!loanConcept">Guardar</button>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="wrapper wrapper-content animated fadeInRight" style="padding-bottom:0;">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <div class="row margin-bottom-20">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="name">{{ 'label.name' | translate }}</label>
+                                <input type="text" class="form-control" id="name" data-ng-model="loanConcept.name" data-ng-required="true">
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="name">Código</label>
+                                <input type="text" class="form-control" id="code" data-ng-model="loanConcept.code" data-ng-required="true">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row margin-bottom-20">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="name">{{ 'label.description' | translate }}</label>
+                                <input type="text" class="form-control" id="description" data-ng-model="loanConcept.description" data-ng-required="true">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row margin-bottom-20">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="name">Operación</label>
+                                <select name="operation" id="operation" class="form-control" data-ng-model="loanConcept.operation" data-ng-options="item.id as (item.name | translate) for item in loanConceptOperations"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="name">Tipo</label>
+                                <select name="type" id="type" class="form-control" data-ng-model="loanConcept.type" data-ng-options="item.id as (item.name | translate) for item in loanConceptTypes"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="source">Orígen</label>
+                                <select name="applyTo" id="source" class="form-control" data-ng-model="loanConcept.source" data-ng-options="item.id as (item.name | translate) for item in loanConceptSources"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="name">Aplica a</label>
+                                <select name="applyTo" id="applyTo" class="form-control" data-ng-model="loanConcept.applyTo" data-ng-options="item.id as (item.name | translate) for item in loanConceptApplyTo"></select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="operatingAccountPostingType">Tipo de cuenta operativa</label>
+                                <select name="operatingAccountPostingType" id="operatingAccountPostingType" class="form-control" data-ng-model="loanConcept.operatingAccountPostingType" data-ng-options="item.id as (item.name | translate) for item in operatingAccountTypes"></select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="defaultLoanPersonRoleId">Rol beneficiario</label>
+                                <select name="defaultLoanPersonRoleId" id="defaultLoanPersonRoleId" class="form-control" data-ng-model="loanConcept.defaultLoanPersonRole" data-ng-options="item.id as (item.name == '' ? '' : ('lns.role.' + item.name | translate)) for item in loanPersonRoles"></select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="defaultLoanPersonRoleId">Beneficiario</label>
+                                <div id="defaultBusinessPartnerId" data-lookup="businessPartnerLookup" data-ng-model="loanConcept.defaultBusinessPartnerId"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="defaultLoanPersonRoleId">Signo operación</label>
+                                <select name="operationSign" id="operationSign" class="form-control" data-ng-model="loanConcept.operationSign" data-ng-options="item.id as (item.name | translate) for item in operatingAccountOperations"></select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row m-b-md" ng-show="0">
+                        <div class="col-md-12">
+                            <input type="checkbox" icheck class="form-control" id="postToOperativeAccount" data-ng-model="loanConcept.postToOperativeAccount" data-ng-required="true">
+                            <label for="postToOperativeAccount">Movimiento de cuentas</label>
+                        </div>
+
+                        <div class="col-md-12">
+                            <input type="checkbox" icheck class="form-control" id="postDirectPaymentOrder" data-ng-model="loanConcept.postDirectPaymentOrder" data-ng-required="true">
+                            <label for="postDirectPaymentOrder">Genera OP directa</label>
+                        </div>
+
+                        <div class="col-md-12">
+                            <input id="postInvoice" type="checkbox" icheck class="form-control" data-ng-model="loanConcept.postInvoice" data-ng-required="true">
+                            <label for="postInvoice">Emite factura</label>
+                        </div>
+                    </div>
+
+                    <div class="row margin-bottom-20" data-ng-show="loanConcept.postToOperativeAccount">
+                        <div class="col-md-12">
+                            <fieldset>
+                                <legend>Movimiento de cuentas</legend>
+                                <div class="row m-t-md">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="operatingAccountPersonId">Persona receptor</label>
+                                            <select name="defaultLoanPersonRoleId" id="defaultLoanPersonRoleId" class="form-control" data-ng-model="loanConcept.defaultLoanPersonRole" data-ng-options="item.id as ('lns.role.' + item.name | translate) for item in loanPersonRoles"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="defaultLoanPersonRoleId">Rol receptor</label>
+                                            <select name="defaultLoanPersonRoleId" id="defaultLoanPersonRoleId" class="form-control" data-ng-model="loanConcept.defaultLoanPersonRole" data-ng-options="item.id as ('lns.role.' + item.name | translate) for item in loanPersonRoles"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="operatingAccountPostingType">Tipo de cuenta operativa</label>
+                                            <select name="operatingAccountPostingType" id="operatingAccountPostingType" class="form-control" data-ng-model="loanConcept.operatingAccountPostingType" data-ng-options="item.id as (item.name | translate) for item in operatingAccountTypes"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+
+                    <div class="row margin-bottom-20" data-ng-show="loanConcept.postDirectPaymentOrder">
+                        <div class="col-md-12">
+                            <fieldset>
+                                <legend>OP</legend>
+                                <div class="row m-t-md">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="defaultLoanPersonRoleId">Rol beneficiario</label>
+                                            <select name="defaultLoanPersonRoleId" id="defaultLoanPersonRoleId" class="form-control" data-ng-model="loanConcept.defaultLoanPersonRole" data-ng-options="item.id as ('lns.role.' + item.name | translate) for item in loanPersonRoles"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="operatingAccountPostingType">Tipo de cuenta operativa</label>
+                                            <select name="operatingAccountPostingType" id="operatingAccountPostingType" class="form-control" data-ng-model="loanConcept.operatingAccountPostingType" data-ng-options="item.id as (item.name | translate) for item in operatingAccountTypes"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+
+                    <div class="row margin-bottom-20" data-ng-show="loanConcept.postInvoice">
+                        <div class="col-md-12">
+                            <fieldset>
+                                <legend>Factura</legend>
+
+                                <div class="row m-t-md">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="invoiceIssuerId">Persona emisor</label>
+                                            <select name="invoiceIssuerId" id="invoiceIssuerId" class="form-control" data-ng-model="loanConcept.invoiceIssuerId" data-ng-options="item.id as ('lns.role.' + item.name | translate) for item in loanPersonRoles"></select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="invoiceIssuerRoleId">Rol emisor</label>
+                                            <select name="invoiceIssuerRoleId" id="invoiceIssuerRoleId" class="form-control" data-ng-model="loanConcept.invoiceIssuerRoleId" data-ng-options="item.id as ('lns.role.' + item.name | translate) for item in loanPersonRoles"></select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="invoiceIssuerOperatingAccountPostingType">Tipo de cuenta operativa emisor</label>
+                                            <select name="invoiceIssuerOperatingAccountPostingType" id="invoiceIssuerOperatingAccountPostingType" class="form-control" data-ng-model="loanConcept.invoiceIssuerOperatingAccountPostingType" data-ng-options="item.id as (item.name | translate) for item in operatingAccountTypes"></select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row m-t-sm">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="invoiceReceiverId">Persona receptor</label>
+                                            <select name="invoiceReceiverId" id="invoiceReceiverId" class="form-control" data-ng-model="loanConcept.invoiceReceiverId" data-ng-options="item.id as ('lns.role.' + item.name | translate) for item in loanPersonRoles"></select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="invoiceReceiverRoleId">Rol receptor</label>
+                                            <select name="invoiceReceiverRoleId" id="invoiceReceiverRoleId" class="form-control" data-ng-model="loanConcept.invoiceReceiverRoleId" data-ng-options="item.id as ('lns.role.' + item.name | translate) for item in loanPersonRoles"></select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="invoiceReceiverOperatingAccountPostingType">Tipo de cuenta operativa receptor</label>
+                                            <select name="invoiceReceiverOperatingAccountPostingType" id="invoiceReceiverOperatingAccountPostingType" class="form-control" data-ng-model="loanConcept.invoiceReceiverOperatingAccountPostingType" data-ng-options="item.id as (item.name | translate) for item in operatingAccountTypes"></select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="invoiceItemConcept">Concepto item factura</label>
+                                            <input id="invoiceItemConcept" type="text" class="form-control" data-ng-model="loanConcept.invoiceItemConcept">
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--
+<div class="row">
+    <div class="col-lg-12">
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <div class="row m-t-sm">
+                        <div class="col-lg-12">
+                            <div class="panel blank-panel ui-tab">
+                                <uib-tabset>
+                                    <uib-tab heading="Beneficiarios" active="tab.active" class="">
+
+                                    </uib-tab>
+                                </uib-tabset>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+-->

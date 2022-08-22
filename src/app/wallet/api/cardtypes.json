@@ -1,0 +1,13 @@
+[{
+    "cardTypeId": "1",
+    "cardTypeName": "Visa"
+}, {
+    "cardTypeId": "2",
+    "cardTypeName": "Dinners Club"
+}, {
+    "cardTypeId": "3",
+    "cardTypeName": "Master Card"
+}, {
+    "cardTypeId": "4",
+    "cardTypeName": "American Express"
+}]

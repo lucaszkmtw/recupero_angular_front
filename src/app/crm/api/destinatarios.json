@@ -1,0 +1,17 @@
+[{
+        "mailListId": "1",
+        "mailListName": "Destinatarios Correo 1"
+    },
+    {
+        "mailListId": "2",
+        "mailListName": "Destinatarios Correo 2"
+    },
+    {
+        "mailListId": "3",
+        "mailListName": "Destinatarios Correo 3"
+    },
+    {
+        "mailListId": "4",
+        "mailListName": "Destinatarios Correo 4"
+    }
+]

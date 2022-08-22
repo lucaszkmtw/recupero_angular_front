@@ -1,0 +1,113 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'crm.contacts' | translate }} <small>Nuevo {{ 'crm.contacts' | translate }}</small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+            <a href="" target="_blank" class="btn btn-primary" data-ng-click="save()"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</a>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+            <form role="form" name="contactForm">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group form-md-lookup">
+                            <label for="systemPersonLookup">Persona</label>
+                            <div id="systemPersonLookup" data-lookup="systemPersonLookup" data-ng-model="contact.personId">
+                                <span class="input-group-btn">
+                                    <button type="button" data-ng-disabled="!contact.personId" data-ng-click="editPerson()" class="btn btn-default" style="margin-left: 5px;"><i class="fa fa-pencil-square-o"></i>&nbsp;Editar</button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group form-md-lookup">
+                            <label for="systemEmployeerLookup">Empleador</label>
+                            <div id="systemEmployeerLookup" data-lookup="systemPersonLookup" data-ng-model="contact.employerId">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" data-ng-show="contact.employerId != null">
+                    
+                    <fieldset>
+                        <legend style="margin-bottom: 0;">
+                            Cuentas Bancarias
+                            <button ng-click="addContactBankAccounts()" type="button" class="btn btn-xs btn-primary m-l-md">
+                                <i class="fa fa-plus fa-1"></i>
+                            </button>
+                        </legend>
+                        
+                        <div class="row">
+                            <div class="col-md-10">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 100px;">Banco</th>
+                                            <th style="width: 100px;">Sucursal</th>
+                                            <th style="width: 100px;">CBU</th>
+                                            <th style="width: 30px;"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr data-ng-repeat="bankAccount in contact.bankAccounts">
+                                            <td>
+                                                {{bankAccount.bankName}}
+                                            </td>
+                                            <td>
+                                                {{bankAccount.bankBranchName}}
+                                            </td>
+                                            <td>
+                                                {{bankAccount.bankAccountNumber}}
+                                            </td>
+                                            <td>
+                                                <button data-ng-click="removeContactBankAccounts(bankAccount)" type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr data-ng-show="contact.bankAccounts.length==0">
+                                            <td colspan="5">No existen cuentas bancarias asignadas a este contacto.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="row" data-ng-show="contact.employerId != null">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="salary">Salario</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">$</span>
+                                <input type="text" class="form-control" id="salary" name="salary" data-ng-model="contact.salary" money >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="salary">Página Web</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="webUrl" name="webUrl" data-ng-model="contact.webUrl" placeholder="http://" size="45">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

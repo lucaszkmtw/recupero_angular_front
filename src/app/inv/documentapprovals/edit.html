@@ -1,0 +1,36 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-6">
+        <h2 data-ng-show="document.id">
+            {{ document.documentType.name }} <small data-ng-show="document.id">{{document.number | documentNumber}}</small>
+        </h2>
+        <h2 data-ng-show="!document.id">
+            {{ 'command.new.f' | translate }} {{ document.documentType.name }}
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-6">
+        <div class="title-action">
+            <div class="btn-group" data-ng-show="document.canApprove()">
+                <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ 'command.assign' | translate }} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li data-ng-repeat="role in document.approvalWorkflowInstance.canAssignToRoles"><a href="#" data-ng-click="assign(role.id)">{{role.name}}</a></li>
+                </ul>
+            </div>
+            <button type="button" class="btn btn-primary" data-ng-click="approve()" data-ng-show="document.canApprove()">Aprobar</button>
+            <button type="button" class="btn btn-danger" data-ng-click="reject()" data-ng-show="document.canApprove()">Rechazar</button>
+        </div>
+    </div>
+</div>
+
+
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="row">
+            <div class="col-md-12 bg-white">
+                <business-document ng-if="document" data-document="document" data-options="documentOptions"></business-document>
+            </div>
+        </div>
+    </div>
+</div>

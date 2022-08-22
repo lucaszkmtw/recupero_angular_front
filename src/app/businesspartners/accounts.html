@@ -1,0 +1,35 @@
+﻿
+<div class="row m-t-sm">
+    <div class="col-lg-12">
+        <div class="panel blank-panel ui-tab">
+            <uib-tabset>
+                <uib-tab heading="Cuentas" active="tab.active" class="">
+                    <table class="table table-stripped">
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Nombre</th>
+                                <th>Número</th>
+                                <th>Moneda</th>
+                                <th>Saldo</th>
+                                <!--<th></th>-->
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="account in ngModel.accounts.items">
+                                <td></td>
+                                <td>{{account.name}}</td>
+                                <td>{{ngModel.code}}-{{account.code}}</td>
+                                <td>{{ _.find(ngModel.accounts.currencies, { id: account.currencyId}).symbol }} - {{ _.find(ngModel.accounts.currencies, { id: account.currencyId}).name }}</td>
+                                <td>{{account.balance | currency }}</td>
+                                <!--<td><a href="" data-ng-click="viewCheckingAccount(account.id)"><i class="fa fa-eye"></i></a></td>-->
+                                
+                            </tr>
+                        </tbody>
+                    </table>
+                </uib-tab>
+            </uib-tabset>
+        </div>
+    </div>
+</div>

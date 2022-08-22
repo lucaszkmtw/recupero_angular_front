@@ -1,0 +1,36 @@
+﻿<div class="white-bg">
+    <div id="sectionsTreeView" class="sectiontreeview" data-ng-show="canShowSectionsTree()" style="display: inline;">
+        <div class="row">
+            <div class="col-md-12">
+                <div style="border-bottom: 1px solid #ccc; padding: 5px;">
+                    <button class="btn btn-default" data-ng-disabled="!sectionId" data-ng-click="createSection()">
+                        <i class="fa fa-file-o" title="Crear sección"></i>
+                    </button>
+                    <button class="btn btn-danger" data-ng-disabled="!sectionId" data-ng-click="removeSection()">
+                        <i class="fa fa-remove" title="Borrar sección"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div data-sectionstree="" data-section-id="sectionId" class="sectiontreeviewtree" style="height: 350px; padding: 10px;">
+        </div>
+    </div>
+    <div id="sectionEditor" class="sectioneditor" style="padding: 5px; display: inline;">
+        <input type="hidden" data-sectionlookup="" data-ng-model="sectionId" style="width: 100%;" />
+        <div class="border" data-ng-show="params.mode===0">
+            <div data-ng-include="'/app/cms/sections/newSection.htm'"></div>
+        </div>
+        <div class="border" data-ng-show="params.mode===1">
+            <uib-tabset active="activeSectionEditorTab" data-ng-show="sectionId">
+                <uib-tab ng-repeat="v in views"
+                         heading="{{v.heading}}"
+                         data-ng-if="v.show"
+                         index="v.index">
+                    <div class="p-sm">
+                        <ng-include src="v.template"></ng-include>
+                    </div>
+                </uib-tab>
+            </uib-tabset>
+        </div>
+    </div>
+</div>

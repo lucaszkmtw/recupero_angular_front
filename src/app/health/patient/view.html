@@ -1,0 +1,49 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'health.patient' | translate }} <small>{{patient.person.name}}</small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+            <a href="" target="_blank" class="btn btn-primary" data-ng-click="edit()"><i class="fa fa-pencil-square-o"></i> {{ 'command.edit' | translate }}</a>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content-np">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="profile-image">
+                        <img src="Content/img/someone.jpg" class="img-circle circle-border m-b-md" alt="profile">
+                    </div>
+                    <div class="profile-info">
+                        <div class="">
+                            <div>
+                                <h2 class="no-margins">
+                                    {{patient.person.name}} <small data-ng-show="patient.person.email">({{ patient.person.email }})</small>
+                                </h2>
+                                <h4>CUIT: <span data-ng-show="patient.person.code">{{patient.person.code | cuit}}</span></h4>
+                                <h4>Obra social: <span data-ng-show="patient.healthServicePatient">{{patient.healthServicePatient.healthService.person.name}}</span></h4>
+                                <h4>Afiliado: <span data-ng-show="patient.healthServicePatient">{{patient.healthServicePatient.cardNumber}}</span><span data-ng-show="patient.healthServicePatient.data1">&nbsp;-&nbsp;{{patient.healthServicePatient.data1}}</span></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <tabs data="tabData" template-url="ui-router-tabs-custom-ui-view-template.html"></tabs>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <ui-view autoscroll></ui-view>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

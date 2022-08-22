@@ -1,0 +1,32 @@
+{
+    "data": [
+      {
+        "id": 1,
+        "type":"tipo 1",
+        "name": "Cuenta Corriente",
+        "code": "0001",
+        "number":"011-0001-1",
+        "currency": "Pesos $",
+        "balance": 59999.59
+      },
+       {
+        "id": 2,
+        "type":"tipo 2",
+        "name": "Caja de Ahorros",
+        "code": "0001",
+        "number":"012-0001-1",
+        "currency": "Pesos $",
+        "balance": 39999.59
+      },
+      {
+        "id": 3,
+        "type":"tipo 3",
+        "name": "Cheques en Custoria",
+        "code": "0001",
+        "number":"011-8001-1",
+        "currency": "Dolares U$D",
+        "balance": 99999.59
+      }
+    ],
+    "total": 3
+  }

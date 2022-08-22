@@ -1,0 +1,291 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2 ng-show="!campaign.id">
+            {{ 'crm.campaign.new' | translate }}
+        </h2>
+        <h2 ng-show="campaign.id">
+            {{ 'crm.campaign' | translate }} <small>{{campaign.name}}</small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+            <button type="button" data-ng-click="save()" class="btn btn-primary" data-ng-disabled="campaignForm.$invalid || !campaignForm.$dirty"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</button>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+            <form role="form" name="campaignForm">
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="form-group">
+                            <label for="name">Nombre</label>
+                            <input type="text" class="form-control" id="name" data-ng-model="campaign.name" required data-ng-maxlength="200">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="form-group">
+                            <label for="description">Descripción</label>
+                            <textarea id="description" data-ng-model="campaign.description" class="form-control" style="height: 120px; width: 100%;"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row margin-bottom-20">
+
+                    <fieldset>
+                        <legend style="margin-bottom: 0;">Formularios de landing</legend>
+                        <div class="row margin-bottom-20">
+                            <div class="col-md-12">
+                                <label for="crmFormLookup"></label>
+                                <div id="crmFormLookup" data-lookup="crmFormLookup" data-ng-model="params.formId" filter="only_landings">
+                                    <span class="input-group-btn">
+                                        <button type="button" data-ng-click="addCampaignForm()" class="btn btn-default" style="margin-left: 5px;"><i class="fa fa-plus"></i>&nbsp;Agregar</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 300px;">Nombre</th>
+
+                                            <th style="width: 30px;"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr data-ng-repeat="form in campaign.forms">
+                                            <td>
+                                                {{form.formName}}
+                                            </td>
+
+                                            <td>
+                                                <button data-ng-click="removeCampaignForm(form)" type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr data-ng-show="campaign.forms.length==0">
+                                            <td colspan="5">No existen formularios asignados a esta campaña.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="row margin-bottom-20">
+
+                    <fieldset>
+                        <legend style="margin-bottom: 0;">Productos</legend>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="catalogProductLookup"></label>
+                                <div id="catalogProductLookup" data-lookup="catalogProductLookup" data-ng-model="params.productId">
+                                    <span class="input-group-btn">
+                                        <button type="button" data-ng-click="addCampaignProduct()" class="btn btn-default" style="margin-left: 5px;"><i class="fa fa-plus"></i>&nbsp;Agregar</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 300px;">Nombre</th>
+
+                                            <th style="width: 30px;"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr data-ng-repeat="product in campaign.products">
+                                            <td>
+                                                {{product.productName}}
+                                            </td>
+
+                                            <td>
+                                                <button data-ng-click="removeCampaignProduct(product)" type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr data-ng-show="campaign.products.length==0">
+                                            <td colspan="5">No existen productos asignados a esta campaña.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </form>
+        </div>
+    </div>
+</div> -->
+<div class="wrapper wrapper-content">
+    <div class="col-lg-12">
+        <div class="tabs-container">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-rocket"></i>Landing</a></li>
+                <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-envelope"></i>Mailing</a></li>
+                <li class=""><a data-toggle="tab" href="#tab-3"><i class="fa fa-users"></i>Social</a></li>
+            </ul>
+            <div class="tab-content">
+                <div id="tab-1" class="tab-pane active">
+                    <div class="panel-body">
+                        <form role="form" name="campaignForm">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        <label for="name">Nombre</label>
+                                        <input type="text" class="form-control" id="name" data-ng-model="campaign.name" required data-ng-maxlength="200">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        <label for="description">Descripción</label>
+                                        <textarea id="description" data-ng-model="campaign.description" class="form-control" style="height: 120px; width: 100%;"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row margin-bottom-20">
+                                <fieldset>
+                                    <legend style="margin-bottom: 0;">Formularios de landing</legend>
+                                    <div class="row margin-bottom-20">
+                                        <div class="col-md-12">
+                                            <label for="crmFormLookup"></label>
+                                            <div id="crmFormLookup" data-lookup="crmFormLookup" data-ng-model="params.formId" filter="only_landings">
+                                                <span class="input-group-btn">
+                                                <button type="button" data-ng-click="addCampaignForm()" class="btn btn-default" style="margin-left: 5px;"><i class="fa fa-plus"></i>&nbsp;Agregar</button>
+                                            </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width: 300px;">Nombre</th>
+
+                                                        <th style="width: 30px;"></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr data-ng-repeat="form in campaign.forms">
+                                                        <td>
+                                                            {{form.formName}}
+                                                        </td>
+
+                                                        <td>
+                                                            <button data-ng-click="removeCampaignForm(form)" type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr data-ng-show="campaign.forms.length==0">
+                                                        <td colspan="5">No existen formularios asignados a esta campaña.</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+
+                            <div class="row margin-bottom-20">
+
+                                <fieldset>
+                                    <legend style="margin-bottom: 0;">Productos</legend>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="catalogProductLookup"></label>
+                                            <div id="catalogProductLookup" data-lookup="catalogProductLookup" data-ng-model="params.productId">
+                                                <span class="input-group-btn">
+                                                <button type="button" data-ng-click="addCampaignProduct()" class="btn btn-default" style="margin-left: 5px;"><i class="fa fa-plus"></i>&nbsp;Agregar</button>
+                                            </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width: 300px;">Nombre</th>
+
+                                                        <th style="width: 30px;"></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr data-ng-repeat="product in campaign.products">
+                                                        <td>
+                                                            {{product.productName}}
+                                                        </td>
+
+                                                        <td>
+                                                            <button data-ng-click="removeCampaignProduct(product)" type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr data-ng-show="campaign.products.length==0">
+                                                        <td colspan="5">No existen productos asignados a esta campaña.</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div id="tab-2" class="tab-pane">
+                    <div class="panel-body">
+                        <div class="row">
+                            <form class="form-inline" name="search_form" id="search_form" role="form">
+                                <!-- <div class="form-group">
+                                    <div class="col-md-2">
+                                        <select class="form-control" ng-model="CampaignTypeList" ng-options="campaignType.campaignTypeName for campaignType in campaignTypeList track by campaignType.campaignTypeId">
+                                            <option value='' disabled>Seleccione Destinatarios</option>
+                                        </select>
+                                    </div>
+                                </div> -->
+                                <!-- <div class="form-group">
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control fa" placeholder="&#xf002 Buscar..." name="search" id="search">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <button class="form-control btn-default">Buscar</button>
+                                    </div>
+                                </div> -->
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        <button class="btn btn-w-m btn-primary">Nuevo envío</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div data-crm-emailing-grid="" class="white-bg"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tab-3" class="tab-pane">
+                    <div class="panel-body">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,65 @@
+﻿<form name="popupform" class="form-horizontal" role="form">
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <button type="button" class="btn btn-default navbar-btn" data-ng-click="list()" title="Volver">
+                <span class="glyphicon glyphicon-arrow-left"></span>
+            </button>
+            <button type="button" class="btn btn-success navbar-btn" data-ng-click="save()"
+                    title="Guardar">
+                <span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;Guardar
+            </button>
+            <div>{{popupform.error | json}}</div>
+        </div>
+    </nav>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="type">Tipo</label>
+        <div class="col-md-10">
+            <select name="type" data-ng-model="sectionTopic.type" data-ng-options="sectionTopicType.id as sectionTopicType.text for sectionTopicType in sectionTopicTypes" id="type" style="width: 200px;" class="form-control"></select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="title">Título</label>
+        <div class="col-md-10">
+            <input type="text" name="title" data-ng-model="sectionTopic.title" id="title" style="width: 450px;" class="form-control" required />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="summary">Resúmen</label>
+        <div class="col-md-10">
+            <textarea data-ng-model="sectionTopic.summary" id="summary" name="summary" style="width: 450px;"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="pageId">Página</label>
+        <div class="col-md-10">
+            <input type="hidden" data-sectioncontentlookup="" data-ng-model="sectionTopic.pageId"
+                   id="pageId" style="width: 450px;" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="url">Url</label>
+        <div class="col-md-5">
+            <div class="input-group">
+                <input type="text" data-ng-model="sectionTopic.link" id="url" name="url" class="form-control" />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-info" data-ng-click="browseUrl()">Examinar</button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="openMode">Url target</label>
+        <div class="col-md-10">
+            <select id="openMode" data-ng-model="sectionTopic.openMode" data-ng-options="openMode.id as openMode.text for openMode in openModes" style="width: 110px;" class="form-control"></select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="expirationDate">Fecha Expiración</label>
+        <div class="col-md-10">
+            <input type="hidden" data-ng-model="sectionTopic.expirationDate" data-ndatepicker=""
+                   id="expirationDate"
+                   style="width: 200px;" />
+        </div>
+    </div>
+</form>

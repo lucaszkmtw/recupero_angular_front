@@ -1,0 +1,58 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2 data-ng-show="medicalPractice.id">
+            {{ 'health.medicalpractice' | translate }} <small data-ng-show="medicalpractice.id">{{medicalpractice.code}} ({{medicalpractice.description}})</small>
+        </h2>
+        <h2 data-ng-show="!medicalPractice.id">
+            {{ 'health.medicalpractice.new' | translate }}
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+            <a href="" target="_blank" class="btn btn-primary" data-ng-click="save()"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+            <form role="form" name="medicalPracticeForm">
+                <div class="row margin-bottom-20">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="code">{{ 'label.code' | translate }}</label>
+                            <input type="text" class="form-control" id="code" data-ng-model="medicalPractice.code">
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-bottom-20">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="systemPersonSkillLookup">Especialidad</label>
+                            <div id="systemPersonSkillLookup" data-lookup="systemPersonSkillLookup" data-ng-model="medicalPractice.skillId" style="width: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-bottom-20">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="name">{{ 'label.name' | translate }}</label>
+                            <input type="text" class="form-control" id="name" data-ng-model="medicalPractice.name">
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-bottom-20">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="description">{{ 'label.description' | translate }}</label>
+                            <textarea class="form-control" id="description" data-ng-model="medicalPractice.description" ckeditor></textarea>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

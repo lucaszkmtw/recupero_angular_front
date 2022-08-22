@@ -1,0 +1,166 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2 data-ng-show="product.id">
+            {{ 'catalog.product' | translate }} <small data-ng-show="product.id">{{product.name}})</small>
+        </h2>
+        <h2 data-ng-show="!product.id">
+            {{ 'catalog.product.new' | translate }}
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+            <a href="" target="_blank" class="btn btn-primary" data-ng-click="save()" data-ng-disabled="companyForm.$invalid"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+            <form role="form" name="companyForm">
+                <div class="row margin-bottom-20">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="name">{{ 'label.name' | translate }}</label>
+                            <input type="text" class="form-control" id="name" data-ng-model="product.name" data-ng-required="true">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row margin-bottom-20">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="name">{{ 'label.code' | translate }}</label>
+                            <input type="text" class="form-control" id="code" data-ng-model="product.code" data-ng-required="true">
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-bottom-20">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="tags">Tags</label>
+                            <input type="text" class="form-control" id="tags" data-ng-model="product.tags">
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-bottom-20">
+                    <div class="col-md-9">
+                        <fieldset>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <!-- <label for="crmFormLookup"></label> -->
+                                    <h2>Seleccione una categoria</h2>
+                                    <div id="catalogCategoriesLookup" data-catalog-product-lookup="catalogCategoriesLookup" data-ng-model="product.categoryId"></div>
+                                </div>
+                            </div>
+
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="price">Precio</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">$</span>
+                                <input type="text" class="form-control" id="price" name="price" data-ng-model="product.price" money>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="weight">Peso</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">Kg</span>
+                                <input type="text" class="form-control" id="weight" name="weight" data-ng-model="product.weight" >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="price">Stock</label>
+                            <div class="input-group">
+                                <input name="productStock"
+                                data-ng-model="product.stock"
+                                class="form-control stock"
+                                placeholder=""
+                                type="number"
+                                required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row margin-buttom-10">
+                    <div class="col-md-10">
+                        <div class="form-group">
+                            <label for="comments">Descripcion corta</label>
+                            <textarea id="review" data-ng-model="product.review" class="form-control" style="height: 120px; width: 100%;"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-buttom-10">
+                    <div class="col-md-9">
+                    <div class="form-group">
+                        <input type="checkbox" icheck data-ng-model="product.showCatalog" id="showCatalog"
+                               name="showCatalog"/>
+                        <label class="m-l-sm" for="showTitle">Mostrar en Listado Principal</label>
+                    </div>
+                </div>
+                </div>
+                <div class="row margin-buttom-10">
+                    <div class="col-md-9">
+                    <div class="form-group">
+                        <input type="checkbox" icheck data-ng-model="product.acceptQuestions" id="acceptQuestions"
+                               name="acceptQuestions"/>
+                        <label class="m-l-sm" for="showTitle">Acepta preguntas y respuestas</label>
+                    </div>
+                </div>
+                </div>
+                <div class="row margin-buttom-10">
+                    <div class="col-md-12">
+                        <label>Estado</label>
+                        <select name="Select" id="Select" ng-model="product.status" class="form-control">
+                        <option ng-repeat="option in status.availableOptions" value="{{option.id}}" >{{option.name}}</option>
+                    </select></br>
+                    </div>
+                </div>
+                <div class="row margin-buttom-10">
+                    <uib-tabset class="tabs">
+
+                        <uib-tab heading="Descripccion">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <h3><strong>Descripción completa</strong>
+                                        <a> <span data-ng-click="editDescription()" class="glyphicon glyphicon-edit" style="color:gray;height: 30px"></span></a>
+                                    </h3>
+                                    <div class="well" style="background-color: #FbFbFb ">
+
+                                        <p ng-bind-html="product.description"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </uib-tab>
+                        <uib-tab heading="Imagenes">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <h3><strong>Galeria de Imagenes</strong> </h3>
+                                </div>
+                            </div>
+
+                            <!-- TODO VIEW IMAGES  -->
+                        </uib-tab>
+                    </uib-tabset>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

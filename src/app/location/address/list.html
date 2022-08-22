@@ -1,0 +1,16 @@
+﻿<h3 class="page-title">
+    {{ 'info.address' | translate }} <small>Listado de {{ 'info.address' | translate }}</small>
+</h3>
+<div class="page-bar">
+    <!--<div ncy-breadcrumb class="page-breadcrumb"></div>-->
+    <div class="page-toolbar">
+        <div class="btn-group pull-right">
+            <button type="button" class="btn btn-primary" data-ng-click="new()">{{ 'command.new' | translate }}</button>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div data-address-grid="" data-selected-items="params.selectedItems"></div>
+    </div>
+</div>

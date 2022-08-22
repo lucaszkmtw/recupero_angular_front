@@ -1,0 +1,31 @@
+[{
+    "accountId": "1",
+    "accountType": "1",
+    "accountCountryId": "1",
+    "accountUserId": "1",
+    "accountUserName": "Tonny Cárdenas",
+    "accountNumber": "1489561415256",
+    "accountBankName": "Bank of America",
+    "accountDescription": "Cuenta de Cheques (Bank of America)",
+    "accountShortDescription": "(Cheques) Bank of America - 5256"
+}, {
+    "accountId": "2",
+    "accountType": "2",
+    "accountCountryId": "1",
+    "accountUserId": "1",
+    "accountUserName": "Tonny Cárdenas",
+    "accountNumber": "1489561417478",
+    "accountBankName": "Bank of America",
+    "accountDescription": "Cuenta de Ahorros (Bank of America)",
+    "accountShortDescription": "(Ahorro) Bank of America - 7478"
+}, {
+    "accountId": "3",
+    "accountType": "1",
+    "accountCountryId": "1",
+    "accountUserId": "1",
+    "accountUserName": "Tonny Cárdenas",
+    "accountNumber": "1489561418423",
+    "accountBankName": "JP Morgan",
+    "accountDescription": "Cuenta de Cheques (JP Morgan)",
+    "accountShortDescription": "(Cheques) JP Morgan - 8423"
+}]

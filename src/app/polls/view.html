@@ -1,0 +1,75 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'polls' | translate }} ({{form.name}}) <small>{{form.person.name}}
+            <span ng-show="form.person.isValid">(Persona Validada)</span>
+            </small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action" ng-show="form.person.id != null">
+            <a ng-show="!form.person.isValid" href="" target="_blank" class="btn btn-primary" data-ng-click="edit()"><i class="fa fa-file-o"></i> Editar Persona</a>        
+            <a ng-show="!form.person.isValid" href="" target="_blank" class="btn btn-primary" data-ng-click="validate()"><i class="fa fa-check-square-o"></i> Validar Persona</a>
+            <a ng-show="form.person.isValid && form.typeId == 0 && !lead.authorizationWorkflowInstanceId" href="" target="_blank" class="btn btn-primary" data-ng-click="submitForAuthorization()">Iniciar Workflow</a>       
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+        <div class="ibox-content poll-container">
+            <div class="poll-field" data-ng-repeat="field in form.fields | filter:{ type: '!html'} | filter:{type: '!submitbutton'} | filter:{type: '!iframe'}">
+                <div class="poll-field-body" >
+                    <h4 class="poll-question">{{field.name}}</h4>
+                    <div ng-if="field.type === 'text'">{{field.value}}</div>
+                    <div ng-if="field.type === 'date'">{{field.value | amDateFormat: 'L' }}</div>
+                    <div ng-if="field.type === 'radio' || field.type === 'dropdown' ">
+                        <span ng-repeat="option in field.options">
+                            <span ng-if="option.value === field.value">{{option.text}}</span>
+                        </span>
+                    </div>
+                    <div ng-if="field.type === 'lookup'">{{field.value.value}}</div>
+                    <div ng-if="field.type === 'checkbox' ">
+                        <ul>
+                            <li data-ng-repeat="value_ in field.value">
+                                <span data-ng-repeat="option in field.options">
+                                    <span ng-if="option.value === value_">{{option.text}}</span>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div ng-if="field.type === 'personName'">{{form.person.name}}</div>
+                    <div ng-if="field.type === 'personFirstName'">{{form.person.firstName}}</div>
+                    <div ng-if="field.type === 'personLastName'">{{form.person.lastName}}</div>
+                    <div ng-if="field.type === 'personCode'">{{form.person.code}}</div>
+                    <div ng-if="field.type === 'personBirthDate'">{{form.person.birthDate | amDateFormat: 'L' }}</div>
+                    <div ng-if="field.type === 'personSalary'">{{field.value | currency }}</div>
+                    <div ng-if="field.type === 'personEmployerLastName'">{{field.value }}</div>
+                    <div ng-if="field.type === 'personPhone'">
+                        <div data-ng-repeat="phone in form.person.phones | filter: { typeId: field.typeId }">{{phone.number}}</div>                        
+                    </div>
+                    <div ng-if="field.type === 'personEmail'">
+                        <div data-ng-repeat="email in form.person.emails">{{email.address}}</div>
+                    </div>
+                    <div ng-if="field.type === 'personStreet'">
+                        <div data-ng-repeat="personaddress in form.person.addresses | limitTo:1">{{personaddress.address.street}}</div>
+                    </div>
+                    <div ng-if="field.type === 'personStreetNumber'">
+                        <div data-ng-repeat="personaddress in form.person.addresses | limitTo:1">{{personaddress.address.streetNumber}}</div>
+                    </div>
+                    <div ng-if="field.type === 'personFloor'">
+                        <div data-ng-repeat="personaddress in form.person.addresses | limitTo:1">{{personaddress.address.floor}}</div>
+                    </div>
+                    <div ng-if="field.type === 'personAppartment'">
+                        <div data-ng-repeat="personaddress in form.person.addresses | limitTo:1">{{personaddress.address.appartment}}</div>
+                    </div>
+                    <div ng-if="field.type === 'personLocation'">
+                        <div data-ng-repeat="personaddress in form.person.addresses | limitTo:1">{{personaddress.address.place.name}}</div>
+                    </div>
+                    <div ng-if="field.type === 'personZipCode'">
+                        <div data-ng-repeat="personaddress in form.person.addresses | limitTo:1">{{personaddress.address.zipCode}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>

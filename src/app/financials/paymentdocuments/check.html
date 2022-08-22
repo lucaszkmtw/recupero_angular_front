@@ -1,0 +1,70 @@
+﻿<ng-form role="form" name="newCheckForm">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="checkNumber">Total a pagar</label>
+                <span class="h4 font-bold m-t block">{{ _.sumBy(data.document.items, 'amountToPay') | currency }}</span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="checkNumber">Saldo a pagar</label>
+                <span class="h4 font-bold m-t block">{{ (_.sumBy(data.document.items, 'amountToPay') - _.sumBy(data.document.methods, 'amount')) | currency }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="checkNumber">Nro. de Cheque</label>
+                <input type="text" class="form-control" id="checkNumber" data-ui-mask="999999999999999" data-ng-model="item.checkNumber">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="systemPersonLookup">Librador</label>
+                <div id="systemPersonLookup" data-lookup="systemPersonLookup" data-ng-model="item.issuerId" data-show-add-new="false">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="checkNumber">Monto</label>
+                <input type="text" class="form-control" id="amount" money data-ng-model="item.amount" required>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="headersmalltext">Cuenta Bancaria</label>
+                <div id="financialsBankAccountLookup" data-lookup="financialsBankAccountLookup" data-ng-model="item.bankAccount" data-ng-required="true" data-model-property="text" data-person-id="{{item.issuerId}}"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="issueDate">Fecha de Emisión</label>
+                <div id="issueDate" data-date-picker="" data-ng-model="item.issueDate"></div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="voidDate">Fecha de Vencimiento</label>
+                <div id="voidDate" data-date-picker="" data-ng-model="item.voidDate"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="checkNumber">Comentario</label>
+                <textarea class="form-control" id="comments" data-ng-model="item.comments"></textarea>
+            </div>
+        </div>
+    </div>
+</ng-form>

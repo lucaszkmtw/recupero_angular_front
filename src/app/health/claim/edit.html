@@ -1,0 +1,140 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'health.claim' | translate }}
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+            <button type="button" class="btn btn-info" data-ng-show="claim.id" data-ng-click="view()"><i class="fa fa-eye"></i> {{ 'command.view' | translate }}</button>
+            <button type="button" class="btn btn-primary" data-ng-disabled="claimForm.$invalid || !claimForm.$dirty" data-ng-click="save()"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</button>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+            <div class="row">
+                <div class="col-md-9 col-xs-12">
+                    <form role="form" name="claimForm">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group form-md-lookup">
+                                    <label for="personId">Reclamante</label>
+                                    <div id="personId" data-lookup="systemPersonLookup" data-ng-model="claim.personId" readonly></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group form-md-lookup">
+                                    <label>Relacionado con</label>
+                                    <div class="input-group">
+                                        <div class="input-group-btn">
+                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ getLinkTargetName(params.linkedTarget) | translate }} <span class="caret"></span></button>
+                                            <ul class="dropdown-menu dropdown-menu-right">
+                                                <li><a href="#" data-ng-click="params.linkedTarget=0">{{ getLinkTargetName(0) | translate }}</a></li>
+                                                <li><a href="#" data-ng-click="params.linkedTarget=1">{{ getLinkTargetName(1) | translate }}</a></li>
+                                            </ul>
+                                        </div>
+                                        <div id="linkedToPersonLookup" data-ng-show="{{params.linkedTarget==0}}" data-lookup="systemPersonLookup" data-ng-model="params.linkedPersonId">
+                                            <span class="input-group-btn">
+                                                <button type="button" data-ng-disabled="!params.linkedPersonId" data-ng-click="addLinkedPerson()" class="btn btn-default" style="margin-left: 5px;"><i class="fa fa-plus"></i>&nbsp;Agregar</button>
+                                            </span>
+                                        </div>
+                                        <div id="linkedToWorkflowInstanceLookup" data-ng-show="{{params.linkedTarget==1}}" data-lookup="systemWorkflowInstanceLookup" data-ng-model="params.linkedWorkflowInstanceId">
+                                            <span class="input-group-btn">
+                                                <button type="button" data-ng-disabled="!params.linkedWorkflowInstanceId" data-ng-click="addLinkedWorkflowInstance()" class="btn btn-default" style="margin-left: 5px;"><i class="fa fa-plus"></i>&nbsp;Agregar</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-striped">
+                                    <tbody>
+                                    <tr data-ng-repeat="linkedPerson in claim.linkedPersons">
+                                        <td>
+                                            ({{linkedPerson.person.code}}) {{linkedPerson.person.name}}
+                                        </td>
+                                        <td>
+                                            <button data-ng-click="removeLinkedPerson(linkedPerson)" type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr data-ng-repeat="linkedWorkflowInstance in claim.linkedWorkflowInstances">
+                                        <td>
+                                            {{linkedWorkflowInstance.workflowInstance.workflow.code}} - {{linkedWorkflowInstance.workflowInstance.id}} - {{workflowInstance.createDate | date }} - Estado: {{workflowInstance.history[workflowInstance.history.length-1].toWorkflowActivityName}} a cargo de {{workflowInstance.roles[workflowInstance.roles.length-1].name}}
+                                        </td>
+                                        <td>
+                                            <button data-ng-click="removeLinkedWorkflowInstance(linkedWorkflowInstance)" type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr data-ng-show="claim.linkedPersons.length==0 && claim.linkedWorkflowInstances.length==0">
+                                        <td colspan="5">No existen registros relacionados a este reclamo.</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <system-workflows-tags-lookup data-items="claim.workflowInstance.tags" data-workflow-id="claim.workflowInstance.workflowId" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <label for="text">Motivo</label>
+                                        <textarea data-ng-model="claim.text" ckeditor="" class="form-control" id="text" data-ng-ckeditor=""></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <div class="wrapper wrapper-content project-manager">
+                        <h5>Archivos asociados</h5>
+
+                        <div class="alert alert-info" data-ng-show="!claim.id">Debe guardar el reclamo para poder asociar archivos.</div>
+                        <div class="ibox float-e-margins" data-ng-show="claim.id">
+                            <div class="ibox-content">
+                                <div class="file-manager">
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="text-center">
+                                        <span class="btn btn-primary btn-file btn-block" data-ng-class="{disabled: uploader.isUploading}">
+                                            <span data-ng-switch="uploader.isUploading">
+                                                <i data-ng-switch-when="false" class="fa fa-upload"></i>
+                                                <i data-ng-switch-when="true" class="fa fa-spinner fa-pulse"></i>
+                                            </span>
+                                            <span style="margin-left: 3px;">Asociar archivos</span>
+                                            <input type="file" multiple nv-file-select="" uploader="uploader" data-ng-disabled="uploader.isUploading" data-file-input="" accept="application/pdf" />
+                                        </span>
+                                        <span class="fileupload-process"></span>
+                                    </div>
+                                    <div class="hr-line-dashed"></div>
+                                    <ul class="folder-list" style="padding: 0">
+                                        <li data-ng-repeat="file in treatmentRequest.folders"><a href=""><i class="fa fa-folder"></i> {{folder.name}}</a></li>
+                                        <li data-ng-repeat="file in treatmentRequest.files"><a href="" data-ng-click="openFile(file)"><i class="fa fa-file"></i> {{file.name}}</a></li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--
+                        <ul class="list-unstyled project-files">
+                            <li data-ng-repeat="file in treatmentRequest.files"><a href=""><i class="fa fa-file"></i> {{file.name}}</a></li>
+                        </ul>
+                            -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

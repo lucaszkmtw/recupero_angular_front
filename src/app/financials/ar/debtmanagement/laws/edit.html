@@ -1,0 +1,63 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'findm.law' | translate }} <small data-ng-show="law.id">{{law.code}} {{law.name}}</small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">  
+                     
+           <button type="button" class="btn btn-danger" data-ng-click="delete()" data-ng-show="law.id"><i class="fa fa-trash"></i> {{ 'command.delete' | translate }}</button>
+           <button type="button" data-ng-click="save()" class="btn btn-primary" data-ng-disabled="leyForm.$invalid || !leyForm.$dirty"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</button>
+         <!--<a href="" target="_blank" class="btn btn-primary" data-ng-click="save()" data-ng-disabled="leyForm.$invalid || !leyForm.$dirty"><i class="fa fa-floppy-o" ></i> {{ 'command.save' | translate }}</button>-->
+            
+        </div>
+    </div>
+ </div>
+ <div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">         
+            <form role="form" name="leyForm">             
+                <div class="row margin-bottom-20">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="code">Código</label>
+                            <input type="text" class="form-control" id="code" name="code" data-ng-model="law.code" data-ng-disabled="law.id" required>                            
+                            <span style="color:red" data-ng-show="leyForm.code.$touched && leyForm.code.$invalid ">El Código es requerido.</span>                       
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-bottom-20">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="name">Nombre</label>
+                            <input type="text" class="form-control" id="name" name="name" data-ng-model="law.name" required>
+                            <span style="color:red" data-ng-show="leyForm.name.$touched && leyForm.name.$invalid ">El Nombre es requerido.</span>                       
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-bottom-20">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="prescription">Prescripción</label>
+                            <input type="text" class="form-control" id="prescription" name="prescription" data-ng-model="law.prescription" required>
+                            <span style="color:red" data-ng-show="leyForm.prescription.$touched && leyForm.prescription.$invalid ">La Prescripción es requerida.</span>                       
+                        </div>
+                    </div>
+                </div>       
+                <div class="row margin-bottom-20">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="prescription">Fecha máxima de prescripción</label>
+                            <div data-date-picker="" data-ng-model="law.maxPrescriptionDate"></div>
+                            <span style="color:red" data-ng-show="leyForm.prescription.$touched && leyForm.prescription.$invalid ">La máxima de prescripción es requerida.</span>                       
+                        </div>
+                    </div>
+                </div>     
+
+            </form>
+            
+        </div>
+    </div>
+ </div>

@@ -1,0 +1,69 @@
+﻿<div class="modal-header dialog-header-confirm">
+    <h4 class="modal-title"><span class="fa fa-tasks">&nbsp;</span>Asignación de {{item.concept.name}}</h4>
+</div>
+<div class="modal-body" style="height: 300px;">
+    <ng-form name="loanItemForm">
+        <fieldset>
+            <legend>Activas</legend>
+            <div class="row m-t-sm" ng-repeat="distribution in item.distributions">
+                <div class="col-md-9 col-sm-12">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ getDistributionTypeName(distribution.type) }} <span class="caret"></span></button>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li><a href="#" data-ng-click="distribution.type=0">{{ getDistributionTypeName(0) }}</a></li>
+                                <li><a href="#" data-ng-click="distribution.type=1">{{ getDistributionTypeName(1) }}</a></li>
+                            </ul>
+                        </div>
+                        <select class="form-control" ng-model="distribution.personRole" ng-options="role.id as role.name for role in loanPersonRoles" data-ng-if="distribution.type===0"></select>
+                        <div data-ng-if="distribution.type===1">
+                            <div id="{{ 'distributionBusinessPartnerId' + $index}}" lookup="businessPartnerLookup" ng-model="distribution.businessPartnerId"></div>
+                        </div>
+                    </div>
+                    <!--
+                    <div class="row">
+                        <div class="col-sm-12">{{ distribution | json }}</div>
+                    </div>
+                        -->
+                </div>
+                <div class="col-md-2 col-sm-12">
+                    <input type="text" class="form-control" data-ng-model="distribution.value" required>
+                </div>
+                <div class="col-sm-1">
+                    <button type="button" ng-click="removeDistribution(distribution)" class="btn btn-danger"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset class="m-t-md">
+            <legend>Nueva asignación</legend>
+            <div class="row m-t-sm">
+                <div class="col-md-9 col-sm-12">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ getDistributionTypeName(newDistribution.type) }} <span class="caret"></span></button>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li><a href="#" data-ng-click="newDistribution.type=0">{{ getDistributionTypeName(0) }}</a></li>
+                                <li><a href="#" data-ng-click="newDistribution.type=1">{{ getDistributionTypeName(1) }}</a></li>
+                            </ul>
+                        </div>
+                        <select class="form-control" ng-model="newDistribution.personRole" ng-options="role.id as role.name for role in loanPersonRoles" data-ng-if="newDistribution.type===0"></select>
+                        <div data-ng-if="newDistribution.type===1">
+                            <div id="newDistributionPersonId" lookup="systemPersonLookup" ng-model="newDistribution.personId"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-12">
+                    <input type="text" class="form-control" id="newDistributionValue" name="newDistributionValue" data-ng-model="newDistribution.value" required>
+                </div>
+                <div class="col-sm-1">
+                    <button type="button" ng-click="addDistribution(newDistribution)" ng-disabled="!isValidDistribution(newDistribution)" class="btn btn-primary"><i class="fa fa-check"></i></button>
+                </div>
+            </div>
+        </fieldset>
+    </ng-form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancelar</button>
+    <button class="btn btn-primary" type="button" ng-click="ok()">Aceptar</button>
+</div>

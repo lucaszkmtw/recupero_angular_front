@@ -1,0 +1,41 @@
+[{
+        "transactionDate": "03-10-2017",
+        "transactionType": "Pago Recibido",
+        "transactionName": "Sebastian Vigliola",
+        "paymentStatus": "Completado",
+        "amountGross": "$50.00 USD",
+        "amountFee": "-$3.00",
+        "amountNet": "$47.00",
+        "amountBalance": "$151.00 USD"
+    },
+    {
+        "transactionDate": "15-10-2017",
+        "transactionType": "Pago Recibido",
+        "transactionName": "Fulano Detal",
+        "paymentStatus": "Completado",
+        "amountGross": "$485.00 USD",
+        "amountFee": "-$26.19",
+        "amountNet": "$458.81",
+        "amountBalance": "$609.81 USD"
+    },
+    {
+        "transactionDate": "19-10-2017",
+        "transactionType": "Pago Enviado",
+        "transactionName": "Tonny Cardenas",
+        "paymentStatus": "Completado",
+        "amountGross": "$50.00 USD",
+        "amountFee": "-$0.00",
+        "amountNet": "$50.00",
+        "amountBalance": "$559.81 USD"
+    },
+    {
+        "transactionDate": "25-10-2017",
+        "transactionType": "Pago Enviado",
+        "transactionName": "Tonny Cardenas",
+        "paymentStatus": "Completado",
+        "amountGross": "$185.00 USD",
+        "amountFee": "-$0.00",
+        "amountNet": "$185.00",
+        "amountBalance": "$374.81 USD"
+    }
+]

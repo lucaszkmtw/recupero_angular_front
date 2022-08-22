@@ -1,0 +1,16 @@
+﻿<h3 class="page-title">
+    {{ 'payroll.concepts' | translate }} <small>Listado de conceptos</small>
+</h3>
+<div class="page-bar">
+    <div ncy-breadcrumb class="page-breadcrumb"></div>
+    <div class="page-toolbar">
+        <div class="btn-group pull-right">
+            <button type="button" class="btn btn-primary" data-ng-click="new()">{{ 'command.new' | translate }}</button>
+        </div>
+    </div>
+</div>
+<div class="row" style="margin-top: 10px;">
+    <div class="col-xs-12">
+        <div data-payroll-concepts-grid="" data-selected-items="params.selectedItems"></div>
+    </div>
+</div>

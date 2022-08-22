@@ -1,0 +1,79 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'health.patient' | translate }}
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+            <button type="button" class="btn btn-info" data-ng-show="patient.id" data-ng-click="view()"><i class="fa fa-eye"></i> {{ 'command.view' | translate }}</button>
+            <button type="button" class="btn btn-primary" data-ng-disabled="patientForm.$invalid || !patientForm.$dirty" data-ng-click="save()"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</button>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+            <form role="form" name="patientForm">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group form-md-lookup">
+                            <label for="systemPersonLookup">Persona</label>
+                            <div id="systemPersonLookup" data-lookup="systemPersonLookup" data-ng-model="patient.personId">
+                                <span class="input-group-btn">
+                                    <button type="button" data-ng-disabled="!patient.personId" data-ng-click="editPerson()" class="btn btn-default" style="margin-left: 5px;"><i class="fa fa-pencil-square-o"></i>&nbsp;Editar</button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group ">
+                            <label for="healthServiceId">Prestador</label>
+                            <div id="healthServiceId" data-lookup="healthServiceLookup" data-ng-model="patient.healthServicePatient.healthServiceId"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group ">
+                            <label for="servicePlan">Plan</label>
+                            <input type="text" class="form-control" id="servicePlan" data-ng-model="patient.healthServicePatient.servicePlan">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group ">
+                            <label for="cardNumber">Carnet</label>
+                            <input type="text" class="form-control" id="cardNumber" data-ng-model="patient.healthServicePatient.cardNumber">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group ">
+                            <label for="status">Estado</label>
+                            <select name="status"
+                                    data-ng-model="patient.status"
+                                    class="form-control"
+                                    data-ng-init="0"
+                                    data-ng-options="item.id as item.name for item in patientStatus"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group ">
+                            <label for="deathDate">Fecha óbito</label>
+                            <div id="deathDate" data-date-picker="" data-ng-model="patient.deathDate"></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

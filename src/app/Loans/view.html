@@ -1,0 +1,391 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-4">
+        <h2>
+            {{ 'lns.loan' | translate }}
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-8">
+        <div class="title-action">
+            <system-workflow-instance-commands data-workflow-instance="loan.authorizationWorkflowInstance" data-can-approve="canApprove()" data-can-go-back="canGoBack()" data-on-change="reload()"></system-workflow-instance-commands>
+            <button type="button" data-ng-show="loan.id && !loan.authorizationWorkflowInstanceId" class="btn btn-primary" data-ng-click="submitForAuthorization()">Iniciar aprobación</button>
+            <button type="button" class="btn btn-primary" data-ng-click="save()" data-ng-disabled="!loan.installmentFirstVoidDate">Guardar Cambios</button>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="wrapper wrapper-content animated fadeInRight" style="padding-bottom:0;">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <dl class="dl-horizontal">
+                                <dt>Producto:</dt>
+                                <dd>{{loan.productName}}</dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <dl class="dl-horizontal">
+                                <dt>Nro prestamo:</dt>
+                                <dd># {{loan.number}}</dd>
+                            </dl>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <dl class="dl-horizontal">
+                                <dt>Estado: </dt>
+                                <dd>
+                                    <span class="label label-primary" style="font-size: 12px;">{{('lns.status.' + loan.status) | translate}}</span>
+                                    <span class="label label-info" style="font-size: 12px; margin-left: 5px;" data-ng-show="!loan.authorizationWorkflowInstance.isTerminated">{{loan.authorizationWorkflowInstance.currentWorkflowActivity.name}}</span>
+                                    <span class="label label-danger" style="font-size: 12px; margin-left: 5px;" data-ng-show="loan.authorizationWorkflowInstance.isTerminated">Cancelado</span>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <dl class="dl-horizontal">
+                                <dt>Fecha Solicitud:</dt>
+                                <dd>{{loan.date | amDateFormat: 'L LT' }}</dd>
+                            </dl>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <dl class="dl-horizontal">
+                                <dt style="padding-top: 7px;">Fecha Primer Vencimiento:</dt>
+                                <dd>
+                                    <div data-date-picker="" style="width: 200px;" data-ng-model="loan.installmentFirstVoidDate"></div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <dl class="dl-horizontal">
+                                <dt>Cliente:</dt>
+                                <dd>
+                                    <div ng-repeat="person in getPersonsByRoleId(5)">
+                                        <div>
+                                            <a data-ui-sref="app.crm.person.info({ personId: person.id })">{{person.name}}</a>
+                                        </div>
+                                        <div data-ng-show="person.phones.length>0">
+                                            <div data-ng-repeat="phone in person.phones">
+                                                <a href="tel:{{phone.number}}"><i class="fa fa-phone"></i>&nbsp;<span>{{getPhoneTypeName(phone.typeId)}}</span> <span>{{phone.number}}</span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <dl class="dl-horizontal">
+                                <dt>Vendedor:</dt>
+                                <dd>
+                                    <div ng-repeat="person in getPersonsByRoleId(6)">
+                                        <div>
+                                            <a data-ui-sref="app.crm.person.info({ personId: person.id })">{{person.name}}</a>
+                                        </div>
+                                        <div data-ng-show="person.phones.length>0">
+                                            <div data-ng-repeat="phone in person.phones">
+                                                <a href="tel:{{phone.number}}"><i class="fa fa-phone"></i>&nbsp;<span>{{getPhoneTypeName(phone.typeId)}}</span> <span>{{phone.number}}</span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <dl class="dl-horizontal">
+                                <dt>Capital Solicitado:</dt>
+                                <dd>{{loan.amount | currency}}</dd>
+                            </dl>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <dl class="dl-horizontal">
+                                <dt>Liquidador:</dt>
+                                <dd>
+                                    <div ng-repeat="person in getPersonsByRoleId(3)">
+                                        <div>
+                                            <a data-ui-sref="app.crm.person.info({ personId: person.id })">{{person.name}}</a>
+                                        </div>
+                                        <div data-ng-show="person.phones.length>0">
+                                            <div data-ng-repeat="phone in person.phones">
+                                                <a href="tel:{{phone.number}}"><i class="fa fa-phone"></i>&nbsp;<span>{{getPhoneTypeName(phone.typeId)}}</span> <span>{{phone.number}}</span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <dl class="dl-horizontal">
+                                <dt>Neto a Liquidar:</dt>
+                                <dd>{{loan.netAmount | currency}}</dd>
+                            </dl>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <dl class="dl-horizontal">
+                                <dt>Administrador:</dt>
+                                <dd>
+                                    <div ng-repeat="person in getPersonsByRoleId(1)">
+                                        <div>
+                                            <a data-ui-sref="app.crm.person.info({ personId: person.id })">{{person.name}}</a>
+                                        </div>
+                                        <div data-ng-show="person.phones.length>0">
+                                            <div data-ng-repeat="phone in person.phones">
+                                                <a href="tel:{{phone.number}}"><i class="fa fa-phone"></i>&nbsp;<span>{{getPhoneTypeName(phone.typeId)}}</span> <span>{{phone.number}}</span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <dl class="dl-horizontal">
+                                <dt>Cantidad de cuotas:</dt>
+                                <dd>{{loan.term}}</dd>
+                            </dl>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <dl class="dl-horizontal">
+                                <dt>Inversor:</dt>
+                                <dd>
+                                    <div ng-repeat="person in getPersonsByRoleId(2)">
+                                        <div>
+                                            <a data-ui-sref="app.crm.person.info({ personId: person.id })">{{person.name}}</a>
+                                        </div>
+                                        <div data-ng-show="person.phones.length>0">
+                                            <div data-ng-repeat="phone in person.phones">
+                                                <a href="tel:{{phone.number}}"><i class="fa fa-phone"></i>&nbsp;<span>{{getPhoneTypeName(phone.typeId)}}</span> <span>{{phone.number}}</span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <dl class="dl-horizontal">
+                                <dt>Monto Cuota:</dt>
+                                <dd>
+                                    {{loan.installmentBaseAmount | currency}}
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <dl class="dl-horizontal">
+                                <dt>Agente de cobro:</dt>
+                                <dd>
+                                    <div ng-repeat="person in getPersonsByRoleId(0)">
+                                        <div>
+                                            <a data-ui-sref="app.crm.person.info({ personId: person.id })">{{person.name}}</a>
+                                        </div>
+                                        <div data-ng-show="person.phones.length>0">
+                                            <div data-ng-repeat="phone in person.phones">
+                                                <a href="tel:{{phone.number}}"><i class="fa fa-phone"></i>&nbsp;<span>{{getPhoneTypeName(phone.typeId)}}</span> <span>{{phone.number}}</span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <dl class="dl-horizontal">
+                                <dt>Completada:</dt>
+                                <dd>
+                                    <div class="progress progress-striped active m-b-sm">
+                                        <div ng-attr-style="{{ 'width:' + (loan.authorizationWorkflowInstance.progress | number : 0) + '%' }}" class="progress-bar"></div>
+                                    </div>
+                                    <small>Solicitud completa al <strong>{{ loan.authorizationWorkflowInstance.progress | number : 0 }}%</strong>.</small>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <div class="row m-t-sm">
+                        <div class="col-lg-12">
+                            <div class="panel blank-panel ui-tab">
+                                <uib-tabset>
+                                    <uib-tab heading="Mensajes" active="tab.active" class="">
+                                        <div data-message-thread="" data-messages="loan.messages" data-service-url="serviceUrl"></div>
+                                    </uib-tab>
+                                    <uib-tab heading="Historial">
+                                        <system-workflow-instance-history data-ng-model="loan.workflowInstance"></system-workflow-instance-history>
+                                    </uib-tab>
+
+                                    <uib-tab heading="Marcha">
+                                        <div data-loans-loan-installments-grid="" data-loan-id="loanId"></div>
+                                    </uib-tab>
+
+                                    <uib-tab heading="Cuotas">
+                                        <table class="table table-stripped">
+                                            <tr>
+                                                <th>N°</th>
+                                                <th>Fecha vencimiento</th>
+                                                <th>Cuota préstamo</th>
+                                                <th ng-repeat="itemCuota in itemsCuota">{{itemCuota.concept.name}}</th>
+                                                <th>Total</th>
+                                            </tr>
+                                            <tr ng-repeat="installment in installments">
+                                                <td>{{ installment.number }}</td>
+                                                <td>{{ installment.voidDate | amDateFormat: 'L LT' }}</td>
+                                                <td>{{ installment.amount | currency }}</td>
+                                                <td ng-repeat="itemCuota in itemsCuota">{{ installment['c'+itemCuota.id]}}</td>
+                                                <td>{{ installment.total | currency }}</td>
+                                            </tr>
+                                        </table>
+                                    </uib-tab>
+
+                                    <uib-tab heading="Liquidación">
+                                        <div class="table-responsive">
+                                            <table class="table loan-settlement-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Concepto</th>
+                                                        <th>Beneficiario</th>
+                                                        <th>Orden de Pago</th>
+                                                        <th>Medio de Pago</th>
+                                                        <th style="width: 15%">Monto</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody ng-repeat="item in itemsCapital">
+                                                    <tr ng-repeat="distribution in item.distributions">
+                                                        <td>
+                                                            <div ng-if="$index==0">
+                                                                <a class="black" ng-click="editItem(item)"><i class="fa fa-pencil-square-o"></i>&nbsp;{{item.concept.name}}</a>
+                                                            </div>
+                                                        </td>
+                                                        <td><span ng-bind-html="getSettlementItemDistributionBeneficiary(distribution)"></span></td>
+                                                        <td><a data-ui-sref="app.financials.paymentdocument({ documentId: distribution.paymentDocumentItem.paymentDocument.id })">{{ distribution.paymentDocumentItem.paymentDocument.number }}</a></td>
+                                                        <td></td>
+                                                        <td>{{ distribution.value | currency }}</td>
+                                                    </tr>
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td><strong>Subtotal:</strong></td>
+                                                        <td>{{ getSettlementSubtotal() | currency }}</td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+
+                                        <table class="table invoice-total">
+                                            <tbody>
+                                                <tr>
+                                                    <td><strong>Capital solicitado:</strong></td>
+                                                    <td>{{loan.amount | currency}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Deducciones/Agregados:</strong></td>
+                                                    <td>{{ loan.expenses | currency }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Neto a liquidar:</strong></td>
+                                                    <td>{{loan.netAmount | currency}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <div class="row text-align-right">
+                                            <div class="col-sm-12 col-md-6 col-md-offset-6">
+                                                <button ng-click="saveSettlement()" ng-show="canSaveSettlement()" class="btn btn-primary">{{ getSettlementLabel() }}</button>                                                
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12"><span class="has-error" ng-repeat="error in settlementValidation.errors">{{ error }}</span></div>
+                                        </div>
+
+                                        <!--
+                                        <div class="row">
+                                            <div class="col-sm-12"> {{ itemsCapital | json }} </div>
+                                        </div>
+                                        -->
+                                    </uib-tab>
+
+                                    <uib-tab heading="Documentos">
+
+                                        <div class="file-manager">
+                                            <div class="text-center">
+                                                <span class="btn btn-primary btn-file btn-block" data-ng-class="{disabled: uploader.isUploading}">
+                                                    <span data-ng-switch="uploader.isUploading">
+                                                        <i data-ng-switch-when="false" class="fa fa-upload"></i>
+                                                        <i data-ng-switch-when="true" class="fa fa-spinner fa-pulse"></i>
+                                                    </span>
+                                                    <span style="margin-left: 3px;">Asociar archivos</span>
+                                                    <input type="file" multiple nv-file-select="" uploader="uploader" data-ng-disabled="uploader.isUploading" data-file-input="" accept="application/pdf" />
+                                                </span>
+                                                <span class="fileupload-process"></span>
+                                            </div>
+                                            <div class="hr-line-dashed"></div>
+                                            <ul class="folder-list" style="padding: 0">
+                                                <li data-ng-repeat="file in loan.folders"><a href=""><i class="fa fa-folder"></i> {{folder.name}}</a></li>
+                                                <li data-ng-repeat="file in loan.files"><a href="" data-ng-click="openFile(file)"><i class="fa fa-file"></i> {{file.name}}</a></li>
+                                            </ul>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </uib-tab>
+
+                                    <uib-tab heading="Scoring" data-ng-show="loan.id" data-select="loadScoring()">
+                                        <table class="table">
+                                            <tr>
+                                                <th>Entidad</th>
+                                                <th>Estado</th>
+                                                <th>Score</th>
+                                                <th>RCI</th>
+                                                <th>Monto aprobado</th>
+                                                <th>Cuota</th>
+                                                <th>Plazo</th>
+                                                <th>Comentarios</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                            <tr ng-repeat="score in scores">
+                                                <td>{{ score.loanLenderName }}</td>
+                                                <td>{{ score.status }}</td>
+                                                <td>{{ score.score }}</td>
+                                                <td>{{ score.rci }}</td>
+                                                <td>{{ score.approvedAmount }}</td>
+                                                <td>{{ score.installment }}</td>
+                                                <td>{{ score.dueDate | date }}</td>
+                                                <td>{{ score.comments }}</td>
+                                                <td><button class="btn btn-sm btn-primary" ng-click="requestScore(score)">Solicitar</button></td>
+                                            </tr>
+                                        </table>
+                                    </uib-tab>
+                                </uib-tabset>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

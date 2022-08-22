@@ -1,0 +1,22 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>
+            {{ 'sales.client' | translate }} <small>{{client.firstName}} {{client.lastName}}</small>
+        </h2>
+        <div ncy-breadcrumb class="page-breadcrumb"></div>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+            <button type="button" class="btn btn-danger" data-ng-click="delete()" data-ng-show="client.id"><i class="fa fa-trash"></i> {{ 'command.delete' | translate }}</button>
+            <button type="button" class="btn btn-primary" data-ng-click="save()"><i class="fa fa-floppy-o"></i> {{ 'command.save' | translate }}</button>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="ibox">
+        <div class="ibox-content">
+            <business-partners-editor type-id="1" ng-model="client.businessPartner"></business-partners-editor>
+        </div>
+    </div>
+</div>

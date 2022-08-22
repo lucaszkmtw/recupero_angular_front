@@ -1,0 +1,406 @@
+﻿<div class="animated fadeInRight" data-ng-if="options.edit===false">
+    <div class="row m-t-sm">
+        <div class="col-sm-6"></div>
+        <div class="col-sm-6 text-right">
+            <h4>No. <span class="text-navy">{{ document.documentType.shortName }} {{document.number}}</span></h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <span>De:</span>
+            <address>
+                <strong>{{document.issuer.name}}</strong><br>
+                {{document.issuer.addresses[0].address.name}}<br>
+                <abbr title="Teléfono" data-ng-show="document.issuer.phones.length>0">T:</abbr> {{document.issuer.phones[0].number}}
+            </address>
+        </div>
+
+        <div class="col-sm-6 text-right">
+            <span>A:</span>
+            <address>
+                <strong>{{document.receiver.name}}</strong><br>
+                {{document.receiver.addresses[0].address.name}}<br>
+                <abbr title="Teléfono" data-ng-show="document.receiver.phones.length>0">T:</abbr> {{document.receiver.phones[0].number}}
+            </address>
+        </div>
+    </div>
+
+    <!-- items -->
+    <div class="table-responsive m-t">
+        <table class="table invoice-table">
+            <thead>
+                <tr>
+                    <th>Concepto</th>
+                    <th style="width: 250px;">Monto original</th>
+                    <th style="width: 250px;">Monto a pagar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="item in document.items">
+                    <td>{{item.description}}</td>
+                    <td class="text-align-right">{{item.originalAmount | currency}}</td>
+                    <td class="text-align-right">{{item.amountToPay | currency}}</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td class="text-align-right"><strong>Subtotal:</strong></td>
+                    <td class="text-align-right">{{ _.sumBy(document.items, 'originalAmount' ) | currency }}</td>
+                    <td class="text-align-right">{{ _.sumBy(document.items, 'amountToPay' ) | currency }}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <!-- /items -->
+    
+    <!-- Methods -->
+    <div class="table-responsive m-t-md">
+        <table class="table invoice-table">
+            <thead>
+                <tr>
+                    <th>Metodo de Pago</th>
+                    <th>Nro. de Cheque/Transf.</th>
+                    <th>Banco/Cuenta Bancaria</th>
+                    <th>Emisión</th>
+                    <th>Vencimiento</th>
+                    <th>Monto</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="method in document.methods">
+                    <td>
+                        <div><strong>{{method.paymentMethodName}}</strong></div>
+                    </td>
+                    <td>{{method.checkNumber}}</td>
+                    <td>{{method.bankAccountName}}</td>
+                    <td>{{method.issueDate | amDateFormat: 'DD/MM/YYYY' }}</td>
+                    <td>{{method.voidDate | amDateFormat: 'DD/MM/YYYY' }}</td>
+                    <td>{{method.amount | currency}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- /Methods -->
+
+    <table class="table invoice-total">
+        <tbody>
+            <tr>
+                <td><strong>TOTAL :</strong></td>
+                <td>{{ _.sumBy(document.methods, 'amount') | currency }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="well m-t">
+        <strong>Observaciones</strong>
+        {{document.comments}}
+    </div>
+
+    <uib-tabset style="margin-top: 10px;">
+        <uib-tab heading="Mensajes" active="tab.active" class="dsads">
+            <div data-message-thread="" data-messages="document.messages" data-service-url="messageServiceUrl"></div>
+        </uib-tab>
+
+        <uib-tab heading="Archivos relacionados" select="selectLinkedFiles()">
+            <div data-ng-show="!document.id" class="m-t-sm alert alert-info">Debe guardar el documento primero para poder asociar archivos.</div>
+            <div class="row m-t-sm" data-ng-show="document.id">
+                <div class="col-md-12">
+                    <div class="file-manager">
+                        <div class="text-center">
+                            <div data-ng-show="uploader.isUploading">
+                                <div class="row" data-ng-repeat="item in uploader.queue">
+                                    <div class="col-sm-12">
+                                        <uib-progressbar class="progress-striped" value="item.progress" type="">{{item.progress}}%</uib-progressbar>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="btn btn-primary btn-file btn-block" data-ng-show="!uploader.isUploading">
+                                <i class="fa fa-upload"></i>
+                                <span style="margin-left: 3px;">Asociar archivos</span>
+                                <input type="file" multiple nv-file-select="" uploader="uploader" data-ng-disabled="uploader.isUploading" data-file-input="" />
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <ul class="folder-list" style="padding: 0">
+                            <li data-ng-repeat="folder in document.folders"><a href=""><i class="fa fa-folder"></i> {{folder.name}}</a></li>
+                            <li data-ng-repeat="file in document.files"><a href="" data-ng-click="openFile(file)"><i class="fa fa-file"></i> {{file.name}}</a></li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </uib-tab>
+        <uib-tab heading="Autorizaciones" data-ng-show="document.status>0">
+            <div class="col-lg-12">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Usuario / Rol</th>
+                            <th>Fecha asignación</th>
+                            <th>Estado</th>
+                            <th>Fecha autorización</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-ng-repeat-start="approval in document.approvalWorkflowInstance.approvals">
+                            <td>
+                                {{approval.userName}}{{approval.roleName}}
+                            </td>
+                            <td>
+                                {{approval.createDate | amDateFormat: 'L LT' }}
+                            </td>
+                            <td>{{ ::(('status.' + approval.status) | lowercase) | translate}}</td>
+                            <td>
+                                <span data-ng-show="approval.date">{{approval.date | amDateFormat: 'L LT' }}</span>
+                            </td>
+                        </tr>
+                        <tr data-ng-show="showingDetails" data-ng-repeat-end="">
+                            <td colspan="4">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        Proveedor: <span data-ng-show="practice.vendorId"><a data-ui-sref="app.procurement.vendoredit({ vendorId: practice.vendor.id })">{{practice.vendor.person.name}}</a></span>
+                                        <span data-ng-show="!practice.vendorId">No posee proveedor asignado</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        Fecha inicio:
+                                        <span data-ng-show="practice.fromDate">{{practice.fromDate | amDateFormat: 'L' }}</span>
+                                        <span data-ng-show="!practice.fromDate">Sin asignar</span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        Fecha fin:
+                                        <span data-ng-show="practice.toDate">{{practice.toDate | amDateFormat: 'L' }}</span>
+                                        <span data-ng-show="!practice.toDate">Sin asignar</span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </uib-tab>
+    </uib-tabset>
+</div>
+<!--
+<div class="row">
+    <div class="col-md-12">
+        <h3>Document: {{ document | json }}</h3>
+    </div>
+</div>
+-->
+<form role="form" name="$root.businessDocumentForm" data-ng-if="options.edit===true">
+    <div class="row m-t-sm">
+        <div class="col-md-6">
+            <div class="form-group form-md-lookup">
+                <label for="receiverId">A *</label>
+                <div id="receiverId" data-lookup="systemPersonLookup" data-ng-model="document.receiverId" required></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row m-t-sm">
+        <div class="col-md-6">
+            <div class="form-group form-md-lookup">
+                <label for="receiverId">Cuenta *</label>
+                <select data-ng-model="document.accountId" data-ng-options="account.id as account.name for account in accounts" class="form-control" required></select>
+            </div>
+        </div>        
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="number">Documento *</label>
+                <div class="row">
+                    <div class="col-md-6">
+                        <ui-select ng-model="document.typeId">
+                            <ui-select-match>
+                                <span ng-bind="$select.selected.shortName"></span>
+                            </ui-select-match>
+                            <ui-select-choices repeat="documentType.id as documentType in documentTypes | filter: $select.search track by documentType.id">
+                                <span ng-bind="documentType.name"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <div class="col-md-6">
+                        <input required data-ng-model="document.number" id="number"
+                               name="documentNumber"
+                               data-ui-mask="9999-99999999"
+                               type="text" class="form-control" style="width: 150px;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <label for="documentDate">Fecha</label>
+            <div id="documentDate" data-date-picker="" data-ng-model="document.documentDate"></div>
+        </div>
+    </div>
+
+    <div class="row m-t-sm">
+        <div class="col-md-12">
+                <fieldset class="m-t-md">
+                        <legend>
+                            <span data-ng-show="document.typeId == 1">Medio de pago</span>
+                            <span data-ng-show="document.typeId == 2">Medio de cobro</span>
+                            
+                            <div class="btn-group dropdown m-l-md" uib-dropdown="" is-open="status.isopen" style="">
+                                <button type="button" class="btn btn-xs btn-primary dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false" data-ng-disabled="!document.accountId">
+                                    Agregar <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" uib-dropdown-menu="" role="menu" aria-labelledby="addItemButton">
+                                    <li role="menuitem" data-ng-repeat="paymentMethod in paymentMethods"><a href="#" data-ng-click="addMethod(paymentMethod)">{{paymentMethod.name}}</a></li>
+                                </ul>
+                            </div>
+                        </legend>
+        
+                        <div class="panel-compact">
+                            <div class="row form-group hidden-xs m-t-sm">
+                                <div class="col-sm-3 graybackground">Metodo</div>
+                                <div class="col-sm-3 graybackground">Banco/Cuenta Bancaria</div>
+                                <div class="col-sm-3 graybackground">Monto</div>
+                                <div class="col-sm-3"></div>
+                            </div>
+        
+                            <div class="row" data-ng-repeat="method in document.methods">
+                                <div class="col-sm-3">{{method.paymentMethodName}}</div>
+                                <div class="col-sm-3">{{method.bankAccountName}}</div>
+                                <div class="col-sm-3" style="text-align: right;">{{method.amount | currency}}</div>
+                                <div class="col-sm-3">
+                                    <div class="form-group text-center">
+                                        <button class="btn btn-danger" type="button"
+                                                data-ng-click="removeMethod(method)">
+                                            <i class="fa fa-trash-o"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="row">
+                                <div class="col-sm-3">Subtotal</div>
+                                <div class="col-sm-3"></div>
+                                <div class="input-group col-sm-3">
+                                    <span class="input-group-addon">$</span>
+                                    <div class="readonlyinput">{{_.sumBy(document.methods, 'amount') | number : 2 }}</div>
+                                </div>
+                            </div>
+        
+                        </div>
+        
+                        <div class="row m-t-sm">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="comments">Observaciones</label>
+                                    <textarea id="comments" data-ng-model="document.comments" class="form-control" style="height: 120px; width: 100%;"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                </fieldset>
+
+
+            <fieldset>
+                <legend>
+                    <span data-ng-show="document.typeId == 1">Items a pagar</span>
+                    <span data-ng-show="document.typeId == 2">Items a cobrar</span>
+
+                    <button ng-click="addItem()" type="button" class="btn btn-xs btn-primary m-l-md" data-ng-disabled="document.methods.length === 0">
+                        <i class="fa fa-plus fa-1"></i>
+                    </button>
+                </legend>
+
+                <div class="panel-compact">
+                    <div class="row form-group hidden-xs m-t-sm">
+                        <div class="col-sm-3 graybackground">Descripción</div>
+                        <div class="col-sm-3 graybackground">Monto original</div>
+                        <div class="col-sm-3 graybackground">Monto a pagar</div>
+                        <div class="col-sm-3"></div>
+                    </div>
+
+                    <div class="row" data-ng-repeat="item in document.items">
+                        <div class="col-sm-3">{{ item.description }}</div>
+                        <div class="col-sm-3 text-align-right"><input type="text" class="form-control" data-ng-model="item.originalAmount" money readonly></div>
+                        <!--required-->
+                        <div class="col-sm-3 text-align-right"><input type="text" class="form-control" data-ng-model="item.amountToPay" money readonly></div>
+                        <div class="col-sm-3">
+                            <div class="form-group text-center">
+                                <button class="btn btn-danger" type="button"
+                                        data-ng-click="removeItem(item)">
+                                    <i class="fa fa-trash-o"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3">Subtotal</div>
+                        <div class="col-md-3 col-sm-3">
+                            <div class="input-group ">
+                                <span class="input-group-addon">$</span>
+                                <div class="readonlyinput">{{_.sumBy(document.items, 'originalAmount') | number : 2 }}</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-3">
+                            <div class="input-group">
+                                <span class="input-group-addon">$</span>
+                                <div class="readonlyinput">{{_.sumBy(document.items, 'amountToPay') | number : 2 }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+
+    <uib-tabset style="margin-top: 20px;">
+        <uib-tab heading="Documentos relacionados" select="selectLinkedDocuments()">
+            <div class="m-t-sm alert alert-info" data-ng-show="!document.id">Debe guardar el documento primero para poder relacionar documentos.</div>
+            <div data-ng-show="document.id">
+                <div class="row m-t-sm">
+                    <div class="col-sm-10">
+                        <div id="linkedDocumentId" data-lookup="businessDocumentsDocumentLookup" data-ng-model="options.linkedDocumentId"></div>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn btn-primary" data-ng-click="linkDocument()"
+                                data-ng-disabled="!(options.linkedDocumentId)">
+                            Asociar
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12" style="padding-top: 10px;">
+                        <div data-ng-if="options.loadLinkedDocuments" data-linked-documents-grid=""
+                             data-document-type-id="<?= DocumentTypes::InvoiceTypeId ?>"
+                             data-document-id="{{invoice.id}}" data-height="200"></div>
+                    </div>
+                </div>
+            </div>
+        </uib-tab>
+        <uib-tab heading="Archivos relacionados" select="selectLinkedFiles()">
+            <div data-ng-show="!document.id" class="m-t-sm alert alert-info">Debe guardar el documento primero para poder asociar archivos.</div>
+            <div class="row m-t-sm" data-ng-show="document.id">
+                <div class="col-md-12">
+                    <div class="file-manager">
+                        <div class="text-center">
+                            <span class="btn btn-primary btn-file btn-block" data-ng-class="{disabled: uploader.isUploading}">
+                                <span data-ng-switch="uploader.isUploading">
+                                    <i data-ng-switch-when="false" class="fa fa-upload"></i>
+                                    <i data-ng-switch-when="true" class="fa fa-spinner fa-pulse"></i>
+                                </span>
+                                <span style="margin-left: 3px;">Asociar archivos</span>
+                                <input type="file" multiple nv-file-select="" uploader="uploader" data-ng-disabled="uploader.isUploading" data-file-input="" />
+                            </span>
+                            <span class="fileupload-process"></span>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <ul class="folder-list" style="padding: 0">
+                            <li data-ng-repeat="folder in document.folders"><a href=""><i class="fa fa-folder"></i> {{folder.name}}</a></li>
+                            <li data-ng-repeat="file in document.files"><a href="" data-ng-click="openFile(file)"><i class="fa fa-file"></i> {{file.name}}</a></li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </uib-tab>
+    </uib-tabset>
+</form>

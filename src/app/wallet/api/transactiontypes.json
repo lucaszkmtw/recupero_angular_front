@@ -1,0 +1,9 @@
+[{
+        "transactionId": "1",
+        "transactionName": "Cuenta Bancaria"
+    },
+    {
+        "transactionId": "2",
+        "transactionName": "Tarjeta de Crédito"
+    }
+]
